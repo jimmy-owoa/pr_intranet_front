@@ -26,14 +26,13 @@
 
     <v-col cols="12" class="mt-2">
       <v-card flat class="pa-2" v-if="ticket.chat_messages && ticket.chat_messages.length">
-        <v-row row wrap>
+        <v-row>
           <v-col 
-            xs12 
-            md12 
+            cols="12"
             :class="`d-flex ${message.user_id === currentUser.id ? 'justify-end' : ''}`" 
             v-for="(message, i) in ticket.chat_messages" :key="i"
           >
-            <v-col xs12 md5>
+            <v-col cols="12" md="5">
               <v-card :color="colorCard(message)" >
                 <v-card-text class="pa-1 mb-1">
                   <p class="ma-0">{{ message.content }}</p>
@@ -53,7 +52,7 @@
       </v-card>
     </v-col>
 
-    <v-col cols="12" mt-1 v-if="!ticket.closed_at">
+    <v-col cols="12" class="mt-1" v-if="!ticket.closed_at">
       <v-card>
         <v-form>
           <v-card-text>

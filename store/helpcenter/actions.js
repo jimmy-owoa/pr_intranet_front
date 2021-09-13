@@ -86,3 +86,13 @@ export async function fetchTicket({ commit }, id) {
   } 
   finally {}
 }
+
+export async function createMessage({ commit }, payload) {
+  try {
+    const { data } = await this.$axios.post(`/hc_tickets/${payload.ticketId}/hc_messages`, { message: { content: payload.content } })
+    return data
+  } catch (e) {
+    return false
+  } 
+  finally {}
+}
