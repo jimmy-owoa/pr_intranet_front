@@ -66,3 +66,23 @@ export async function fetchTickets({ commit }) {
   } 
   finally {}
 }
+
+export async function createTicket({ commit }, payload) {
+  try {
+    const { data } = await this.$axios.post(`/hc_tickets`, payload)
+    return data
+  } catch (e) {
+    return false
+  } 
+  finally {}
+}
+
+export async function fetchTicket({ commit }, id) {
+  try {
+    const { data } = await this.$axios(`/hc_tickets/${id}`)
+    return data
+  } catch (e) {
+
+  } 
+  finally {}
+}
