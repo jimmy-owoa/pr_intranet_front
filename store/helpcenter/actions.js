@@ -46,3 +46,13 @@ export async function fetchSearch({ commit }, payload) {
   } 
   finally {}
 }
+
+export async function fetchQuestion({ commit }, questionId) {
+  try {
+    const { data } = await this.$axios(`/hc_questions/${questionId}`)
+    return data
+  } catch (e) {
+    // router.push("/centro-de-ayuda")
+  } 
+  finally {}
+}
