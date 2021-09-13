@@ -13,7 +13,7 @@
         Escríbenos y nos comunicaremos contigo.
       </p>
     <v-card-actions class="text-xs-center">
-      <v-btn outlined class="hc__color-2 mx-auto" :to="'/centro-de-ayuda/crear-caso'">
+      <v-btn outlined class="hc__color-2 mx-auto" :to="'/mis-casos/crear-caso'">
         Crear un caso
       </v-btn>
     </v-card-actions>
