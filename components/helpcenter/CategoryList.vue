@@ -4,7 +4,7 @@
       <v-card 
         :class="`cyan--text pointer mb-2 hc__rounded-card py-3 ${isMobile ? '' : 'mr-2'}`" 
         max-width="600" 
-        @click="$router.push(`/centro-de-ayuda/${category.slug}`)"
+        @click="$router.push(`/${category.slug}`)"
       >
         <v-row align="center" no-gutters>
           <v-col cols="2">
