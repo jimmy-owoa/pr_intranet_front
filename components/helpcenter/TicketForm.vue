@@ -65,14 +65,14 @@
           <v-col cols="12" md12>
             <v-textarea
               v-model="ticket.description"
-              outline
+              outlined
               label="Descripción del caso *"
               :error-messages="descriptionErrors"
             ></v-textarea>
           </v-col>
         </v-row>
 
-        <v-btn outlined color="#E8114b" @click="$router.push('/centro-de-ayuda')">
+        <v-btn outlined color="#E8114b" @click="$router.push('/')">
           Volver
         </v-btn>
 

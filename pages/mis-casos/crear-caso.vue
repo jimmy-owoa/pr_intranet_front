@@ -29,7 +29,6 @@ export default {
   data: () => ({
     breadcrumbs: [
       { to: "/", text: "Inicio", disabled: false, exact: true },
-      { to: "/centro-de-ayuda", text: "Centro de ayuda", disabled: false, exact: true },
       { to: "", text: "Crear Caso", disabled: true }
     ],
     ticket: {
