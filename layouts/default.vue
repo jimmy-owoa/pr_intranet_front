@@ -13,8 +13,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
-
+  methods: {
+    ...mapActions('user', ['fetchCurrentUser']),
+  },
+  created() {
+    this.fetchCurrentUser();
+  },
 }
 </script>
 
