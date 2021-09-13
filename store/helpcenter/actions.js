@@ -28,6 +28,15 @@ export async function fetchCategory({ commit }, categorySlug) {
   }
 }
 
+export async function fetchSubcategory({ commit }, subcategorySlug) {
+  try {
+    const { data } = await this.$axios(`/hc_subcategories/${subcategorySlug}`)
+    return data
+  } catch (e) {
+    return false
+  } finally {}
+}
+
 export async function fetchSearch({ commit }, payload) {
   try {
     const { data } = await this.$axios.get(`/hc_questions/search`, { search: payload })

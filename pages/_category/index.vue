@@ -13,10 +13,8 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
-// import SideMenu from '@/components/Helpcenter/SideMenu.vue'
 import SubcategoryList from '@/components/helpcenter/SubcategoryList.vue';
 import Breadcrumbs from '@/components/helpcenter/Breadcrumbs';
-// import SideMenuMobile from '@/components/helpcenter/SideMenuMobile.vue';
 
 export default {
   layout: 'helpcenter',
