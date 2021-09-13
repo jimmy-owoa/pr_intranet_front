@@ -31,7 +31,7 @@
           <v-list-item
             v-for="subcategory in item.subcategories"
             :key="subcategory.id"
-            :to="`/centro-de-ayuda/${item.slug}/${subcategory.slug}`"
+            :to="`/${item.slug}/${subcategory.slug}`"
           >
             <v-list-item-content>
               <v-list-item-title>{{ subcategory.name }}</v-list-item-title>
