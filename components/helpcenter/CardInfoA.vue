@@ -10,7 +10,7 @@
     </p>
     
     <v-card-actions class="text-xs-center">
-      <v-btn outlined class="hc__color-2 mx-auto" :to="'/centro-de-ayuda/mis-casos'">
+      <v-btn outlined class="hc__color-2 mx-auto" :to="'/mis-casos'">
         Ir a Mis casos
       </v-btn>
     </v-card-actions>

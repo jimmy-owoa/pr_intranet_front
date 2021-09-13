@@ -56,3 +56,13 @@ export async function fetchQuestion({ commit }, questionId) {
   } 
   finally {}
 }
+
+export async function fetchTickets({ commit }) {
+  try {
+    const { data } = await this.$axios(`/hc_tickets`)
+    return data
+  } catch (e) {
+    return false
+  } 
+  finally {}
+}
