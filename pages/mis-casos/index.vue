@@ -6,8 +6,8 @@
 
     <v-col cols="12" md="8" class="ma-0 pa-0">
       <v-row>
-        <v-col cols="12" v-for="(ticket, i) in tickets" :key="i" class="pointer" @click="goTo(ticket.id)">
-          <v-card>
+        <v-col cols="12" v-for="(ticket, i) in tickets" :key="i" class="cursor-pointer" @click="goTo(ticket.id)">
+          <v-card rounded="lg">
             <v-card-text class="mb-1">
               <v-row>
                 <v-col cols="10" md="11">
@@ -56,12 +56,12 @@ export default {
       this.tickets = res
     },
     goTo(id) {
-      this.$router.push(`/centro-de-ayuda/mis-casos/${id}`)
+      this.$router.push(`/mis-casos/${id}`)
     },
     statusIcon(status) {
-      if (status === "Abierto") return "history"
-      else if (status === "Atendido") return "cached"
-      else return "done_all"
+      if (status === "Abierto") return "mdi-history"
+      else if (status === "Atendido") return "mdi-cached"
+      else return "mdi-done-all"
     },
     statusColor(status) {
       if (status === "Abierto") return "hc__color-open"

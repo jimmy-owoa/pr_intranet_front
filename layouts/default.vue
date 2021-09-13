@@ -28,4 +28,8 @@ export default {
 .hc__blue-text {
   color: #1B0088
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
 </style>
