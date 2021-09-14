@@ -22,7 +22,7 @@
           <v-col class="subheading mt-1">
             Escríbenos y nos comunicaremos contigo.
           </v-col>
-          <v-btn outlined class="hc__color-2 mt-4" :to="'/centro-de-ayuda/crear-caso'">
+          <v-btn outlined class="hc__color-2 mt-4" :to="'/mis-casos/crear-caso'">
             Crear un caso
           </v-btn>
         </v-col>

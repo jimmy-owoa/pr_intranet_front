@@ -3,6 +3,6 @@ export async function fetchCurrentUser({ commit }) {
     const { data } = await this.$axios.get(`/users/current_user_vue`);
     commit("setCurrentUser", data.user);
   } catch (e) {
-    commit("usersError", e.message);
+    
   } finally {}
 }
