@@ -23,7 +23,7 @@ export async function fetchCategory({ commit }, categorySlug) {
     const { data } = await this.$axios(`/hc_categories/${categorySlug}`)
     return data
   } catch (e) {
-    return false
+    this.$router.push('/')
   } finally {
   }
 }
@@ -52,7 +52,7 @@ export async function fetchQuestion({ commit }, questionId) {
     const { data } = await this.$axios(`/hc_questions/${questionId}`)
     return data
   } catch (e) {
-    // router.push("/centro-de-ayuda")
+    this.$router.push('/')
   } 
   finally {}
 }
@@ -82,7 +82,7 @@ export async function fetchTicket({ commit }, id) {
     const { data } = await this.$axios(`/hc_tickets/${id}`)
     return data
   } catch (e) {
-
+    this.$router.push('/')
   } 
   finally {}
 }
