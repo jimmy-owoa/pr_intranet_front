@@ -103,6 +103,7 @@ import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import SatisfactionSurvey from '../../components/helpcenter/SatisfactionSurvey.vue'
 
 export default {
+  middleware: ['auth'],
   components: {
     Breadcrumbs,
     SatisfactionSurvey,

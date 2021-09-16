@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 
 export default {
@@ -102,7 +102,6 @@ export default {
     ticket: { type: Object, required: true },
   },
   computed: {
-    ...mapState("user", ["currentUser"]),
     categoryErrors () {
       const errors = []
       if (!this.$v.ticket.category_id.$dirty) return errors
@@ -115,6 +114,9 @@ export default {
       !this.$v.ticket.description.required && errors.push('Campo requerido')
       return errors
     },
+    currentUser() {
+      return this.$nuxt.$auth.user
+    }
   },
   methods: {
     ...mapActions("helpcenter", ["fetchCategories"]),

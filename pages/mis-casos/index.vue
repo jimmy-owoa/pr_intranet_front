@@ -38,6 +38,7 @@ import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import CardInfoTicketB from '@/components/helpcenter/CardInfoB'
 
 export default {
+  middleware: ['auth'],
   components: {
     Breadcrumbs,
     CardInfoTicketB
