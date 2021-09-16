@@ -43,6 +43,7 @@ import CardInfoA from '@/components/helpcenter/CardInfoA'
 import CardInfoB from '@/components/helpcenter/CardInfoB'
 
 export default {
+  middleware: ['auth'],
   components: {
     CategoryList,
     ListImportantQuestions,
