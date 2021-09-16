@@ -25,7 +25,6 @@ import { required } from "vuelidate/lib/validators";
 import LoginForm from "~/components/LoginForm";
 
 export default {
-  layout: "default",
   middleware: "auth-login",
   components: {
     LoginForm,
@@ -51,14 +50,18 @@ export default {
     async loginUser(email) {
       const response = await this.$auth.login({
         data: { user: { user_code: email } },
-      });
-
+      })
+      
       if (response.data.success) {
         this.$router.push("/")
       } else {
         this.alertError = true;
       }
     },
+  },
+  created() {
+    let user_code = this.$route.query.code || ""
+    this.loginUser(user_code)
   },
   // Validaciones
   mixins: [validationMixin],
