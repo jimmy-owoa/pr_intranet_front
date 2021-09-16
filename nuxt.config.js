@@ -42,6 +42,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     'vue-sweetalert2/nuxt',
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -70,5 +71,28 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          // required: true,
+          // type: 'Bearer'
+        },
+        endpoints: {
+          login: { url: '/users/sign_in', method: 'post' },
+          logout: { url: '/users/sign_out', method: 'delete' },
+          user: { url: '/users/current_user_vue', method: 'get' }
+        },
+        // tokenName: 'auth-token'
+        // tokenRequired: true,
+        // tokenType: 'bearer',
+        // globalToken: true,
+        // autoFetchUser: true
+      }
+    }
+  },
 }
