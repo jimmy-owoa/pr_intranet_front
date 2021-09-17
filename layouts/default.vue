@@ -35,11 +35,13 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
+  name: 'Default',
   methods: {
     ...mapActions('user', ['fetchCurrentUser']),
   },
   created() {
-    this.fetchCurrentUser();
+    // let user_code = this.$route.query.user || ""
+    // this.fetchCurrentUser(user_code);
   },
 }
 </script>
