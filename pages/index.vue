@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!-- <SearchHelpcenter /> -->
+    <SearchHelpcenter />
 
-    <v-row>
+    <v-row class="mt-3">
       <v-col cols="12" md="4">
         <CardInfoA />
       </v-col>

@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <Navbar />
+      <!-- <Navbar /> -->
+      <MenuNavbar />
       <v-container>
         <v-row no-gutters class="d-flex justify-center">
           <v-col cols="12" lg="12" xl="10">
@@ -15,10 +16,11 @@
 
 <script>
 import { mapActions } from 'vuex'
+import MenuNavbar from '~/components/MenuNavbar.vue'
 import Navbar from '~/components/Navbar.vue'
 
 export default {
-  components: { Navbar },
+  components: { Navbar, MenuNavbar },
   name: 'Default',
   methods: {
     ...mapActions('user', ['fetchCurrentUser']),
