@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <v-card rounded="lg">
     <v-img
       src="https://assets-intranet-security.s3.us-east-2.amazonaws.com/helpcenter_img_02.png"
@@ -7,6 +7,10 @@
     
     <p class="text-h6 ma-0 font-weight-thin hc__blue-text text-center">
       ¿Necesitas ver tú historial de casos?
+    </p>
+
+    <p class="text-subtitle mt-1 text-center">
+      Visualiza tu historial de casos.
     </p>
     
     <v-card-actions class="text-xs-center">

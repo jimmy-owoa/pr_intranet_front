@@ -1,6 +1,15 @@
 <template>
   <div>
-    <SearchHelpcenter />
+    <!-- <SearchHelpcenter /> -->
+
+    <v-row>
+      <v-col cols="12" md="4">
+        <CardInfoA />
+      </v-col>
+      <v-col cols="12" md="4">
+        <CardInfoB />
+      </v-col>
+    </v-row>
 
     <v-row>
       <v-col cols="12">
@@ -21,15 +30,6 @@
             <CategoryList :categories="categories" />
           </v-col>
         </v-row>
-      </v-col>
-
-      <v-col cols="12" md="3">
-        <div class="mb-2">
-          <CardInfoA />
-        </div>
-        <div>
-          <CardInfoB />
-        </div>
       </v-col>
     </v-row>
   </div>
