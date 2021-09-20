@@ -5,11 +5,12 @@
         <v-row no-gutters class="d-flex justify-center">
           <v-col cols="12" lg="12" xl="10">
             <v-row>
-              <v-col md="3">
-                <SideMenu />
+              <v-col cols="12" md="3">
+                <SideMenuMobile v-if="$vuetify.breakpoint.mobile" />
+                <SideMenu v-else />
               </v-col>
 
-              <v-col md="8">
+              <v-col cols="12" md="8">
                 <Nuxt />
               </v-col>
             </v-row>
@@ -22,9 +23,11 @@
 
 <script>
 import SideMenu from '~/components/helpcenter/SideMenu.vue'
+import SideMenuMobile from '~/components/helpcenter/SideMenuMobile.vue'
 export default {
   components: { 
-    SideMenu 
+    SideMenu,
+    SideMenuMobile 
   },
 }
 </script>
