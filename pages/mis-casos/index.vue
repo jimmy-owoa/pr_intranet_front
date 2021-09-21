@@ -28,20 +28,24 @@
     </v-col>
 
     <v-col cols="12" md="3" :class="paddingCardInfo()">
-      <CardInfoTicketB />
+      <CardInfoA 
+        title="Crear caso" 
+        icon="InteractiveIcon"
+        url="/crear-caso"
+      />
     </v-col>
   </v-row>
 </template>
 <script>
 import { mapActions } from 'vuex';
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
-import CardInfoTicketB from '@/components/helpcenter/CardInfoB'
+import CardInfoA from '@/components/helpcenter/CardInfoA'
 
 export default {
   middleware: ['auth'],
   components: {
     Breadcrumbs,
-    CardInfoTicketB
+    CardInfoA
   },
   data: () => ({
     breadcrumbs: [
@@ -70,7 +74,7 @@ export default {
       else return "hc__color-close"
     },
     paddingCardInfo() {
-      return this.$vuetify.breakpoint.smAndDown ? 'pt-3' : 'pl-2'
+      return this.$vuetify.breakpoint.smAndDown ? 'pt-3' : 'py-0'
     }
   },
   created() {
