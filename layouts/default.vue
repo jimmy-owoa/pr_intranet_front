@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main class="uk-background-primary">
       <!-- <Navbar /> -->
       <MenuNavbar />
       <v-container>
@@ -34,10 +34,14 @@ export default {
 
 <style lang="css">
 .hc__blue-text {
-  color: #1B0088
+  color: #2196F3
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.uk-background-primary {
+  background-color: #2196F3;
 }
 </style>

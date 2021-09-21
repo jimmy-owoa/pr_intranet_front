@@ -28,17 +28,17 @@
 
     <v-row>
       <v-col cols="12">
-        <p class="title ma-0 mt-2 hc__blue-text">Preguntas frecuentes</p>
+        <h2 class="ma-0 mt-2 white--text uk-title-h2">Preguntas Frecuentes</h2>
       </v-col>
-      <v-col cols="12" md="9">
+      <v-col cols="12">
         <v-row>
           <v-col cols="12" md="12">
             <ListImportantQuestions :questions="questions" />
           </v-col>
           <v-col cols="12" md="12" mt-4>
-            <p class="ma-0 title hc__blue-text">
+            <h2 class="ma-0 mt-2 white--text uk-title-h2">
               Elige la categoría para la que necesitas resolver dudas
-            </p>
+            </h2>
           </v-col>
 
           <v-col cols="12">
@@ -98,15 +98,12 @@ export default {
 }
 </script>
 <style lang="css">
-.hc__rounded-card{
-  border-radius: 0.5rem
-}
-
-.hc__blue-text {
-  color: #1B0088
-}
-
-.hc__color-2 {
-  color:#E8114b !important
+.uk-title-h2 {
+  font-size: 2.6rem;
+  line-height: 1.3;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 800;
+  text-transform: none;
+  letter-spacing: 2px;
 }
 </style>

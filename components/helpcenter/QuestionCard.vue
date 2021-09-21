@@ -44,10 +44,6 @@ export default {
   border: 1px solid rgb(225, 225, 225);
 }
 
-.hc__blue-text {
-  color: #1B0088
-}
-
 .hc__color-2 {
   color:#E8114b !important
 }

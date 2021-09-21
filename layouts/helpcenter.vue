@@ -33,7 +33,5 @@ export default {
 </script>
 
 <style lang="css">
-.hc__blue-text {
-  color: #1B0088
-}
+
 </style>

@@ -2,8 +2,9 @@
   <v-row>
     <v-col cols="12" md="6" v-for="category in categories" :key="category.id">
       <v-card 
-        :class="`cyan--text pointer mb-2 hc__rounded-card py-3 ${isMobile ? '' : 'mr-2'}`" 
-        max-width="600" 
+        :class="`pointer mb-2 py-3 ${isMobile ? '' : 'mr-2'}`" 
+        max-width="600"
+        rounded="lg"
         @click="$router.push(`/${category.slug}`)"
       >
         <v-row align="center" no-gutters>
