@@ -1,13 +1,28 @@
 <template>
   <div>
-    <SearchHelpcenter />
+    <!-- <SearchHelpcenter /> -->
 
     <v-row class="mt-3">
       <v-col cols="12" md="4">
-        <CardInfoA />
+        <CardInfoA 
+          title="Crear caso" 
+          icon="InteractiveIcon"
+          url="/crear-caso"
+        />
       </v-col>
       <v-col cols="12" md="4">
-        <CardInfoB />
+        <CardInfoA 
+          title="Ir a mis casos" 
+          icon="ListCheckIcon"
+          url="/mis-casos"
+        />
+      </v-col>
+      <v-col cols="12" md="4">
+        <CardInfoA 
+          title="Crear rendición de gastos" 
+          icon="ChartHistogramIcon"
+          url="/rendicion-gastos"
+        />
       </v-col>
     </v-row>
 
