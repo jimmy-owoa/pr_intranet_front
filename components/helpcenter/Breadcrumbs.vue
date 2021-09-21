@@ -1,5 +1,5 @@
 <template>
-  <v-breadcrumbs class="j-breadcrumbs" :items="items" divider=">"></v-breadcrumbs>
+  <v-breadcrumbs class="j-breadcrumbs py-0" :items="items" divider=">"></v-breadcrumbs>
 </template>
 <script>
 export default {
@@ -11,17 +11,17 @@ export default {
 <style lang="css">
 .j-breadcrumbs a {
   text-decoration: none; 
-  color: black;
+  color: white;
   font-size: 1.2em;
 }
 
 .j-breadcrumbs > .v-breadcrumbs__divider {
   font-size: 1.2em;
-  color: black !important;
+  color: white !important;
 }
 
-.j-breadcrumbs a.v-breadcrumbs__item--disabled {
-  color: black !important;
+.j-breadcrumbs div.v-breadcrumbs__item--disabled {
+  color: white !important;
   font-weight: bold;
 }
 </style>
