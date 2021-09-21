@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-main class="uk-background-primary">
-      <!-- <Navbar /> -->
-      <MenuNavbar />
-      <v-container>
+      <Navbar />
+      <!-- <MenuNavbar /> -->
+      <v-container style="margin-top: 80px">
         <v-row no-gutters class="d-flex justify-center">
           <v-col cols="12" lg="12" xl="10">
             <Nuxt />
@@ -43,5 +43,22 @@ export default {
 
 .uk-background-primary {
   background-color: #2196F3;
+}
+
+.uk-overtitle {
+  font-weight: 300;
+  font-size: 1.2rem;
+  text-transform: uppercase !important;
+  text-align: center;
+  color: white;
+  letter-spacing: 3px;
+}
+
+.uk-heading-title {
+  font-size: 5.2rem;
+  line-height: 1;
+  text-align: center;
+  color: white;
+  letter-spacing: 2px;
 }
 </style>

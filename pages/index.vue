@@ -2,7 +2,13 @@
   <div>
     <!-- <SearchHelpcenter /> -->
 
+
     <v-row class="mt-3">
+      <v-col cols="12">
+        <h1 class="uk-overtitle my-3">Bienvenido al centro de ayuda</h1>
+
+        <h2 class="uk-heading-title my-5">¿Cómo podemos ayudarte?</h2>
+      </v-col>
       <v-col cols="12" md="4">
         <CardInfoA 
           title="Crear caso" 
