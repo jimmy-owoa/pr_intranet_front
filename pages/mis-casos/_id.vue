@@ -35,7 +35,7 @@
             <v-col cols="12" md="5">
               <v-card :color="colorCard(message)" >
                 <v-card-text class="pa-1 mb-1">
-                  <p class="ma-0">{{ message.content }}</p>
+                  <p :class="colorText(message)">{{ message.content }}</p>
                 </v-card-text>
               </v-card>
               
@@ -65,21 +65,21 @@
                   auto-grow
                   outline
                   rows="1"
-                  color="success"
+                  color="#067be2"
                   hide-details
                 ></v-textarea>
               </v-col>
               <v-col cols="12">
                 <v-btn 
                   class="ml-0" 
-                  color="success" 
+                  color="primary"
                   :disabled="!message.length || loading"
                   @click="handleCreateMessage()"
                 >
                   <v-progress-circular
                     :size="20"
                     indeterminate
-                    color="success"
+                    color="#067be2"
                     class="mr-1"
                     v-show="loading"
                   ></v-progress-circular>
@@ -114,7 +114,6 @@ export default {
     loading: false,
   }),
   computed: {
-    ...mapState("user", ["currentUser"]),
     breadcrumbs() {
       let items = [
         { to: "/", text: "Inicio", disabled: false, exact: true },
@@ -125,6 +124,9 @@ export default {
       if (this.$vuetify.breakpoint.smAndDown) items.splice(-1)
       
       return items
+    },
+    currentUser() {
+      return this.$nuxt.$auth.user
     }
   },
   methods: {
@@ -146,7 +148,10 @@ export default {
       this.loading = false
     },
     colorCard(message) {
-      return `${message.user_id === this.currentUser.id ? 'indigo white--text' : 'indigo lighten-5'}`
+      return `${message.user_id === this.currentUser.id ? '#067be2' : 'indigo lighten-5'}`
+    },
+    colorText(message) {
+      return `${message.user_id === this.currentUser.id ? 'ma-0 white--text' : 'ma-0 lighten-5'}`
     },
     statusColor(status) {
       if (status === "Abierto") return "hc__color-open"
