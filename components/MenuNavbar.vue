@@ -6,7 +6,6 @@
         class="uk-navbar-container"
         flat
       >
-        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
         <v-row justify="center">
           <v-col cols="10" md="6" class="py-0">
             <form @submit.prevent="">

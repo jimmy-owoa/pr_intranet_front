@@ -1,17 +1,18 @@
 <template>
   <v-row>
+    <v-col cols="12" class="pt-0">
+      <v-btn
+        color="#067be2"
+        block
+        dark
+        @click="dialog = true"
+      >
+        Cambiar de Categoría
+        <v-spacer></v-spacer>
+        <v-icon color="white" size="30">mdi-chevron-down</v-icon>
+      </v-btn>
+    </v-col>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <template v-slot:activator="{ on }">
-        <v-btn
-          color="white"
-          block
-          v-on="on"
-        >
-          Cambiar de Categoría
-          <v-spacer></v-spacer>
-          <v-icon color="#638d37" size="30">mdi-chevron-down</v-icon>
-        </v-btn>
-      </template>
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="dialog = false">
