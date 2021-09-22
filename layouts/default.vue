@@ -2,7 +2,7 @@
   <v-app>
     <v-main class="uk-background-primary">
       <MenuNavbar v-if="this.$nuxt.$auth.user"/>
-      <v-container style="margin-top: 30px">
+      <v-container style="margin-top: 80px">
         <v-row no-gutters class="d-flex justify-center">
           <v-col cols="12" lg="12" xl="10" class="pa-0 ma-0">
             <Nuxt />
