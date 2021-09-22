@@ -1,10 +1,10 @@
 <template>
   <v-row>
-    <v-col cols="12">
+    <v-col cols="12" class="pt-0">
       <Breadcrumbs :items="breadcrumbs" />
     </v-col>
 
-    <v-col cols="12" md="8" class="ma-0 pa-0">
+    <v-col cols="12" md="8" class="ma-0 py-0">
       <v-row>
         <v-col cols="12" v-if="tickets.length === 0">
           <p class="text-center white--text">No tienes casos creados.</p>
@@ -19,17 +19,17 @@
           <v-card rounded="lg">
             <v-card-text class="mb-1">
               <v-row>
-                <v-col cols="10" md="11">
+                <v-col cols="9" md="11">
                   <p class="ma-0 hc__blue-text">
                     # {{ ticket.id }} - {{ ticket.category }}
                   </p>
                   <p>Creado: {{ ticket.created_at }}</p>
                 </v-col>
-                <v-col cols="2" md="1">
+                <v-col cols="3" md="1">
                   <p :class="`ma-0 ${statusColor(ticket.status)}`">
-                    <v-icon :class="statusColor(ticket.status)">{{
-                      statusIcon(ticket.status)
-                    }}</v-icon>
+                    <v-icon :class="statusColor(ticket.status)">
+                      {{ statusIcon(ticket.status) }}
+                    </v-icon>
                     {{ ticket.status }}
                   </p>
                 </v-col>

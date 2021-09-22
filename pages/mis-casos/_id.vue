@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12">
+    <v-col cols="12" class="pt-0">
       <Breadcrumbs :items="breadcrumbs" />
     </v-col>
 
