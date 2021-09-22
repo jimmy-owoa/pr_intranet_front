@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- <SearchHelpcenter /> -->
-
-
     <v-row class="mt-3">
       <v-col cols="12">
         <h1 class="uk-overtitle my-3">Bienvenido al centro de ayuda</h1>
@@ -57,7 +54,6 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import SearchHelpcenter from '@/components/helpcenter/SearchHelpcenter'
 import ListImportantQuestions from '@/components/helpcenter/ListImportantQuestions.vue'
 import CategoryList from '@/components/helpcenter/CategoryList.vue'
 import CardInfoA from '@/components/helpcenter/CardInfoA'
@@ -70,7 +66,6 @@ export default {
     ListImportantQuestions,
     CardInfoA,
     CardInfoB,
-    SearchHelpcenter,
   },
   data() {
     return {

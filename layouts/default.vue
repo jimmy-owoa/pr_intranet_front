@@ -1,8 +1,7 @@
 <template>
   <v-app>
-    <MenuNavbar />
-    <!-- <Navbar /> -->
     <v-main class="uk-background-primary">
+      <MenuNavbar />
       <v-container style="margin-top: 30px">
         <v-row no-gutters class="d-flex justify-center">
           <v-col cols="12" lg="12" xl="10" class="pa-0 ma-0">
@@ -17,17 +16,14 @@
 <script>
 import { mapActions } from 'vuex'
 import MenuNavbar from '~/components/MenuNavbar.vue'
-import Navbar from '~/components/Navbar.vue'
 
 export default {
-  components: { Navbar, MenuNavbar },
+  components: { 
+    MenuNavbar 
+  },
   name: 'Default',
   methods: {
     ...mapActions('user', ['fetchCurrentUser']),
-  },
-  created() {
-    // let user_code = this.$route.query.user || ""
-    // this.fetchCurrentUser(user_code);
   },
 }
 </script>

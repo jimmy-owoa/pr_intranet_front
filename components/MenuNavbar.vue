@@ -1,6 +1,6 @@
 <template>
   <v-row class="ma-0 pa-0" justify="center" style="background-color: #2196F3 !important;">
-    <v-col cols="12">
+    <v-col cols="12" class="ma-0 pa-0">
       <v-app-bar
         fixed
         class="uk-navbar-container"
@@ -30,7 +30,7 @@
       </v-app-bar>
     </v-col>
 
-    <v-col cols="12" md="8" class="pa-0" style="margin-top: 30px">
+    <v-col cols="12" md="8" class="pa-0 ma-0" style="margin-top: 30px" v-if="results.length">
       <v-list v-for="(result, i) in results" :key="i"> 
         <v-list-item
           :key="i"
