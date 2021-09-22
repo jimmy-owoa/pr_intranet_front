@@ -1,11 +1,11 @@
 <template>
   <v-app>
+    <MenuNavbar />
+    <!-- <Navbar /> -->
     <v-main class="uk-background-primary">
-      <Navbar />
-      <!-- <MenuNavbar /> -->
-      <v-container style="margin-top: 80px">
+      <v-container style="margin-top: 30px">
         <v-row no-gutters class="d-flex justify-center">
-          <v-col cols="12" lg="12" xl="10">
+          <v-col cols="12" lg="12" xl="10" class="pa-0 ma-0">
             <Nuxt />
           </v-col>
         </v-row>
