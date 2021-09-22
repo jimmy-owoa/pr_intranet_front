@@ -98,7 +98,7 @@
   </v-row>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import SatisfactionSurvey from '../../components/helpcenter/SatisfactionSurvey.vue'
 
