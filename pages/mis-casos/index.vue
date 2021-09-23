@@ -19,13 +19,13 @@
           <v-card rounded="lg">
             <v-card-text class="mb-1">
               <v-row>
-                <v-col cols="9" md="11">
+                <v-col cols="9" md="10">
                   <p class="ma-0 hc__blue-text">
                     # {{ ticket.id }} - {{ ticket.category }}
                   </p>
                   <p>Creado: {{ ticket.created_at }}</p>
                 </v-col>
-                <v-col cols="3" md="1">
+                <v-col cols="3" md="2">
                   <p :class="`ma-0 ${statusColor(ticket.status)}`">
                     <v-icon :class="statusColor(ticket.status)">
                       {{ statusIcon(ticket.status) }}

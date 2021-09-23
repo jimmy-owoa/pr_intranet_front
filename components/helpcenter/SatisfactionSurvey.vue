@@ -4,37 +4,42 @@
       !GRACIAS POR RESPONDER A ESTA ENCUESTA!   
     </v-card-title>
     <v-card-text>
-      <v-layout row wrap>
-        <v-flex xs12 md12 class="d-flex justify-center">
+      <v-row>
+        <v-col cols="12" md="12" class="d-flex justify-center">
           Este caso fue cerrado. Te invitamos a responder una encuesta de satisfación
-        </v-flex>
-        <v-flex xs12 md12 class="d-flex justify-center">
+        </v-col>
+        <v-col cols="12" md="12" class="d-flex justify-center">
           ¿Qué tan satisfecho te encuentras con nuestro servicio?
-        </v-flex>
+        </v-col>
 
-        <v-flex xs12 md12 mt-2>
-          <v-layout row wrap>
-            <v-flex class="text-center" v-for="n in 5" :key="n">
-              <v-img class="mx-auto" :src="require(`@/assets/face_${n}.jpg`)" contain height="50"></v-img>
-            </v-flex>
-          </v-layout>
-          <v-layout row wrap>
-            <v-flex class="" v-for="n in 5" :key="n">
-              <v-checkbox
-                class="justify-center ma-0 pl-2"
-                v-model="value"
-                :value="n"
-              ></v-checkbox>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-layout>
+        <v-col cols="12" md="12" class="mt-2">
+          <v-row justify="center">
+            <v-col cols="1" class="text-center" v-for="n in 5" :key="n">
+              <v-img
+                v-if="value === n"
+                class="mx-auto" 
+                :src="require(`@/assets/images/face_${n}.jpg`)" 
+                contain 
+                height="50"
+              ></v-img>
+              <v-img
+                v-else
+                class="mx-auto cursor-pointer" 
+                :src="require(`@/assets/images/face_${n}_bn.jpg`)" 
+                contain 
+                height="50" 
+                @click="setAnswer(n)"
+              ></v-img>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
       <v-btn
         color="info"
-        text
+        class="mx-auto"
+        outlined
         @click="handleCreateAnswer()"
         :disabled="!value"
       >
@@ -61,6 +66,9 @@ export default {
         title: "Gracias por tu respuesta.",
         icon: "success"
       })
+    },
+    setAnswer(value) {
+      this.value = value
     },
     async handleCreateAnswer() {
       const payload = { ticketId: this.ticket.id, value: this.value }
