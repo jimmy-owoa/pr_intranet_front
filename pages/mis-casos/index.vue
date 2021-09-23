@@ -75,7 +75,7 @@ export default {
     statusIcon(status) {
       if (status === "Abierto") return "mdi-history";
       else if (status === "Atendido") return "mdi-cached";
-      else return "mdi-done-all";
+      else return "mdi-check-all";
     },
     statusColor(status) {
       if (status === "Abierto") return "hc__color-open";
