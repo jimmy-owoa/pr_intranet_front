@@ -7,7 +7,7 @@
     <v-card-text class="subheading " v-html="question.content"></v-card-text>
 
     <v-card-actions>
-      <v-row class="eZwTmB">
+      <v-row>
         <v-col cols="12" md="3">
           <v-img
             src="https://assets-intranet-security.s3.us-east-2.amazonaws.com/helpcenter_img_01.jpg"
@@ -22,7 +22,7 @@
           <v-col class="subheading mt-1">
             Escríbenos y nos comunicaremos contigo.
           </v-col>
-          <v-btn outlined class="hc__color-2 mt-4" :to="'/mis-casos/crear-caso'">
+          <v-btn outlined class="hc__color-2 mt-4" :to="'/crear-caso'">
             Crear un caso
           </v-btn>
         </v-col>
@@ -38,16 +38,6 @@ export default {
 }
 </script>
 <style lang="css">
-.eZwTmB {
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid rgb(225, 225, 225);
-}
-
-.hc__blue-text {
-  color: #1B0088
-}
-
 .hc__color-2 {
   color:#E8114b !important
 }

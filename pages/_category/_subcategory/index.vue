@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12">
+    <v-col cols="12" class="py-0">
       <Breadcrumbs
         :items="$vuetify.breakpoint.smAndDown ? breadcrumbsMobile : breadcrumbs"
       />

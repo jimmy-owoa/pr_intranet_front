@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" class="py-0">
+    <v-col cols="12" class="pt-0">
       <Breadcrumbs :items="breadcrumbs" />
     </v-col>
 
@@ -9,7 +9,11 @@
     </v-col>
 
     <v-col cols="12" md="3" :class="paddingCardInfo()">
-      <CardInfoA />
+      <CardInfoA 
+        title="Ir a mis casos" 
+        icon="ListCheckIcon"
+        url="/mis-casos"
+      />
     </v-col>
   </v-row>
 </template>
@@ -60,7 +64,7 @@ export default {
       })
     },
     paddingCardInfo() {
-      return this.isMobile ? 'pt-3' : 'pl-2'
+      return this.isMobile ? 'pt-3' : 'py-0'
     }
   },
   mounted(){

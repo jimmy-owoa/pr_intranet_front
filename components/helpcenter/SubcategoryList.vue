@@ -50,10 +50,6 @@ export default {
   border: 1px solid rgb(225, 225, 225);
 }
 
-.hc__blue-text {
-  color: #1B0088
-}
-
 .hc__rounded-card{
   border-radius: 0.5rem
 }

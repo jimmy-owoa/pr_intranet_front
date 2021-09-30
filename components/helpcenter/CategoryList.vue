@@ -2,8 +2,9 @@
   <v-row>
     <v-col cols="12" md="6" v-for="category in categories" :key="category.id">
       <v-card 
-        :class="`cyan--text pointer mb-2 hc__rounded-card py-3 ${isMobile ? '' : 'mr-2'}`" 
-        max-width="600" 
+        :class="`pointer mb-2 py-3 ${isMobile ? '' : 'mr-2'}`" 
+        max-width="600"
+        rounded="lg"
         @click="$router.push(`/${category.slug}`)"
       >
         <v-row align="center" no-gutters>
@@ -16,7 +17,9 @@
           </v-col>
           <v-col cols="10">
             <v-card-title>
-              <p class="title hc__blue-text ma-0">{{ category.name }}</p>
+              <p class="text-h6 ma-0 text-center uk-category-name">
+                {{ category.name }}
+              </p>
             </v-card-title>
           </v-col>
         </v-row>
@@ -36,6 +39,9 @@ export default {
   }
 }
 </script>
-<style lang="">
-  
+<style>
+.uk-category-name {
+  font-weight: 300 !important;
+  color: #2196F3;
+}
 </style>

@@ -1,29 +1,10 @@
 <template>
   <v-app>
-    <v-main>
-      <!-- <v-app-bar fixed app color="primary" dark >
-        <v-row>
-          <v-col cols="12" sm="3" class="py-0"></v-col>
-          <v-col cols="12" sm="6" class="py-0">
-            <v-form>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" md="12" class="mt-6 py-0">
-                    <v-text-field
-                      placeholder="Buscar..."
-                      clearable
-                      type="text"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-form>
-          </v-col>
-        </v-row>
-      </v-app-bar> -->
-      <v-container>
+    <v-main class="uk-background-primary">
+      <MenuNavbar v-if="this.$nuxt.$auth.user"/>
+      <v-container style="margin-top: 80px">
         <v-row no-gutters class="d-flex justify-center">
-          <v-col cols="12" lg="12" xl="10">
+          <v-col cols="12" lg="12" xl="10" class="pa-0 ma-0">
             <Nuxt />
           </v-col>
         </v-row>
@@ -33,25 +14,47 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from 'vuex'
+import MenuNavbar from '~/components/MenuNavbar.vue'
+
 export default {
+  components: { 
+    MenuNavbar 
+  },
   name: 'Default',
   methods: {
     ...mapActions('user', ['fetchCurrentUser']),
-  },
-  created() {
-    // let user_code = this.$route.query.user || ""
-    // this.fetchCurrentUser(user_code);
   },
 }
 </script>
 
 <style lang="css">
 .hc__blue-text {
-  color: #1B0088
+  color: #2196F3
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.uk-background-primary {
+  background-color: #2196F3;
+}
+
+.uk-overtitle {
+  font-weight: 300;
+  font-size: 1.2rem;
+  text-transform: uppercase !important;
+  text-align: center;
+  color: white;
+  letter-spacing: 3px;
+}
+
+.uk-heading-title {
+  font-size: 5.2rem;
+  line-height: 1;
+  text-align: center;
+  color: white;
+  letter-spacing: 2px;
 }
 </style>

@@ -96,3 +96,14 @@ export async function createMessage({ commit }, payload) {
   } 
   finally {}
 }
+
+
+export async function createSatisfactionAnswer({ commit }, payload) {
+  try {
+    const { data } = await this.$axios.post(`/hc_tickets/${payload.ticketId}/hc_satisfaction_answers`, { answer: { value: payload.value } })
+    return data
+  } catch (e) {
+    return false
+  } 
+  finally {}
+}

@@ -1,32 +1,45 @@
-<template lang="">
-  <v-card rounded="lg">
-    <v-img
-      src="https://assets-intranet-security.s3.us-east-2.amazonaws.com/helpcenter_img_02.png"
-      aspect-ratio="2.75"
-    ></v-img>
+<template>
+  <v-card class="uk-card-box" rounded="lg" :to="url">
+    <v-row justify="center" class="py-5">
+      <component v-bind:is="icon" :height="40" :width="40" color="white"></component>
+    </v-row>
     
-    <p class="text-h6 ma-0 font-weight-thin hc__blue-text text-center">
-      ¿Necesitas ver tú historial de casos?
+    <p class="text-h6 ma-0 text-center white--text">
+      {{ title }}
     </p>
-    
-    <v-card-actions class="text-xs-center">
-      <v-btn outlined class="hc__color-2 mx-auto" :to="'/mis-casos'">
-        Ir a Mis casos
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 <script>
+import ListCheckIcon from '../icons/ListCheckIcon'
+import InteractiveIcon from '../icons/InteractiveIcon'
+import ChartHistogramIcon from '../icons/ChartHistogramIcon'
 export default {
-  
+  components: { 
+    ListCheckIcon,
+    InteractiveIcon,
+    ChartHistogramIcon,
+  },
+  props: {
+    title: { type: String, required: true },
+    icon: { type: String, required: true},
+    url: { type: String, required: true},
+  },
+  methods: {
+    goTo() {
+      this.$router.push(this.url)
+    }
+  },
 }
 </script>
 <style lang="css">
-.hc__blue-text {
-  color: #1B0088
+.uk-card-box {
+  color: #fff;
+  background: #067be2 !important;
+  text-decoration: none;
+  padding: 30px;
 }
 
-.hc__color-2 {
-  color:#E8114b !important
+.uk-card-box p {
+  font-weight: 300 !important;
 }
 </style>
