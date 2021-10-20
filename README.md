@@ -31,3 +31,10 @@ n11mOvHie9GBQlgiI27PX3dVqxOiTwNLJ0XlEfQS7wM%3D
 ~~~
 
 url: http://localhost:8000/login?code=n11mOvHie9GBQlgiI27PX3dVqxOiTwNLJ0XlEfQS7wM%3D
+
+
+# Iconos SVG
+
+https://www.flaticon.es/uicons
+
+https://heroicons.com/
