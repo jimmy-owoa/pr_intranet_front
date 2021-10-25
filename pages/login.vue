@@ -6,14 +6,18 @@ export default {
   middleware: "auth-login",
   methods: {
     async loginUser(email) {
-      const response = await this.$auth.login({
-        data: { user: { user_code: email } },
-      })
-      
-      if (response.data.success) {
-        this.$router.push("/")
-      } else {
-        this.alertError = true;
+      try {
+        const response = await this.$auth.login({
+          data: { user: { user_code: email } },
+        })
+        
+        if (response.data.success) {
+          this.$router.push("/")
+        } else {
+          this.alertError = true;
+        }
+      } catch (error) {
+        console.log(error)
       }
     },
   },
