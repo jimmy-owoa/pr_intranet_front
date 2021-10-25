@@ -24,6 +24,6 @@ export default {
   created() {
     let user_code = this.$route.query.code || ""
     this.loginUser(user_code)
-  },
+  }, 
 };
 </script>
