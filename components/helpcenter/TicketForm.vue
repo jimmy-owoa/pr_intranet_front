@@ -31,8 +31,8 @@
 
           <v-col cols="12" md="6">
             <v-text-field
-              v-model="currentUser.company"
-              label="Empresa"
+              v-model="currentUser.country"
+              label="Oficina"
               required
               disabled
             ></v-text-field>
