@@ -7,7 +7,7 @@
         flat
       >
         <v-row justify="center">
-          <v-col cols="10" md="6" class="py-0">
+          <v-col cols="10" md="5" class="py-0">
             <form @submit.prevent="">
               <v-text-field
                 v-model="search"
@@ -23,10 +23,14 @@
           </v-col>
         </v-row>
 
-        <!-- <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn> -->
+        <v-btn small color="primary" href="https://compassgroup-training.exa.cl/">
+          Volver
+        </v-btn>
+        <span class="white--text ml-2">
+          {{ this.$nuxt.$auth.user.name }}
+        </span>
       </v-app-bar>
+
     </v-col>
 
     <v-col cols="12" md="8" class="pa-0 ma-0" style="margin-top: 30px" v-if="results.length">
