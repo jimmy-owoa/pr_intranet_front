@@ -25,7 +25,7 @@ Ejemplo:
 ~~~bash
 u = General::User.find(9)
 
-InternalAuth.encrypt(u.id_exa)
+InternalAuth.encrypt("#{u.id_exa}")
 
 n11mOvHie9GBQlgiI27PX3dVqxOiTwNLJ0XlEfQS7wM%3D
 ~~~
