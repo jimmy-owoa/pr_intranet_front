@@ -1,5 +1,5 @@
 <template>
-  <v-card class="uk-card-box" rounded="lg" :to="url">
+  <v-card class="uk-card-box" rounded="lg" :to="url" height="170">
     <v-row justify="center" class="py-5">
       <component v-bind:is="icon" :height="40" :width="40" color="white"></component>
     </v-row>

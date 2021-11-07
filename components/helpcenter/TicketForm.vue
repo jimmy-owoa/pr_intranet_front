@@ -122,7 +122,12 @@ export default {
     ...mapActions("helpcenter", ["fetchCategories"]),
     async getCategories() {
       const res = await this.fetchCategories()
-      this.categories = res  
+      this.categories = res
+
+      if (this.$route.query.category) {
+        let id = this.categories.find(c => c.slug === this.$route.query.category)?.id
+        this.ticket.category_id = id
+      }
     },
     setFormData() {
       const formData = new FormData()
