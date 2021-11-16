@@ -38,7 +38,7 @@
 
     <v-row>
       <v-col cols="12">
-        <h2 class="ma-0 mt-2 white--text uk-title-h2">Preguntas Frecuentes</h2>
+        <h2 class="ma-0 mt-2 hc__blue-text uk-title-h2">Preguntas Frecuentes</h2>
       </v-col>
       <v-col cols="12">
         <v-row>
@@ -46,7 +46,7 @@
             <ListImportantQuestions :questions="questions" />
           </v-col>
           <v-col cols="12" md="12" mt-4>
-            <h2 class="ma-0 mt-2 white--text uk-title-h2">
+            <h2 class="ma-0 mt-2 hc__blue-text uk-title-h2">
               Elige la categoría para la que necesitas resolver dudas
             </h2>
           </v-col>

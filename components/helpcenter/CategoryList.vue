@@ -41,7 +41,7 @@ export default {
 </script>
 <style>
 .uk-category-name {
-  font-weight: 300 !important;
-  color: #2196F3;
+  font-weight: 500 !important;
+  color: #BB3D4D;
 }
 </style>

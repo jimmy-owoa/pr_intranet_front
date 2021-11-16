@@ -6,7 +6,7 @@
         class="uk-navbar-container"
         flat
       >
-        <v-avatar size="160">
+        <v-avatar size="300" to="/">
           <v-img
             alt="Compass Logo"
             contain
@@ -16,7 +16,7 @@
         </v-avatar>
 
         <v-row justify="center">
-          <v-col cols="10" md="5" class="py-0">
+          <v-col cols="10" md="7" class="py-0">
             <form @submit.prevent="">
               <v-text-field
                 v-model="search"
@@ -24,7 +24,6 @@
                 required
                 :loading="isLoading"
                 color="white"
-                dark
                 hide-details
                 @keyup="searchTimeOut()"
               ></v-text-field>
@@ -32,10 +31,10 @@
           </v-col>
         </v-row>
 
-        <v-btn small color="primary" href="https://compassgroup-training.exa.cl/">
+        <v-btn small color="#BB3D4D" dark href="https://compassgroup-training.exa.cl/">
           Volver
         </v-btn>
-        <span class="white--text ml-2">
+        <span class="hc__blue-text ml-2">
           {{ this.$nuxt.$auth.user.name }}
         </span>
       </v-app-bar>
@@ -101,7 +100,7 @@ export default {
 <style lang="css">
 .uk-navbar-container {
   /* height: 80px !important; */
-  background-color: #2196F3 !important;
-  border-bottom: 1px solid #349ff4 !important;
+  background-color: #fafafa !important;
+  border-bottom: 1px solid #fafafa !important;
 }
 </style>

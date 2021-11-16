@@ -10,7 +10,7 @@
           <v-icon color="white" size="30">mdi-chevron-right</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <div class="white--text">
+          <div class="hc__blue-text">
             {{ question.name }}
           </div>
         </v-list-item-content>

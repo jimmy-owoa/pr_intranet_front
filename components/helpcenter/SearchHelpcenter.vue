@@ -87,7 +87,7 @@ export default {
 
 @media (max-width: 959px) {
   .tff-container-search {
-    background: none;
+    /* background: none; */
     padding: 0px;
   }
 }

@@ -30,7 +30,7 @@ export default {
 
 <style lang="css">
 .hc__blue-text {
-  color: #2196F3
+  color: #BB3D4D
 }
 
 .cursor-pointer {
@@ -38,7 +38,7 @@ export default {
 }
 
 .uk-background-primary {
-  background-color: #2196F3;
+  background-color: #EFEFEF;
 }
 
 .uk-overtitle {
@@ -46,7 +46,7 @@ export default {
   font-size: 1.2rem;
   text-transform: uppercase !important;
   text-align: center;
-  color: white;
+  color: #BB3D4D;
   letter-spacing: 3px;
 }
 
@@ -54,7 +54,7 @@ export default {
   font-size: 5.2rem;
   line-height: 1;
   text-align: center;
-  color: white;
+  color: #BB3D4D;
   letter-spacing: 2px;
 }
 </style>
