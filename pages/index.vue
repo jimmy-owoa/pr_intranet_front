@@ -6,25 +6,32 @@
 
         <h2 class="uk-heading-title my-5">¿Cómo podemos ayudarte?</h2>
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="3">
         <CardInfoA 
-          title="Crear caso" 
-          icon="InteractiveIcon"
-          url="/crear-caso"
+          title="Rendición de gastos" 
+          icon="ChartHistogramIcon"
+          url="/crear-caso?category=rendicion-de-gastos"
         />
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="3">
         <CardInfoA 
-          title="Ir a mis casos" 
+          title="Requerimientos Servicios Generales" 
+          icon="InteractiveIcon"
+          url="/crear-caso?category=requerimientos-servicios-generales"
+        />
+      </v-col>
+      <v-col cols="12" md="3">
+        <CardInfoA 
+          title="Requerimientos GDT" 
+          icon="InteractiveIcon"
+          url="/crear-caso?category=requerimientos-gdt"
+        />
+      </v-col>
+      <v-col cols="12" md="3">
+        <CardInfoA 
+          title="Ver mis casos" 
           icon="ListCheckIcon"
           url="/mis-casos"
-        />
-      </v-col>
-      <v-col cols="12" md="4">
-        <CardInfoA 
-          title="Crear rendición de gastos" 
-          icon="ChartHistogramIcon"
-          url="/rendicion-gastos"
         />
       </v-col>
     </v-row>
@@ -82,6 +89,9 @@ export default {
     async getCategories() {
       const res = await this.fetchCategories()
       this.categories = res
+    },
+    goTo() {
+      this.$router.push({name: 'crear-caso', params: { category: "hola"}})
     }
   },
   computed: {

@@ -6,6 +6,15 @@
         class="uk-navbar-container"
         flat
       >
+        <v-avatar size="160">
+          <v-img
+            alt="Compass Logo"
+            contain
+            :src="require(`@/assets/images/logo-compass.png`)" 
+            transition="scale-transition"
+          ></v-img>
+        </v-avatar>
+
         <v-row justify="center">
           <v-col cols="10" md="5" class="py-0">
             <form @submit.prevent="">
