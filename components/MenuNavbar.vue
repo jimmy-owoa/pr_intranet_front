@@ -41,7 +41,7 @@
 
     </v-col>
 
-    <v-col cols="12" md="8" class="pa-0 ma-0" style="margin-top: 30px" v-if="results.length">
+    <v-col cols="12" md="8" class="pa-0 ma-0" style="margin-top: 60px !important" v-if="results.length">
       <v-list v-for="(result, i) in results" :key="i"> 
         <v-list-item
           :key="i"
