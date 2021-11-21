@@ -6,14 +6,17 @@
         class="uk-navbar-container"
         flat
       >
-        <v-avatar size="300" to="/">
-          <v-img
-            alt="Compass Logo"
-            contain
-            :src="require(`@/assets/images/logo-compass.png`)" 
-            transition="scale-transition"
-          ></v-img>
-        </v-avatar>
+
+      <div class="d-flex align-center">
+        <v-img
+          alt="Compass Logo"
+          class="shrink"
+          contain
+          width="300"
+          :src="require(`@/assets/images/logo-compass.png`)" 
+          transition="scale-transition"
+        ></v-img>
+      </div>
 
         <v-row justify="center">
           <v-col cols="10" md="7" class="py-0">
