@@ -21,7 +21,7 @@
               <v-row>
                 <v-col cols="9" md="10">
                   <p class="ma-0 hc__blue-text">
-                    # {{ ticket.id }} - {{ ticket.category }}
+                    # {{ ticket.id }} - {{ ticket.subcategory }}
                   </p>
                   <p>Creado: {{ ticket.created_at }}</p>
                 </v-col>

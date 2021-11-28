@@ -9,7 +9,7 @@
         <v-card-text>
           <v-row>
             <v-col cols="10">
-              <p class="title ma-0 hc__blue-text">#{{ ticket.id}} - {{ ticket.category }}</p>
+              <p class="title ma-0 hc__blue-text">#{{ ticket.id}} - {{ ticket.subcategory }}</p>
               <p class="mt-2">{{ ticket.description }}</p>
             </v-col>
 
