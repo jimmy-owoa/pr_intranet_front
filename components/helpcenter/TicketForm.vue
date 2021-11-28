@@ -47,6 +47,7 @@
               item-value="id"
               persistent-hint
               :error-messages="categoryErrors"
+              disabled
             ></v-autocomplete>
           </v-col>
 
