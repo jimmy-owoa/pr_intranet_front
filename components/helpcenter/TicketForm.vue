@@ -40,17 +40,27 @@
 
           <v-col cols="12" md="6">
             <v-autocomplete
-              v-model="ticket.category_id"
+              v-model="category_id"
               :items="categories"
               label="Categoría *"
               item-text="name"
               item-value="id"
               persistent-hint
-              :error-messages="categoryErrors"
               disabled
             ></v-autocomplete>
           </v-col>
 
+          <v-col cols="12" md="6">
+            <v-autocomplete
+              v-model="ticket.subcategory_id"
+              :items="subcategories"
+              label="Sub-categoría *"
+              item-text="name"
+              item-value="id"
+              persistent-hint
+              :error-messages="subcategoryErrors"
+            ></v-autocomplete>
+          </v-col>
           <v-col cols="12" md="4" class="mx-2">
             <h2 class="subheading">Subir documentos</h2>
             <input
@@ -92,21 +102,22 @@ import { required } from 'vuelidate/lib/validators'
 export default {
   validations: {
     ticket: {
-      category_id: { required },
+      subcategory_id: { required },
       description: { required }
     }
   },
   data: () => ({
     categories: [],
+    category_id: null,
   }),
   props: {
     ticket: { type: Object, required: true },
   },
   computed: {
-    categoryErrors () {
+    subcategoryErrors () {
       const errors = []
-      if (!this.$v.ticket.category_id.$dirty) return errors
-      !this.$v.ticket.category_id.required && errors.push('Campo requerido')
+      if (!this.$v.ticket.subcategory_id.$dirty) return errors
+      !this.$v.ticket.subcategory_id.required && errors.push('Campo requerido')
       return errors
     },
     descriptionErrors () {
@@ -117,7 +128,14 @@ export default {
     },
     currentUser() {
       return this.$nuxt.$auth.user
-    }
+    },
+    subcategories() {
+      let categorySelected = this.categories.find(
+        (category) => category.id === this.category_id
+      )
+
+      return categorySelected?.subcategories
+    },
   },
   methods: {
     ...mapActions("helpcenter", ["fetchCategories"]),
@@ -127,12 +145,12 @@ export default {
 
       if (this.$route.query.category) {
         let id = this.categories.find(c => c.slug === this.$route.query.category)?.id
-        this.ticket.category_id = id
+        this.category_id = id
       }
     },
     setFormData() {
       const formData = new FormData()
-      formData.append("ticket[category_id]", this.ticket.category_id)
+      formData.append("ticket[subcategory_id]", this.ticket.subcategory_id)
       formData.append("ticket[description]", this.ticket.description)
       for (let file of this.ticket.files) {
         formData.append("ticket[files][]", file);

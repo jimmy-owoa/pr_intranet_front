@@ -37,7 +37,7 @@ export default {
       { to: "", text: "Crear Caso", disabled: true }
     ],
     ticket: {
-      category_id: null,
+      subcategory_id: null,
       description: "",
       files: []
     },
