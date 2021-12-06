@@ -14,7 +14,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               v-model="currentUser.legal_number"
-              label="R.U.T."
+              label="Código"
               required
               disabled
             ></v-text-field>
