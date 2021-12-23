@@ -152,8 +152,9 @@ export default {
       const formData = new FormData()
       formData.append("ticket[subcategory_id]", this.ticket.subcategory_id)
       formData.append("ticket[description]", this.ticket.description)
+      formData.append("category[category_id]", this.category_id)
       for (let file of this.ticket.files) {
-        formData.append("ticket[files][]", file);
+        formData.append("ticket[files][]", file); 
       }
       return formData
     },
