@@ -60,6 +60,7 @@
     </v-card>
 
     <!-- CARD DE EXPIRADO -->
+    
     <v-card
       class="mx-auto"
       width="600"
@@ -67,18 +68,16 @@
     >
       <v-alert dense border="left" type="warning"> El Link Expiró </v-alert>
     </v-card>
-    <!-- Skeleton -->
-    <v-card class="mx-auto" width="450" v-else>
-      <v-sheet
-        :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-        class="pa-3"
-      >
-        <v-skeleton-loader
-          class="mx-auto"
-          max-width="450"
-          type="article"
-        ></v-skeleton-loader>
-      </v-sheet>
+
+    <!-- Skeleton progress circular -->
+
+    <v-card class="mx-auto" width="600" v-else>
+      <div class="text-center">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
     </v-card>
   </div>
 </template>
@@ -86,11 +85,6 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  inject: {
-    theme: {
-      default: { isDark: false },
-    },
-  },
   data() {
     return {
       ticket: {},
@@ -125,13 +119,15 @@ export default {
   margin: 0;
   padding: 10px;
 }
-@media screen and (max-width: 538px){
-  .responsive-title{
+@media screen and (max-width: 538px) {
+  .responsive-title {
     justify-content: center;
   }
-    .responsive-title span {
-    font-size: 15px !important
-  } 
-
+  .responsive-title span {
+    font-size: 15px !important;
+  }
+}
+.v-progress-circular {
+  margin: 1rem;
 }
 </style>
