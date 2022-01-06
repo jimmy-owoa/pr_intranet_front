@@ -16,7 +16,9 @@
       </v-card-title>
 
       <v-card-text>
-        <p>Usuario:{{ ticket.user }}</p>
+        <p>Usuario: {{ ticket.user.name + " " + ticket.user.last_name }}</p>
+        <p>Codigo: {{ ticket.user.legal_number }}</p>
+        <p>Email: {{ ticket.user.email }}</p>
         <p class="caption">Caso creado el {{ ticket.ticket_date }}</p>
         <p class="text-center text-h6" font>
           <strong>Descripción</strong>
@@ -46,7 +48,9 @@
       </v-card-title>
 
       <v-card-text>
-        <p>Usuario:{{ ticket.user }}</p>
+        <p>Usuario: {{ ticket.user.name + " " + ticket.user.last_name }}</p>
+        <p>Codigo: {{ ticket.user.legal_number }}</p>
+        <p>Email: {{ ticket.user.email }}</p>
         <p class="caption">Caso creado el {{ ticket.ticket_date }}</p>
         <p class="text-center text-h6" font>
           <strong>Descripción</strong>
@@ -60,7 +64,7 @@
     </v-card>
 
     <!-- CARD DE EXPIRADO -->
-    
+
     <v-card
       class="mx-auto"
       width="600"
@@ -118,6 +122,9 @@ export default {
 .description-box p {
   margin: 0;
   padding: 10px;
+}
+.v-card__text p {
+  margin-bottom: 4px;
 }
 @media screen and (max-width: 538px) {
   .responsive-title {
