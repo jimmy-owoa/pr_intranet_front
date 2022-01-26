@@ -73,13 +73,13 @@ export default {
       this.$router.push(`/mis-casos/${id}`);
     },
     statusIcon(status) {
-      if (status === "Abierto") return "mdi-history";
-      else if (status === "Atendido") return "mdi-cached";
+      if (status === "abierto") return "mdi-history";
+      else if (status === "atendiendo") return "mdi-cached";
       else return "mdi-check-all";
     },
     statusColor(status) {
-      if (status === "Abierto") return "hc__color-open";
-      else if (status === "Atendido") return "hc__color-attended";
+      if (status === "abierto") return "hc__color-open";
+      else if (status === "atendiendo") return "hc__color-attended";
       else return "hc__color-close";
     },
     paddingCardInfo() {
