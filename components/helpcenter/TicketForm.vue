@@ -39,6 +39,15 @@
           </v-col>
 
           <v-col cols="12" md="6">
+            <v-text-field
+              v-model="currentUser.id_exa_boss"
+              label="Supervisor"
+              required
+              disabled
+            ></v-text-field>
+          </v-col>
+
+          <v-col cols="12" md="6">
             <v-autocomplete
               v-model="category_id"
               :items="categories"
@@ -61,6 +70,29 @@
               :error-messages="subcategoryErrors"
             ></v-autocomplete>
           </v-col>
+
+          <v-col cols="2" md="2" v-if="seeByExpenses()">
+            <v-autocomplete
+              v-model="ticket.type_of_currency"
+              :items="divisas"
+              label="Divisas"
+              item-text="name"
+              item-value="id"
+              persistent-hint
+              :error-messages="subcategoryErrors"
+            ></v-autocomplete>
+          </v-col>
+
+          <v-col cols="4" md="4" v-show="seeByExpenses()" >
+            <v-text-field
+              v-model="ticket.total_acount"
+              persistent-hint
+              label="Monto total"
+              type="number"
+            ></v-text-field>
+          </v-col>
+
+
           <v-col cols="12" md="4" class="mx-2">
             <h2 class="subheading">Subir documentos</h2>
             <input
@@ -98,6 +130,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
+import { fetchCategory } from '~/store/helpcenter/actions'
 
 export default {
   validations: {
@@ -109,6 +142,7 @@ export default {
   data: () => ({
     categories: [],
     category_id: null,
+    divisas: []
   }),
   props: {
     ticket: { type: Object, required: true },
@@ -139,8 +173,10 @@ export default {
   },
   methods: {
     ...mapActions("helpcenter", ["fetchCategories"]),
+    ...mapActions("helpcenter", ["fetchDivisas"]),
     async getCategories() {
       const res = await this.fetchCategories()
+       console.log(this.$nuxt.$auth.user)
       this.categories = res
 
       if (this.$route.query.category) {
@@ -148,11 +184,17 @@ export default {
         this.category_id = id
       }
     },
+    async getDivisas() {
+      const res = await this.fetchDivisas()
+      this.divisas = res
+    },
     setFormData() {
       const formData = new FormData()
       formData.append("ticket[subcategory_id]", this.ticket.subcategory_id)
       formData.append("ticket[description]", this.ticket.description)
       formData.append("category[category_id]", this.category_id)
+      formData.append("ticket[type_of_currency]", this.ticket.type_of_currency)
+      formData.append("ticket[total_acount]", this.ticket.total_acount)
       for (let file of this.ticket.files) {
         formData.append("ticket[files][]", file); 
       }
@@ -166,10 +208,18 @@ export default {
     },
     setFiles() {
       this.ticket.files = this.$refs.files.files
-    }
+    },
+    seeByExpenses() {
+      if(this.$route.query.category === 'rendicion-de-gastos'){
+        return true
+      } else {
+        return false
+      }
+    } 
   },
   created() {
     this.getCategories()
+    this.getDivisas()
   }
 }
 </script>

@@ -87,6 +87,17 @@ export async function fetchTicket({ commit }, id) {
   finally {}
 }
 
+// fetch divisas
+export async function fetchDivisas({ commit }) {
+  try {
+    const { data } = await this.$axios(`/hc_tickets/divisas`)
+    return data
+  } catch (e) {
+    this.$router.push('/')
+  } 
+  finally {}
+}
+
 export async function createMessage({ commit }, payload) {
   try {
     const { data } = await this.$axios.post(`/hc_tickets/${payload.ticketId}/hc_messages`, { message: { content: payload.content } })
