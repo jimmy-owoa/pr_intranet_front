@@ -14,7 +14,6 @@
 <script>
 import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
-import IconInfo from '../../components/helpcenter/IconInfo'
 import ExpenseReport from '~/components/helpcenter/ExpenseReport.vue'
 import CardInfo from '~/components/helpcenter/CardInfo.vue'
 
@@ -23,7 +22,6 @@ export default {
   middleware: ['auth'],
   components: {
     Breadcrumbs,
-    IconInfo,
     ExpenseReport,
     CardInfo
   },

@@ -3,9 +3,7 @@
     <v-col cols="12" class="pt-0">
       <Breadcrumbs :items="breadcrumbs" />
     </v-col>
-    <v-col cols="12" style="margin: 0px 0px 10px 10px" v-if="this.$route.query.category == 'rendicion-de-gastos'">
-      <IconInfo></IconInfo>
-    </v-col>
+
     <v-col cols="12" md="7" class="py-0">
       <TicketForm :ticket="ticket" @submitForm="submitForm" />
     </v-col>
@@ -24,7 +22,6 @@ import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import TicketForm from '../../components/helpcenter/TicketForm'
 import CardInfoA from '~/components/helpcenter/CardInfoA'
-import IconInfo from '../../components/helpcenter/IconInfo'
 
 export default {
   layout: 'default',
@@ -32,8 +29,7 @@ export default {
   components: {
     Breadcrumbs,
     TicketForm,
-    CardInfoA,
-    IconInfo
+    CardInfoA
   },
   data: () => ({
     breadcrumbs: [
