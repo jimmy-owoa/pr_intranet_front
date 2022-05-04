@@ -10,7 +10,7 @@
         <CardInfoA
           title="Rendición de gastos"
           icon="ChartHistogramIcon"
-          url="/crear-caso?category=rendicion-de-gastos"
+          url="/rendicion-gastos"
         />
       </v-col>
       <v-col cols="12" md="3">
