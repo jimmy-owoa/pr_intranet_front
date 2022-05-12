@@ -91,7 +91,7 @@
             <v-text-field
               v-model="ticket.amount"
               persistent-hint
-              label="Monto"
+              label="Subtotal"
               type="number"
             ></v-text-field>
           </v-col>
