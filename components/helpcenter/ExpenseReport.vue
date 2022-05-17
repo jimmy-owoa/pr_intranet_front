@@ -5,28 +5,36 @@
         @submit.prevent="handleSubmitForm"
         multipart="true"
         v-if="currentUser"
-      >
+      > 
         <v-row>
-          <v-col cols="12" md="3">
-            <v-text-field
-              v-model="currentUser.full_name"
-              label="Nombre Completo"
-              required
-              disabled
-            ></v-text-field>
+          <v-col cols="12" md="5">
+            <v-autocomplete
+                v-model="user"
+                label="Nombre completo"
+                :items="items"
+                item-text="name"
+                item-value="id"
+                :search-input.sync="search"
+                persistent-hint
+                flat
+                cache-items
+                :loading="isLoading"  
+                return-object
+                required
+                @change="updateUser(user)"
+            ></v-autocomplete>
           </v-col>
           <v-col cols="12" md="2">
             <v-text-field
-              v-model="currentUser.legal_number"
+              v-model="user.legal_number"
               label="Código"
-              required
               disabled
             ></v-text-field>
           </v-col>
 
           <v-col cols="12" md="3">
-            <v-text-field
-              v-model="currentUser.email"
+            <v-text-field 
+              v-model="user.email"
               label="Correo electrónico"
               required
               disabled
@@ -34,17 +42,17 @@
           </v-col>
 
           <v-col cols="12" md="4">
-            <v-text-field
-              v-model="currentUser.id_exa_boss"
+            <v-text-field 
+              v-model="user.id_exa_boss"
               label="Supervisor"
               required
               disabled
             ></v-text-field>
           </v-col>
 
-          <v-col cols="12" md="1">
-            <v-text-field
-              v-model="currentUser.country"
+          <v-col cols="12" md="2">
+            <v-text-field 
+              v-model="user.country"
               label="Oficina"
               required
               disabled
@@ -64,7 +72,7 @@
           </v-col>
 
           <v-col cols="12" md="2">
-            <v-autocomplete
+            <v-autocomplete 
               v-model="ticket.subcategory_id"
               :items="subcategories"
               label="Sub-categoría *"
@@ -75,8 +83,8 @@
             ></v-autocomplete>
           </v-col>
 
-          <v-col cols="2" md="1">
-            <v-autocomplete
+          <v-col cols="2" md="2">
+            <v-autocomplete 
               v-model="ticket.currency_type"
               :items="divisas"
               label="Divisa"
@@ -88,14 +96,13 @@
           </v-col>
 
           <v-col cols="4" md="2">
-            <v-text-field
+            <v-text-field 
               v-model="ticket.amount"
               persistent-hint
               label="Subtotal"
               type="number"
             ></v-text-field>
           </v-col>
-
           <v-col cols="12" md="2" class="mx-2">
             <h3 class="subheading">Adjuntar archivos</h3>
             <input
@@ -109,8 +116,8 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" md="12">
-            <v-textarea
+          <v-col cols="12" md="12" class="mx-2">
+            <v-textarea 
               v-model="ticket.description"
               outlined
               label="Escriba aquí su rendición de gastos"
@@ -147,6 +154,11 @@ export default {
     categories: [],
     category_id: null,
     divisas: [],
+    isLoading: false,
+    items: [],
+    model: null,
+    search: null,
+    user: null,
   }),
   props: {
     ticket: { type: Object, required: true },
@@ -165,7 +177,10 @@ export default {
       return errors;
     },
     currentUser() {
-      return this.$nuxt.$auth.user;
+      if(this.user == null){
+        this.user = this.$nuxt.$auth.user;
+      }
+      return this.user;
     },
     subcategories() {
       let categorySelected = this.categories.find(
@@ -198,6 +213,7 @@ export default {
       formData.append("category[category_id]", this.category_id);
       formData.append("ticket[currency_type]", this.ticket.currency_type);
       formData.append("ticket[amount]", this.ticket.amount);
+      formData.append("ticket[user_id]", this.user.id);
       for (let file of this.ticket.files) {
         formData.append("ticket[files][]", file);
       }
@@ -212,11 +228,33 @@ export default {
     setFiles() {
       this.ticket.files = this.$refs.files.files;
     },
+    updateUser(user){
+      this.user = user
+    }
   },
   created() {
     this.getCategories();
     this.getDivisas();
   },
+watch: {
+    search(val) {
+      // Items have already been loaded
+      let all_results = [];
+      let all_ids = [];
+      if (this.search == null || this.search.length < 3) return;
+      this.isLoading = true;
+      // Lazily load input items
+      this.$axios.get(`search/users?search=${val}`)
+        .then(res => res.data.users)
+        .then(res => {
+          this.items = res;
+        })
+        .catch(err => {
+           console.log(err);
+        })
+        .finally(() => (this.isLoading = false));
+    }
+  }
 };
 </script>
 <style lang="css">
