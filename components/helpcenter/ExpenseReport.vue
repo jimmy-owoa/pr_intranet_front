@@ -10,7 +10,7 @@
           <v-col cols="12" md="5">
             <v-autocomplete
                 v-model="user"
-                label="Nombre completo"
+                :label="user.full_name"
                 :items="items"
                 item-text="name"
                 item-value="id"
@@ -18,7 +18,7 @@
                 persistent-hint
                 flat
                 cache-items
-                :loading="isLoading"  
+                :loading="isLoading"
                 return-object
                 required
                 @change="updateUser(user)"
