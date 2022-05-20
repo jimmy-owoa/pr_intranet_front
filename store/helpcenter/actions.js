@@ -120,7 +120,7 @@ export async function createSatisfactionAnswer({ commit }, payload) {
 
 export async function fetchTicketState({ commit }, payload){
   try {
-    const { data } = await this.$axios(`/hc_tickets/review_ticket?aproved_to_review=${payload}`)
+    const { data } = await this.$axios.post(`/hc_tickets/review_ticket?aproved_to_review=${payload}`)
     return data
   } catch (e) {
     return false
