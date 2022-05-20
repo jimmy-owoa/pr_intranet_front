@@ -98,12 +98,11 @@ export default {
   methods: {
     ...mapActions("helpcenter", ["fetchTicketState"]),
     async reviwTicket() {
-      console.log(this.$route.params.token);
       const res = await this.fetchTicketState(this.$route.params.token);
       this.ticket = res;
     },
   },
-  created() {
+  mounted() {
     this.reviwTicket();
   },
 };
