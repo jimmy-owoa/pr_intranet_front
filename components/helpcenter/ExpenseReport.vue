@@ -8,6 +8,7 @@
       > 
         <v-row>
           <v-col cols="12" md="5">
+            <p class="m-0">Digite el nombre del usuario que va a rendir</p>
             <v-autocomplete
                 v-model="user"
                 :label="user.full_name"
@@ -24,7 +25,7 @@
                 @change="updateUser(user)"
             ></v-autocomplete>
           </v-col>
-          <v-col cols="12" md="2">
+          <v-col cols="12" md="2" class="pt-33">
             <v-text-field
               v-model="user.legal_number"
               label="Código"
@@ -32,7 +33,7 @@
             ></v-text-field>
           </v-col>
 
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="3" class="pt-33">
             <v-text-field 
               v-model="user.email"
               label="Correo electrónico"
@@ -258,4 +259,10 @@ watch: {
 };
 </script>
 <style lang="css">
+.pt-33 {
+  padding-top: 33px;
+}
+.m-0 {
+  margin: 0px !important;
+}
 </style>
