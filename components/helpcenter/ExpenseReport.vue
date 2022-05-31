@@ -8,7 +8,6 @@
       > 
         <v-row>
           <v-col cols="12" md="5">
-            <p class="m-0">Digite el nombre del usuario que va a rendir</p>
             <v-autocomplete
                 v-model="user"
                 :label="user.full_name"
@@ -33,7 +32,7 @@
             ></v-text-field>
           </v-col>
 
-          <v-col cols="12" md="3" class="pt-33">
+          <v-col cols="12" md="3">
             <v-text-field 
               v-model="user.email"
               label="Correo electrónico"
