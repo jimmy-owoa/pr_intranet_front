@@ -34,7 +34,7 @@
           </v-col>
         </v-row>
 
-        <v-btn small color="#BB3D4D" dark href="https://compassgroup-training.exa.cl/">
+        <v-btn small color="#BB3D4D" dark href="https://compassgroup.exa.cl/">
           Volver
         </v-btn>
         <span class="hc__blue-text ml-2">
