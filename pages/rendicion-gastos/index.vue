@@ -14,7 +14,7 @@
 <script>
 import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
-import ExpenseReport from '~/components/helpcenter/ExpenseReport.vue'
+import ExpenseReport from '~/components/expense-report/ExpenseReport.vue'
 import CardInfo from '~/components/helpcenter/CardInfo.vue'
 
 export default {
