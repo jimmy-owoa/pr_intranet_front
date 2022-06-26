@@ -53,6 +53,7 @@
             <RequestUser
               v-on:selectUser="setUser"
               v-if="response_user_request == 'Yo'"
+              @getValues="setValues"
             />
             <RequestSearchUser
               v-on:selectUser="setUser"
@@ -65,19 +66,21 @@
             </v-btn>
 
             <DynamicForm
+              v-on:selectDynamicForm="setDynamicForm"
               class="m-2"
               v-for="count in totalCount"
               :key="`component-${count}`"
               style="padding: 5px !important"
+
             />
           </v-card>
           <v-btn color="primary" @click="nextStep(n)" v-if="n != '3'">
             Continuar
           </v-btn>
-          <v-btn color="primary" @click="setFormData" v-if="n == '3'">
+          <v-btn color="primary" type="submit" v-if="n == '3'">
             Enviar
           </v-btn>
-          <v-btn color="primary" @click="downStep(n)" v-if="n != '1'">
+          <v-btn color="primary" v-if="n != '1'">
             Volver
           </v-btn>
         </v-stepper-content>
@@ -87,6 +90,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import RequestUser from "~/components/expense-report/RequestUser.vue";
 import RequestSearchUser from "~/components/expense-report/RequestSearchUser.vue";
 import DynamicForm from "~/components/expense-report/DynamicForm.vue";
@@ -104,7 +108,8 @@ export default {
     e1: 1,
     steps: 3,
     response_user_request: null,
-    totalCount: 1
+    totalCount: 1,
+    data: []
   }),
   created() {
     if (this.user == null) {
@@ -112,16 +117,20 @@ export default {
     }
   },
   methods: {
+    ...mapActions("expense-report", ["createRequest"]),
     setFormData() {
       const formData = new FormData();
       formData.append("request[user_id]", this.user.id);
+      formData.append("request[subcategories_id]", this.subcategories.id);
+      formData.append("request[description]", this.request.description);
+      console.log(formData)
       return formData;
     },
     handleSubmitForm() {
-      this.$v.$touch();
-      if (this.$v.$invalid) return;
+      // this.$v.$touch();
+      // if (this.$v.$invalid) return;
       const formData = this.setFormData();
-      this.$emit("submitForm", formData);
+      this.submitForm(formData)
     },
     nextStep(n) {
       if (n === this.steps) {
@@ -143,7 +152,27 @@ export default {
     setUser(user) {
       console.log("Se actualizo el usuario");
       this.user = user;
-    }
+      console.log(this.user)
+    },
+    setDynamicForm(data) {
+      console.log("Se actualizo el form");
+      this.data = data;
+      console.log(this.data)
+    },
+    async submitForm(request) {
+      const res = await this.createRequest(request)
+      if (res.success) {
+        this.swalAlert()
+        this.$router.push("/")
+      }
+    },
+      swalAlert() {
+      return this.$swal({
+        title: "Rendición de gastos creada correctamente",
+        text: "Te confirmaremos por correo cuando tu rendición sea revisado",
+        icon: "success"
+      })
+    },
   }
 };
 </script>
@@ -152,7 +181,7 @@ export default {
   text-align: center;
 }
 .h-card {
-  height: 300px !important;
+  height: 400px !important;
 }
 .center-text {
   padding-top: 80px;
