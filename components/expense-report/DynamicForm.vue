@@ -2,19 +2,6 @@
   <div>
     <v-card dense outlined type="error" style="margin: 5px">
       <v-row>
-        <v-col cols="12" md="4">
-          <v-autocomplete
-            v-model="societies.name"
-            :items="societies"
-            label="Sociedad *"
-            item-text="name"
-            item-value="id"
-            persistent-hint
-            required
-            v-on:click.capture="sendData"
-          ></v-autocomplete>
-        </v-col>
-
         <v-col cols="12" md="2">
           <v-autocomplete
             v-model="divisas"
@@ -51,27 +38,21 @@ import { mapActions } from "vuex";
 export default {
   props: ["selectDynamicForm"],
   data: () => ({
-    societies: [],
     divisas: [],
     data: []
   }),
   created() {
-    this.getSocieties();
     this.getDivisas();
   },
   methods: {
-    ...mapActions("expense-report", ["fetchSocieties", "fetchDivisas"]),
-    async getSocieties() {
-      const res = await this.fetchSocieties();
-      this.societies = res;
-    },
+    ...mapActions("expense-report", ["fetchDivisas"]),
     async getDivisas() {
       const res = await this.fetchDivisas();
       this.divisas = res;
       console.log(this.divisas);
     },
     sendData(){
-      this.data = {divisa: this.divisas, society: this.societies}
+      this.data = {divisa: this.divisas}
       this.$emit("selectDynamicForm", this.data);
     }
   }
