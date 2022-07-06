@@ -34,6 +34,13 @@
       </v-col>
       <v-col cols="12" md="3">
         <CardInfoA
+          title="Ver mis rendiciones"
+          icon="ListCheckIcon"
+          url="/mis-rendiciones"
+        />
+      </v-col>
+      <v-col cols="12" md="3">
+        <CardInfoA
           title="Ver mis casos"
           icon="ListCheckIcon"
           url="/mis-casos"

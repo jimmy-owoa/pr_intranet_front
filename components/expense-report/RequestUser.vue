@@ -2,14 +2,14 @@
   <v-div>
     <v-card-text>
       <v-row>
-        <v-col cols="12" md="5" class="pt-33">
+        <v-col cols="12" md="4" class="pt-33">
           <v-text-field
             v-model="user.name"
             label="Nombre"
-            required
             disabled
           ></v-text-field>
         </v-col>
+
         <v-col cols="12" md="2" class="pt-33">
           <v-text-field
             v-model="user.legal_number"
@@ -22,7 +22,6 @@
           <v-text-field
             v-model="user.email"
             label="Correo electrónico"
-            required
             disabled
           ></v-text-field>
         </v-col>
@@ -31,7 +30,6 @@
           <v-text-field
             v-model="user.id_exa_boss"
             label="Supervisor"
-            required
             disabled
           ></v-text-field>
         </v-col>
@@ -40,9 +38,47 @@
           <v-text-field
             v-model="user.country"
             label="Oficina"
-            required
             disabled
           ></v-text-field>
+        </v-col>
+
+        <v-col cols="12" md="4">
+          <v-autocomplete
+            v-model="societies.name"
+            :items="societies"
+            label="Sociedad *"
+            item-text="name"
+            item-value="id"
+            persistent-hint
+            required
+            v-on:change="sendData"
+          ></v-autocomplete>
+        </v-col>
+        
+        <v-col cols="12" md="3">
+          <select
+            class="select-divisas"
+            ref="seleccionado"
+            v-on:change="sendData"
+          >
+            <option :value="{}" selected disabled>
+              Seleccione una divisa
+            </option>
+            <option
+              v-for="divisa in divisas"
+              v-bind:value="Object.keys(divisa)[0]"
+            >
+              {{ Object.keys(divisa)[0] }}
+            </option>
+          </select>
+        </v-col>
+        <v-col cols="12" md="12">
+          <v-textarea
+            v-model="description"
+            outlined
+            label="Descripción de la rendición *"
+            v-on:change="sendData"
+          ></v-textarea>
         </v-col>
       </v-row>
     </v-card-text>
@@ -50,22 +86,50 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   props: ["selectUser"],
   data: () => ({
-    user: null
+    user: null,
+    description: null,
+    divisas: [],
+    societies: [],
+    seleccionado: null
   }),
-
   mounted() {
     this.$emit("selectUser", this.user);
   },
   created() {
     this.user = this.$nuxt.$auth.user;
+    this.getSocieties();
+    this.getDivisas();
+  },
+  methods: {
+    ...mapActions("expense-report", ["fetchSocieties", "fetchDivisas"]),
+    async getSocieties() {
+      const res = await this.fetchSocieties();
+      this.societies = res;
+    },
+    async getDivisas() {
+      const res = await this.fetchDivisas();
+      this.divisas = res;
+    },
+    sendData() {
+      this.$emit("getValues", {
+        description: this.description,
+        divisa: this.$refs.seleccionado.value,
+        society: this.societies.name
+      });
+    }
   }
 };
 </script>
 <style lang="css">
 .pt-33 {
   padding-top: 33px;
+}
+.select-divisas {
+  border-bottom: 1px solid black;
+  width: 200px;
 }
 </style>
