@@ -14,7 +14,7 @@
 <script>
 import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
-import ExpenseReport from '~/components/helpcenter/ExpenseReport.vue'
+import ExpenseReport from '~/components/expense-report/ExpenseReport.vue'
 import CardInfo from '~/components/helpcenter/CardInfo.vue'
 
 export default {
@@ -47,13 +47,13 @@ export default {
       const res = await this.createTicket(ticket)
       if (res.success) {
         this.swalAlert()
-        this.$router.push("/mis-casos")
+        this.$router.push("/mis-rendiciones")
       }
     },
     swalAlert() {
       return this.$swal({
-        title: "Caso creado correctamente",
-        text: "Te confirmaremos por correo cuando tu caso sea revisado",
+        title: "Rendicion creada correctamente",
+        text: "Te confirmaremos por correo cuando tu rendición sea revisado",
         icon: "success"
       })
     },
