@@ -81,7 +81,6 @@
             <div class="panel panel-default" style="margin-bottom: 13px;">
               <div class="panel-body" v-for="(request, index) in requests">
                 <h4>Rendición n° {{ index + 1 }}</h4>
-
                 <v-card dense outlined type="error" style="margin: 5px; padding: 10px" >
                   <v-row>
                     <v-col cols="10">
@@ -100,7 +99,7 @@
                           <v-text-field
                             v-model="request.subtotal"
                             class="p-10"
-                            label="total"
+                            label="monto"
                             required
                             type="number"
                             v-on:change="updateTotal"

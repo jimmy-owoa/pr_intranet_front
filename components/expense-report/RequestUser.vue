@@ -76,7 +76,7 @@
           <v-textarea
             v-model="description"
             outlined
-            label="Descripción de la rendición *"
+            label="Detalle de la rendición *"
             v-on:change="sendData"
           ></v-textarea>
         </v-col>
