@@ -70,7 +70,7 @@
         <v-col cols="12" md="3" v-show="this.user != null">
           <select class="select-divisas" ref="seleccionado" v-on:change="sendData">
             <option :value="{}" selected disabled>
-              Seleccione una divisa
+              Divisa de la rendición
             </option>
             <option 
               v-for="divisa in divisas" v-bind:value="Object.keys(divisa)[0]" >
@@ -83,7 +83,7 @@
             v-model="description"
             outlined
             required
-            label="Detalle de la rendición *"
+            label="Servicios *"
              v-on:change="sendData"
           ></v-textarea>
         </v-col>

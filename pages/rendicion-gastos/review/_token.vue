@@ -72,9 +72,9 @@
           <tbody>
             <tr v-for="(invoice, index) in request.invoices" :key="invoice.id">
               <td>{{ index + 1 }}</td>
-              <td>{{ invoice.invoice.total }}</td>
               <td>{{ invoice.subcategory }}</td>
               <td>{{ invoice.invoice.description }}</td>
+              <td>{{ invoice.invoice.total }}</td>
               <td>
                 <v-btn small v-bind:href="invoice.file">
                   Descargar archivo

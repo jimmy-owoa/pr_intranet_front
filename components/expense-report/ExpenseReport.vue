@@ -81,7 +81,7 @@
             <div class="panel panel-default" style="margin-bottom: 13px;">
               <div class="panel-body" v-for="(request, index) in requests">
                 <h4>Rendición n° {{ index + 1 }}</h4>
-                <v-card dense outlined type="error" style="margin: 5px; padding: 10px" >
+                <v-card dense outlined type="error" style="margin: 5px; padding: 20px" >
                   <v-row>
                     <v-col cols="10">
                       <v-row style="padding-left: 10px !important;">
@@ -89,7 +89,7 @@
                           <v-autocomplete
                             v-model="request.subcategories.name"
                             :items="requests.subcategories"
-                            label="Subcategorías"
+                            label="Subcategoría"
                             item-text="name"
                             item-value="id"
                             persistent-hint
@@ -99,7 +99,7 @@
                           <v-text-field
                             v-model="request.subtotal"
                             class="p-10"
-                            label="monto"
+                            label="Monto"
                             required
                             type="number"
                             v-on:change="updateTotal"
