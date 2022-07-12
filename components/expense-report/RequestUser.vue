@@ -62,7 +62,7 @@
             v-on:change="sendData"
           >
             <option :value="{}" selected disabled>
-              Divisa para la rendición
+              Divisa de la rendición
             </option>
             <option
               v-for="divisa in divisas"
