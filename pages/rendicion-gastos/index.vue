@@ -3,9 +3,9 @@
     <v-col cols="12" class="pt-0">
       <Breadcrumbs :items="breadcrumbs" />
     </v-col>
-    <v-col cols="12">
-      <CardInfo/>
-    </v-col>
+    <!-- <v-col cols="12">
+      <CardInfo/> 
+    </v-col> -->
     <v-col cols="12" md="12" class="py-0">
       <ExpenseReport :ticket="ticket" @submitForm="submitForm" />
     </v-col>
@@ -15,7 +15,7 @@
 import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import ExpenseReport from '~/components/expense-report/ExpenseReport.vue'
-import CardInfo from '~/components/helpcenter/CardInfo.vue'
+// import CardInfo from '~/components/helpcenter/CardInfo.vue'
 
 export default {
   layout: 'default',
@@ -23,7 +23,7 @@ export default {
   components: {
     Breadcrumbs,
     ExpenseReport,
-    CardInfo
+    // CardInfo
   },
   data: () => ({
     breadcrumbs: [
@@ -44,6 +44,7 @@ export default {
   methods: {
     ...mapActions("helpcenter", ["createTicket"]),
     async submitForm(ticket) {
+      console.log("que hago a")
       const res = await this.createTicket(ticket)
       if (res.success) {
         this.swalAlert()
