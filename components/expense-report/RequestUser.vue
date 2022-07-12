@@ -62,7 +62,7 @@
             v-on:change="sendData"
           >
             <option :value="{}" selected disabled>
-              Seleccione una divisa
+              Divisa para la rendición
             </option>
             <option
               v-for="divisa in divisas"
@@ -76,7 +76,7 @@
           <v-textarea
             v-model="description"
             outlined
-            label="Detalle de la rendición *"
+            label="Servicios *"
             v-on:change="sendData"
           ></v-textarea>
         </v-col>
