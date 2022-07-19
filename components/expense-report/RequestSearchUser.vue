@@ -57,7 +57,7 @@
         </v-col>
         <v-col cols="12" md="4" v-if="this.user != null">
           <v-autocomplete
-            v-model="societies.name"
+            v-model="selectedSociety"
             :items="societies"
             label="Sociedad *"
             item-text="name"
@@ -104,7 +104,8 @@ export default {
     divisas: [],
     seleccionado: null,
     description: null,
-    societies: []
+    societies: [],
+    selectedSociety: null
   }),
   mounted() {
     this.$emit("selectUser", this.user);
@@ -116,8 +117,10 @@ export default {
   methods: {
     ...mapActions("expense-report", ["fetchDivisas", "fetchSocieties"]),
     async getSocieties() {
-      const res = await this.fetchSocieties();
-      this.societies = res;
+      if(this.user != null){
+        const res = await this.fetchSocieties(this.user.id);
+        this.societies = res;
+      }
     },
     async getDivisas() {
       const res = await this.fetchDivisas();
@@ -129,11 +132,15 @@ export default {
         divisa: this.$refs.seleccionado.value,
         description: this.description,
         user: this.user,
-        society: this.societies.name
+        society: this.selectedSociety
       });
      },
     updateUser(user) {
       this.user = user;
+      if(user != null){
+        this.getSocieties(user.id)
+        this.selectedSociety = this.user.society
+      }
     }
   },
   watch: {
@@ -149,7 +156,7 @@ export default {
         .then(res => res.data.users)
         .then(res => {
           this.items = res;
-          this.$emit("selectUser", this.user);
+          this.$emit("selectUser", this.user)
         })
         .catch(err => {
           console.log(err);
