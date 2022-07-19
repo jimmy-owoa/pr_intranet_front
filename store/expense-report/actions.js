@@ -1,6 +1,6 @@
-export async function fetchSocieties({ commit }) {
+export async function fetchSocieties({ commit }, id) {
   try {
-    const { data } = await this.$axios.get("/societies")
+    const { data } = await this.$axios.get(`/societies?user_id=${id}`)
     return data
   } catch (e) {
     return false

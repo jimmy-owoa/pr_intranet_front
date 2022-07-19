@@ -44,7 +44,7 @@
 
         <v-col cols="12" md="4">
           <v-autocomplete
-            v-model="societies.name"
+            v-model="selectedSociety"
             :items="societies"
             label="Sociedad *"
             item-text="name"
@@ -94,10 +94,14 @@ export default {
     description: null,
     divisas: [],
     societies: [],
-    seleccionado: null
+    seleccionado: null,
+    selectedSociety: null
   }),
   mounted() {
     this.$emit("selectUser", this.user);
+    if(this.user != null){
+      this.selectedSociety = this.user.society
+    }
   },
   created() {
     this.user = this.$nuxt.$auth.user;
@@ -107,7 +111,7 @@ export default {
   methods: {
     ...mapActions("expense-report", ["fetchSocieties", "fetchDivisas"]),
     async getSocieties() {
-      const res = await this.fetchSocieties();
+      const res = await this.fetchSocieties(this.user.id);
       this.societies = res;
     },
     async getDivisas() {
@@ -118,7 +122,7 @@ export default {
       this.$emit("getValues", {
         description: this.description,
         divisa: this.$refs.seleccionado.value,
-        society: this.societies.name
+        society: this.selectedSociety
       });
     }
   }

@@ -209,7 +209,7 @@ export default {
       "createRequest"
     ]),
     async getSocieties() {
-      const res = await this.fetchSocieties();
+      const res = await this.fetchSocieties(this.user.id);
       this.requests.societies = res;
     },
     async getSubcategories() {
@@ -265,7 +265,6 @@ export default {
       this.totalCount++;
     },
     setUser(user) {
-      console.log("Se actualizo el usuario");
       this.user = user;
     },
     async submitForm(request) {
