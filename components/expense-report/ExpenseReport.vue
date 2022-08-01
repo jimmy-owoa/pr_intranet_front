@@ -21,7 +21,7 @@
           <v-card class="mb-5" v-if="n == 1">
             <v-container fluid class="center-text">
               <p class="text-center pt-4">
-                ¿Quien es el titular de la rendición de gastos?
+                ¿Quién es el titular de la rendición de gastos?
               </p>
               <div class="flex-center">
                 <div class="center-checkout">
