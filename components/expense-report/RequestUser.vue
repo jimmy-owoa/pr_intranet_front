@@ -55,6 +55,15 @@
           ></v-autocomplete>
         </v-col>
         
+        <v-col cols="12" md="12">
+          <v-text-field
+            v-model="description"
+            label="Titulo de la  rendición *"
+            maxlength="200"
+            v-on:change="sendData"
+          ></v-text-field>
+        </v-col>
+        
         <v-col cols="12" md="3">
           <select
             class="select-divisas"
@@ -71,14 +80,6 @@
               {{ Object.keys(divisa)[0] }}
             </option>
           </select>
-        </v-col>
-        <v-col cols="12" md="12">
-          <v-textarea
-            v-model="description"
-            outlined
-            label="Servicios *"
-            v-on:change="sendData"
-          ></v-textarea>
         </v-col>
       </v-row>
     </v-card-text>

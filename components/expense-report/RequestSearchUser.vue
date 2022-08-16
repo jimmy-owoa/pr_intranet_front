@@ -66,6 +66,15 @@
             required
             v-on:change="sendData"
           ></v-autocomplete>
+        </v-col>
+        <v-col cols="12" md="12" v-if="this.user != null">
+          <v-text-field
+            v-model="description"
+            required
+            maxlength="200"
+            label="Titulo de la rendición *"
+            v-on:change="sendData"
+          ></v-text-field>
         </v-col> 
         <v-col cols="12" md="3" v-show="this.user != null">
           <select class="select-divisas" ref="seleccionado" v-on:change="sendData">
@@ -77,15 +86,6 @@
               {{ Object.keys(divisa)[0] }}
             </option>
           </select>
-        </v-col>
-        <v-col cols="12" md="12" v-if="this.user != null">
-          <v-textarea
-            v-model="description"
-            outlined
-            required
-            label="Servicios *"
-             v-on:change="sendData"
-          ></v-textarea>
         </v-col>
       </v-row>
     </v-card-text>
