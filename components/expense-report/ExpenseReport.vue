@@ -80,7 +80,7 @@
 
             <div class="panel panel-default" style="margin-bottom: 13px;">
               <div class="panel-body" v-for="(request, index) in requests">
-                <h4>Rendición n° {{ index + 1 }}</h4>
+                <h4>Ítem n° {{ index + 1 }}</h4>
                 <v-card dense outlined type="error" style="margin: 5px; padding: 20px" >
                   <v-row>
                     <v-col cols="10">
