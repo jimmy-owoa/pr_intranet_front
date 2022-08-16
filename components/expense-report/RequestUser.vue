@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" md="4" class="pt-33">
           <v-text-field
-            v-model="user.name"
+            v-model="user.full_name"
             label="Nombre"
             disabled
           ></v-text-field>
