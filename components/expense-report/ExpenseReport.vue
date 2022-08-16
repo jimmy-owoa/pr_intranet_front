@@ -75,7 +75,7 @@
               >
                 Agregar rendición
               </v-btn>
-              <v-btn class="mb-5" depresse color="success">Subtotal Rendición: {{ total }}</v-btn>
+              <v-btn class="mb-5" depresse color="success">Total Rendición: {{ total }}</v-btn>
             </v-flex>
 
             <div class="panel panel-default" style="margin-bottom: 13px;">
@@ -310,7 +310,7 @@ export default {
   text-align: center;
 }
 .h-card {
-  height: 500px !important;
+  height: 400px !important;
 }
 .center-text {
   padding-top: 10px;
