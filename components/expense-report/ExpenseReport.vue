@@ -61,7 +61,14 @@
               @getValues="setValues"
             />
           </v-card>
-          <v-card class="mb-5" v-if="n == 3">
+          <!-- card paso 3  -->
+          <v-card class="mb-5 h-card" v-if="n == 3">
+            <RequestStepThree
+              @getValues="setCurrency"
+            />
+          </v-card>
+
+          <v-card class="mb-5" v-if="n == 4">
             <v-alert outlined type="info" text>
               Ingresar en forma separada cada documento.
             </v-alert>
@@ -79,7 +86,7 @@
             </v-flex>
 
             <div class="panel panel-default" style="margin-bottom: 13px;">
-              <div class="panel-body" v-for="(request, index) in requests">
+              <div class="panel-body" v-for="(request, index) in requests" :key='request.id'>
                 <h4>Ítem n° {{ index + 1 }}</h4>
                 <v-card dense outlined type="error" style="margin: 5px; padding: 20px" >
                   <v-row>
@@ -100,9 +107,9 @@
                             v-model="request.subtotal"
                             class="p-10"
                             label="Monto"
+                            step="0.01"
                             required
-                            type="number"
-                            v-on:change="updateTotal"
+                            v-on:change="updateTotal(request)"
                           ></v-text-field>
                         </v-col>
 
@@ -147,10 +154,10 @@
               </div>
             </div>
           </v-card>
-          <v-btn color="primary" @click="nextStep(n)" v-if="n != '3'">
+          <v-btn color="primary" @click="nextStep(n)" v-if="n != '4'">
             Continuar
           </v-btn>
-          <v-btn color="primary" type="submit" v-if="n == '3'">
+          <v-btn color="primary" type="submit" v-if="n == '4'">
             Enviar
           </v-btn>
           <v-btn color="primary" @click="downStep(n)" v-if="n != '1'">
@@ -167,19 +174,21 @@ import { mapActions } from "vuex";
 import RequestUser from "~/components/expense-report/RequestUser.vue";
 import RequestSearchUser from "~/components/expense-report/RequestSearchUser.vue";
 import DynamicForm from "~/components/expense-report/DynamicForm.vue";
+import RequestStepThree from "~/components/expense-report/RequestStepThree.vue";
 
 export default {
   components: {
     RequestUser,
     RequestSearchUser,
-    DynamicForm
+    DynamicForm,
+    RequestStepThree
   },
   data: () => ({
     categories: [],
     category_id: null,
     user: null,
     e1: 1,
-    steps: 3,
+    steps: 4,
     response_user_request: null,
     totalCount: 1,
     total: 0,
@@ -236,10 +245,18 @@ export default {
       }
       return formData;
     },
-    updateTotal(){
-      this.total = 0
-      this.requests.forEach(request => 
-      this.total += parseFloat(request.subtotal));
+    updateTotal(i){
+       this.total = 0
+       this.requests.forEach(request => 
+       this.total += Number(parseFloat(request.subtotal.replace(/,/g, "")).toFixed(2)),
+       );
+        this.requests.forEach(object =>{
+        if(object == i){
+          let partesNumero = i.subtotal.toString().split('.');
+          partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          return object.subtotal = partesNumero.join('.');
+        }
+      });
     },
     handleSubmitForm() {
       // this.$v.$touch();
@@ -294,9 +311,11 @@ export default {
       this.updateTotal()
     },
     setValues(data) {
-      this.divisas = data.divisa;
       this.description = data.description;
       this.societies = data.society;
+    },
+    setCurrency(data) {
+      this.divisas = data.divisa;
     },
     selectFiles(request, fileList) {
       if (!fileList.length) return;

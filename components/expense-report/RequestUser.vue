@@ -54,7 +54,7 @@
             v-on:change="sendData"
           ></v-autocomplete>
         </v-col>
-        
+
         <v-col cols="12" md="12">
           <v-text-field
             v-model="description"
@@ -62,24 +62,6 @@
             maxlength="200"
             v-on:change="sendData"
           ></v-text-field>
-        </v-col>
-        
-        <v-col cols="12" md="3">
-          <select
-            class="select-divisas"
-            ref="seleccionado"
-            v-on:change="sendData"
-          >
-            <option :value="{}" selected disabled>
-              Divisa de la rendición
-            </option>
-            <option
-              v-for="divisa in divisas"
-              v-bind:value="Object.keys(divisa)[0]"
-            >
-              {{ Object.keys(divisa)[0] }}
-            </option>
-          </select>
         </v-col>
       </v-row>
     </v-card-text>
@@ -93,7 +75,6 @@ export default {
   data: () => ({
     user: null,
     description: null,
-    divisas: [],
     societies: [],
     seleccionado: null,
     selectedSociety: null
@@ -107,22 +88,16 @@ export default {
   created() {
     this.user = this.$nuxt.$auth.user;
     this.getSocieties();
-    this.getDivisas();
   },
   methods: {
-    ...mapActions("expense-report", ["fetchSocieties", "fetchDivisas"]),
+    ...mapActions("expense-report", ["fetchSocieties"]),
     async getSocieties() {
       const res = await this.fetchSocieties(this.user.id);
       this.societies = res;
     },
-    async getDivisas() {
-      const res = await this.fetchDivisas();
-      this.divisas = res;
-    },
     sendData() {
       this.$emit("getValues", {
         description: this.description,
-        divisa: this.$refs.seleccionado.value,
         society: this.selectedSociety
       });
     }
