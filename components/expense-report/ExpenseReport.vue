@@ -7,7 +7,6 @@
             :key="`${n}-step`"
             :complete="e1 > n"
             :step="n"
-            editable
           >
             Paso {{ n }}
           </v-stepper-step>
@@ -31,7 +30,6 @@
                     id="yo"
                     v-model="response_user_request"
                     name="response_user_request"
-                    checked
                   />
                   <label for="yo" class="p-radio">Rindo gastos propios</label>
                 </div>
@@ -73,7 +71,6 @@
               Ingresar en forma separada cada documento.
             </v-alert>
             <v-flex d-flex justify-space-between>
-
               <v-btn
                 class="mb-5"
                 depresse
@@ -82,6 +79,34 @@
               >
                 Agregar rendición
               </v-btn>
+              <v-file-input 
+                multiple
+                v-model="files"
+                label="Adjuntar comprobante tarjeta de credito"
+                truncate-length="15"
+              >
+                <template v-slot:append>
+                  <v-tooltip  
+                    top
+                  >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon color="info">
+                        mdi-help
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>En caso de que el pago se haya realizado en una moneda diferente a los soportes (boletas) <br> 
+                    adjuntar Estado de Cuenta/Movimientos Tarjeta de crédito detallando los montos cobrados en la moneda de pago. <br>
+                    Por ejemplo, si las boletas están en Euros pero el pago en la tarjeta de crédito fue en dólares, adjuntar <br> 
+                    movimiento detallando el pago en dólar.
+                  </span>
+                </v-tooltip>
+              </template></v-file-input>
               <v-btn class="mb-5" depresse color="success">Total Rendición: {{ total }}</v-btn>
             </v-flex>
 
@@ -92,15 +117,36 @@
                   <v-row>
                     <v-col cols="10">
                       <v-row style="padding-left: 10px !important;">
-                        <v-col cols="12" md="3" class="py-0">
+                        <v-col cols="12" md="4" class="py-0">
+       
                           <v-autocomplete
                             v-model="request.subcategories.name"
                             :items="requests.subcategories"
-                            label="Subcategoría"
+                            label="Categoría"
                             item-text="name"
                             item-value="id"
+                            required
                             persistent-hint
-                          ></v-autocomplete>
+                          >
+                            <template v-slot:append>
+                              <v-tooltip  
+                                top
+                              >
+                                <template v-slot:activator="{ on, attrs }">
+                                  <v-btn
+                                    icon
+                                    v-bind="attrs"
+                                    v-on="on"
+                                  >
+                                    <v-icon color="info">
+                                      mdi-help
+                                    </v-icon>
+                                  </v-btn>
+                                </template>
+                                <span>Clasificar el ítem de la rendición por categorías.</span>
+                              </v-tooltip>
+                            </template>
+                          </v-autocomplete>
                         </v-col>
                         <v-col cols="12" md="3" class="py-0">
                           <v-text-field
@@ -110,7 +156,26 @@
                             step="0.01"
                             required
                             v-on:change="updateTotal(request)"
-                          ></v-text-field>
+                          >
+                            <template v-slot:append>
+                              <v-tooltip  
+                                top
+                              >
+                                <template v-slot:activator="{ on, attrs }">
+                                  <v-btn
+                                    icon
+                                    v-bind="attrs"
+                                    v-on="on"
+                                  >
+                                    <v-icon color="info">
+                                      mdi-help
+                                    </v-icon>
+                                  </v-btn>
+                                </template>
+                                <span>Insertar monto en la moneda a reembolsar. Por ejemplo, si las boletas <br> están en Euros pero el pago en la tarjeta de crédito fue en dólares, cargar monto en dólares.</span>
+                              </v-tooltip>
+                            </template>
+                          </v-text-field>
                         </v-col>
 
                         <v-col cols="12" md="4" style="margin: auto" class="py-0">
@@ -121,13 +186,36 @@
                             name="myfile"
                             @change="selectFiles(request, $event.target.files)"
                           />
+                          
+                          <!-- <v-file-input  required name="myfile" @change="selectFiles(request, $event.target.files)"
+                            truncate-length="15"
+                          ></v-file-input> -->
                         </v-col>
                         <v-col cols="12" md="12" class="py-0">
                           <v-text-field
                             v-model="request.description"
                             class="p-10"
                             label="Descripción"
-                          ></v-text-field>
+                          >
+                            <template v-slot:append>
+                              <v-tooltip  
+                                top
+                              >
+                                <template v-slot:activator="{ on, attrs }">
+                                  <v-btn
+                                    icon
+                                    v-bind="attrs"
+                                    v-on="on"
+                                  >
+                                    <v-icon color="info">
+                                      mdi-help
+                                    </v-icon>
+                                  </v-btn>
+                                </template>
+                                <span>Descripción del ítem de la rendición. Incorporar todo el detalle posible.</span>
+                              </v-tooltip>
+                            </template>
+                          </v-text-field>
                         </v-col>
                       </v-row>
                     </v-col>
@@ -154,10 +242,18 @@
               </div>
             </div>
           </v-card>
-          <v-btn color="primary" @click="nextStep(n)" v-if="n != '4'">
+
+          <!-- Paso 5 -->
+          <v-card class="mb-5 h-card" v-if="n == 5">
+            <RequestStepFive
+              @getValues="setCountry"
+            />
+          </v-card>
+
+          <v-btn color="primary" @click="nextStep(n)" v-if="n != '5'" :disabled="(n == 2 && description == null || description == '' || n == 3 && divisas == null)">
             Continuar
           </v-btn>
-          <v-btn color="primary" type="submit" v-if="n == '4'">
+          <v-btn color="primary" type="submit" v-if="n == '5'">
             Enviar
           </v-btn>
           <v-btn color="primary" @click="downStep(n)" v-if="n != '1'">
@@ -175,26 +271,34 @@ import RequestUser from "~/components/expense-report/RequestUser.vue";
 import RequestSearchUser from "~/components/expense-report/RequestSearchUser.vue";
 import DynamicForm from "~/components/expense-report/DynamicForm.vue";
 import RequestStepThree from "~/components/expense-report/RequestStepThree.vue";
+import RequestStepFive from "~/components/expense-report/RequestStepFive.vue";
 
 export default {
   components: {
     RequestUser,
     RequestSearchUser,
     DynamicForm,
-    RequestStepThree
+    RequestStepThree,
+    RequestStepFive
+    
   },
   data: () => ({
+    show: false,
     categories: [],
     category_id: null,
     user: null,
     e1: 1,
-    steps: 4,
-    response_user_request: null,
+    show: false,
+    steps: 5,
+    response_user_request: 'Yo',
     totalCount: 1,
     total: 0,
     divisas: null,
     description: null,
     societies: [],
+    files: null,
+    country: null,
+    is_local: null,
     requests: [
       {
         subcategories: [],
@@ -232,14 +336,12 @@ export default {
       formData.append("request[divisa_id]", this.divisas);
       formData.append("request[description]", this.description);
       formData.append("request[society_id]", this.societies);
+      formData.append("request[files]", this.files);
+      formData.append("request[destination_country_id]", this.country);
+      formData.append("request[is_local]", this.is_local);
       for (var i = 0; i < this.requests.length; i++) {
-        formData.append(
-          `invoice[request${i}][subcategory_id]`,this.requests[i].subcategories.name
-        );
-        formData.append(
-          `invoice[request${i}][total]`,
-          this.requests[i].subtotal
-        );
+        formData.append(`invoice[request${i}][subcategory_id]`,this.requests[i].subcategories.name);
+        formData.append(`invoice[request${i}][total]`,this.requests[i].subtotal);
         formData.append(`invoice[request${i}][description]`, this.requests[i].description);
         formData.append(`invoice[request${i}][file]`, this.requests[i].file);
       }
@@ -315,7 +417,12 @@ export default {
       this.societies = data.society;
     },
     setCurrency(data) {
+      console.log(data.divisa)
       this.divisas = data.divisa;
+      this.is_local = data.is_local;
+    },
+    setCountry(data) {
+      this.country = data.country
     },
     selectFiles(request, fileList) {
       if (!fileList.length) return;
