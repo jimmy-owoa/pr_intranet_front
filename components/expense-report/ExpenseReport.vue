@@ -79,12 +79,20 @@
               >
                 Agregar rendición
               </v-btn>
-              <v-file-input 
+              <!-- <v-file-input 
+                v-if="is_local == false"
                 multiple
                 v-model="files"
                 label="Adjuntar comprobante tarjeta de credito"
                 truncate-length="15"
-              >
+              > -->
+                  <input
+                    type="file" 
+                    ref="files" 
+                    multiple="true" 
+                    @change="setFiles($event.target.files)"
+                  />
+
                 <template v-slot:append>
                   <v-tooltip  
                     top
@@ -298,7 +306,7 @@ export default {
     societies: [],
     files: null,
     country: null,
-    is_local: null,
+    is_local: true,
     requests: [
       {
         subcategories: [],
@@ -336,7 +344,9 @@ export default {
       formData.append("request[divisa_id]", this.divisas);
       formData.append("request[description]", this.description);
       formData.append("request[society_id]", this.societies);
-      formData.append("request[files]", this.files);
+      for (let file of this.files) {
+        formData.append("request[files][]", file); 
+      };
       formData.append("request[destination_country_id]", this.country);
       formData.append("request[is_local]", this.is_local);
       for (var i = 0; i < this.requests.length; i++) {
@@ -427,7 +437,10 @@ export default {
     selectFiles(request, fileList) {
       if (!fileList.length) return;
       request.file = fileList[0];
-    }
+    },
+    setFiles(file) {
+      this.files = file
+    },
   }
 };
 </script>
