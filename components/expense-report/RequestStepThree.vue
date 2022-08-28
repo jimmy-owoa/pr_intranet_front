@@ -4,50 +4,26 @@
       <v-col cols="12">
         <h3>Rendición</h3>
         <div class="flex-center">
-          <div class="center-checkout">
-            <input
-              type="radio"
-              value="Local"
-              id="local"
-              v-model="place_expense_report"
-              name="place_expense_report"
-              checked
-              v-on:change="sendData"
-            />
-            <label for="yo" class="p-radio">Local</label>
-          </div>
-
-          <div class="center-checkout">
-            <input
-              type="radio"
-              value="Extranjero"
-              id="extranjero"
-              v-model="place_expense_report"
-              name="place_expense_report"
-              v-on:change="sendData"
-            />
-            <label for="otro">Extanjera</label>
-          </div>
+          <v-radio-group
+            v-model="place_expense_report"
+            v-on:change="sendData"
+            row
+          >
+            <v-radio
+              label="Local"
+              color="#BB3D4D"
+              value="local"
+           ></v-radio>
+           <v-radio
+              label="Extanjera"
+              color="#BB3D4D"
+              value="extranjera"
+            ></v-radio>
+          </v-radio-group>
         </div>
       </v-col>
 
       <v-col cols="4">
-        <!-- <select
-          class="select-divisas"
-          ref="seleccionado"
-          v-on:change="sendData"
-        >
-          <option :value="{}" selected disabled>
-            Divisa de reembolso
-          </option>
-          <option
-            v-for="divisa in divisas"
-            v-bind:value="Object.keys(divisa)[0]"
-            :key="divisa.id"
-          >
-            {{ Object.keys(divisa)[0] }}
-          </option>
-        </select> -->
         <v-autocomplete
           v-model="seleccionado"
           :items="divisas"
@@ -68,7 +44,7 @@
                   v-bind="attrs"
                   v-on="on"
                 >
-                  <v-icon color="info">
+                  <v-icon color="#BB3D4D">
                      mdi-help
                    </v-icon>
                 </v-btn>
@@ -89,7 +65,7 @@ export default {
   data: () => ({
     divisas: [],
     seleccionado: null,
-    place_expense_report: 'Local',
+    place_expense_report: 'local',
   }),
   created() {
     this.getDivisas();
@@ -103,7 +79,7 @@ export default {
     },
     sendData() {
       let local = true
-      if(this.place_expense_report == 'Local'){
+      if(this.place_expense_report == 'local'){
         local = true
       }else{
         local = false
