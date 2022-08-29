@@ -60,13 +60,12 @@ export default {
       console.log(this.request)
     },
     statusColor(status) {
-      console.log(status)
-      if (status == "abierto" || status == "en revisión") return "hc__color-open"
+      if (status == "aprobado" || status == "enviado") return "hc__color-open"
       else if (status === "atendiendo") return "hc__color-attended"
       else return "hc__color-close"
     },
     statusIcon(status) {
-      if (status === "Abierto" || status == "en revisión") return "mdi-history"
+      if (status === "aprobado" || status == "enviado") return "mdi-history"
       else if (status === "atendiendo") return "mdi-cached"
       else return "mdi-check-all"
     },
