@@ -66,27 +66,17 @@
             required
             v-on:change="sendData"
           ></v-autocomplete>
-        </v-col> 
-        <v-col cols="12" md="3" v-show="this.user != null">
-          <select class="select-divisas" ref="seleccionado" v-on:change="sendData">
-            <option :value="{}" selected disabled>
-              Divisa de la rendición
-            </option>
-            <option 
-              v-for="divisa in divisas" v-bind:value="Object.keys(divisa)[0]" >
-              {{ Object.keys(divisa)[0] }}
-            </option>
-          </select>
         </v-col>
         <v-col cols="12" md="12" v-if="this.user != null">
-          <v-textarea
+          <v-text-field
             v-model="description"
-            outlined
             required
-            label="Servicios *"
-             v-on:change="sendData"
-          ></v-textarea>
-        </v-col>
+            maxlength="200"
+            label="Titulo de la rendición *"
+            v-on:change="sendData"
+          ></v-text-field>
+        </v-col> 
+
       </v-row>
     </v-card-text>
   </v-div>
@@ -112,7 +102,6 @@ export default {
   },
   created() {
     this.getSocieties();
-    this.getDivisas();
   },
   methods: {
     ...mapActions("expense-report", ["fetchDivisas", "fetchSocieties"]),
@@ -127,9 +116,7 @@ export default {
       this.divisas = res;
     },
     sendData(){
-      console.log(this.$refs.seleccionado.value)
       this.$emit('getValues', {
-        divisa: this.$refs.seleccionado.value,
         description: this.description,
         user: this.user,
         society: this.selectedSociety

@@ -18,9 +18,9 @@ export async function fetchDivisas({ commit }) {
 
   }
 }
-export async function fetchSubcategories({ commit }) {
+export async function fetchCategories({ commit }) {
   try {
-    const { data } = await this.$axios.get("/subcategories")
+    const { data } = await this.$axios.get("/categories")
     return data
   } catch (e) {
     return false
@@ -83,3 +83,34 @@ export async function fetchRequestState({ commit }, payload){
     }
     finally {}
   }
+  export async function fetchCountries({ commit }) {
+    try {
+      const { data } = await this.$axios.get("expense_report_requests/countries")
+      return data
+    } catch (e) {
+      return false
+    } finally {
+  
+    }
+  }
+  export async function fetchAccounts({ commit }) {
+    try {
+      const { data } = await this.$axios.get("expense_report_requests/accounts")
+      return data
+    } catch (e) {
+      return false
+    } finally {
+  
+    }
+  }
+  export async function fetchPaymentMethod({ commit }) {
+    try {
+      const { data } = await this.$axios.get("expense_report_requests/payment_method")
+      console.log(data)
+      return data
+    } catch (e) {
+      return false
+    } finally {
+    }
+  }
+  
