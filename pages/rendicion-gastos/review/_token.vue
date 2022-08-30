@@ -72,7 +72,7 @@
           <tbody>
             <tr v-for="(invoice, index) in request.invoices" :key="invoice.id">
               <td>{{ index + 1 }}</td>
-              <td>{{ invoice.subcategory }}</td>
+              <td>{{ invoice.category }}</td>
               <td>{{ invoice.invoice.description }}</td>
               <td>{{ invoice.invoice.total }}</td>
               <td>
