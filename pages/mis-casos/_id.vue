@@ -154,12 +154,12 @@ export default {
       return `${message.user_id === this.currentUser.id ? 'ma-0 white--text' : 'ma-0 lighten-5'}`
     },
     statusColor(status) {
-      if (status === "Abierto") return "hc__color-open"
+      if (status === "aprobado") return "hc__color-open"
       else if (status === "Atendido") return "hc__color-attended"
       else return "hc__color-close"
     },
     statusIcon(status) {
-      if (status === "Abierto") return "mdi-history"
+      if (status === "aprobado") return "mdi-history"
       else if (status === "Atendido") return "mdi-cached"
       else return "mdi-check-all"
     },

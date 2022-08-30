@@ -76,7 +76,7 @@ export default {
     ],
     requests: [],
     statusSelected: 'Todos',
-    status: ["Todos", "En revisión", "Abierto", "Atendiendo", "Resuelto"],
+    status: ["Todos", "Enviado", "Aprobado", "Atendiendo", "Resuelto"]
   }),
   methods: {
     ...mapActions("expense-report", ["fetchRequests"]),
@@ -88,12 +88,12 @@ export default {
       this.$router.push(`/mis-rendiciones/${id}`);
     },
     statusIcon(status) {
-      if (status === "abierto" || status === "en revisión" ) return "mdi-history";
+      if (status === "aprobado" || status === "enviado" ) return "mdi-history";
       else if (status === "atendiendo") return "mdi-cached";
       else return "mdi-check-all";
     },
     statusColor(status) {
-      if (status === "abierto" || status === "en revisión") return "hc__color-open";
+      if (status === "aprobado" || status === "enviado") return "hc__color-open";
       else if (status === "atendiendo") return "hc__color-attended";
       else return "hc__color-close";
     },
