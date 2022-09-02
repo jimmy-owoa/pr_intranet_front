@@ -48,11 +48,15 @@
           </v-card>
           <v-card class="mb-5 h-card" v-if="n == 2">
             <RequestUser
+              :descriptionDraft="description"
+              :societiesDraft="societies"
               v-on:selectUser="setUser"
               v-if="response_user_request == 'Yo'"
               @getValues="setValues"
             />
             <RequestSearchUser
+              :descriptionDraft="description"
+              :societiesDraft="societies"
               v-on:selectUser="setUser"
               v-if="response_user_request == 'Otro'"
               @getValues="setValues"
@@ -61,6 +65,8 @@
           <!-- card paso 3  -->
           <v-card class="mb-5 h-card" v-if="n == 3">
             <RequestStepThree
+              :isLocalDraft="is_local"
+              :divisasDraft="divisas"
               @getValues="setCurrency"
             />
           </v-card>
@@ -118,7 +124,7 @@
                   </span>
                 </v-tooltip>
               </template></v-file-input>
-              <v-btn class="mb-5" depresse color="success">Total Rendición: {{ total }}</v-btn>
+              <v-btn class="mb-5" depresse color="success">Total Rendición:{{totalComputed}}</v-btn>
             </v-flex>
 
             <div class="panel panel-default" style="margin-bottom: 13px;">
@@ -129,9 +135,8 @@
                     <v-col cols="10">
                       <v-row style="padding-left: 10px !important;">
                         <v-col cols="12" md="4" class="py-0">
-       
                           <v-autocomplete
-                            v-model="request.categories.name"
+                            v-model="request.categories"
                             :items="categories"
                             label="Categoría"
                             item-text="name"
@@ -165,6 +170,7 @@
                             class="p-10"
                             label="Monto"
                             step="0.01"
+                            type="string"
                             required
                             v-on:change="updateTotal(request)"
                           >
@@ -198,9 +204,9 @@
                             @change="selectFiles(request, $event.target.files)"
                           />
                           
-                          <!-- <v-file-input  required name="myfile" @change="selectFiles(request, $event.target.files)"
+                          <!-- <v-file-input v-model="request.file" required name="myfile" @change="selectFiles(request, $event.target.files)"
                             truncate-length="15"
-                          ></v-file-input> -->
+                          ></v-file-input>  -->
                         </v-col>
                         <v-col cols="12" md="12" class="py-0">
                           <v-text-field
@@ -264,6 +270,9 @@
           <v-btn color="#E8114b" style="color: white" @click="nextStep(n)" v-if="n != '5'" :disabled="(n == 2 && description == null || description == '' || n == 3 && divisas == null)">
             Continuar
           </v-btn>
+          <v-btn color="#E8114b" style="color: white" @click="saveDraft()" v-if="n == '5'">
+            Guardar Borrador
+          </v-btn>
           <v-btn color="#E8114b" dark type="submit" v-if="n == '5'">
             Enviar
           </v-btn>
@@ -293,7 +302,9 @@ export default {
     RequestStepFive
     
   },
+  props:['requestDraft'],
   data: () => ({
+    first_loading: true,
     show: false,
     categories: [],
     category_id: null,
@@ -308,10 +319,11 @@ export default {
     divisas: null,
     description: null,
     societies: [],
+    requestH: {},
     files: null,
     country: null,
     is_local: true,
-    selectedAccounts: null,
+    selectedAccounts: 'Transferencia bancaria moneda local',
     bank_account_details: null,
     requests: [
       {
@@ -322,6 +334,44 @@ export default {
       }
     ]
   }),
+  computed: {
+    totalComputed(){
+      this.total = 0
+      this.requests.forEach(request =>
+      this.total += Number(parseFloat(request.subtotal.toString().replace(/,/g, "")).toFixed(2))
+      );
+      this.total = this.total.toString().split('.'),
+      this.total[0] = this.total[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+      this.total = this.total.join('.');
+      return this.total
+    }
+  },
+  watch: {
+    requestDraft: { 
+      handler: function(val, oldVal) {
+        this.requestH = val;
+        console.log(this.requestH)
+        this.societies = this.requestH.society_id
+        this.description = this.requestH.description
+        this.divisas = this.requestH.divisa_id
+        this.is_local = this.requestH.is_local
+        if(this.$nuxt.$auth.user.id == this.requestH.user.user_id){
+          this.response_user_request = 'Yo'
+        }else{
+          this.response_user_request = 'Otro'
+        }
+        this.requests.shift()
+        this.requestH.invoices.forEach(e => 
+          this.requests.push({
+            categories: e.category_id,
+            subtotal:  e.total,
+            description: e.description,
+            file: e.file
+          })
+        );
+      }
+    } 
+  },
   created() {
     if (this.user == null) {
       this.user = this.$nuxt.$auth.user;
@@ -333,7 +383,8 @@ export default {
     ...mapActions("expense-report", [
       "fetchSocieties",
       "fetchCategories",
-      "createRequest"
+      "createRequest",
+      "createRequestDraft"
     ]),
     async getSocieties() {
       const res = await this.fetchSocieties(this.user.id);
@@ -343,10 +394,18 @@ export default {
       const res = await this.fetchCategories();
       this.categories = res;
     },
+    setRequest() {
+      console.log('aqui')
+      console.log(this.requestDraft)
+      console.log()
+      console.log(this.$nuxt.$auth.user.id )
+      console.log(this.requestDraft.user.id)
+
+    },
     setFormData() {
       const formData = new FormData();
       formData.append("request[user_id]", this.user.id);
-      formData.append("request[divisa_id]", this.divisas);
+      formData.append("request[divisa_id]", this.divisas != null ? this.divisas : 'N/A');
       formData.append("request[description]", this.description);
       formData.append("request[society_id]", this.societies);
       formData.append("request[payment_method_id]", this.selectedAccounts);
@@ -356,7 +415,7 @@ export default {
           formData.append("request[files][]", file); 
         };
       }
-      formData.append("request[destination_country_id]", this.country);
+      formData.append("request[destination_country_id]", this.country != null ? this.country : 'NULL');
       formData.append("request[is_local]", this.is_local);
       for (var i = 0; i < this.requests.length; i++) {
         formData.append(`invoice[request${i}][category_id]`,this.requests[i].categories.name);
@@ -399,6 +458,10 @@ export default {
     downStep(n) {
       this.e1 = n - 1;
     },
+    saveDraft(){  
+      const formData = this.setFormData();
+      this.submitFormRequest(formData);
+    },
     duplicateEl() {
       this.totalCount++;
     },
@@ -412,10 +475,24 @@ export default {
         this.$router.push("/");
       }
     },
+    async submitFormRequest(request) {
+      const res = await this.createRequestDraft(request);
+      if (res.success) {
+        this.swalAlerDraft();
+        this.$router.push("/");
+      }
+    },
     swalAlert() {
       return this.$swal({
         title: "Rendición de gastos creada correctamente",
         text: "Te confirmaremos por correo cuando tu rendición sea revisado",
+        icon: "success"
+      });
+    },
+    swalAlerDraft() {
+      return this.$swal({
+        title: "Se creo correctamente el borrador de la rendición",
+        text: "Puedes modificar esta rendicion desde la sección, mis rendiciones.",
         icon: "success"
       });
     },

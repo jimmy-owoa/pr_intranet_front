@@ -71,7 +71,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  props: ["selectUser"],
+  props: ["selectUser", 'descriptionDraft', 'societiesDraft'],
   data: () => ({
     user: null,
     description: null,
@@ -88,6 +88,19 @@ export default {
   created() {
     this.user = this.$nuxt.$auth.user;
     this.getSocieties();
+  },
+  watch:{
+    descriptionDraft: { 
+      handler: function(val, oldVal) {
+        this.description = val;
+      }
+    },
+    societiesDraft: { 
+      handler: function(val, oldVal) {
+        console.log(val)
+        this.selectedSociety = val;
+      }
+    } 
   },
   methods: {
     ...mapActions("expense-report", ["fetchSocieties"]),

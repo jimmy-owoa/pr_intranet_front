@@ -106,7 +106,7 @@ export default {
 
     async getCountries() {
       const res = await this.fetchCountries();
-      this.countries = res;
+      this.countries = res.filter((item) => Object.keys(item)[0] !== 'NULL')
     },
     async getAccounts() {
       const res = await this.fetchAccounts();

@@ -37,6 +37,15 @@ export async function createRequest({ commit }, payload) {
   } 
   finally {}
 }
+export async function createRequestDraft({ commit }, payload) {
+  try {
+    const { data } = await this.$axios.post(`/expense_report_requests/save_draft_request`, payload)
+    return data
+  } catch (e) {
+    return false
+  } 
+  finally {}
+}
 export async function fetchRequests({ commit }, status) {
   try {
     const { data } = await this.$axios({
@@ -106,7 +115,6 @@ export async function fetchRequestState({ commit }, payload){
   export async function fetchPaymentMethod({ commit }) {
     try {
       const { data } = await this.$axios.get("expense_report_requests/payment_method")
-      console.log(data)
       return data
     } catch (e) {
       return false

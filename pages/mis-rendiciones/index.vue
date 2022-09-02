@@ -27,7 +27,7 @@
           v-for="(request, i) in requests"
           :key="i"
           class="cursor-pointer"
-          @click="goTo(request.id)"
+          @click="goTo(request)"
         >
           <v-card rounded="lg">
             <v-card-text class="mb-1">
@@ -52,10 +52,18 @@
         </v-col>
       </v-row>
     </v-col>
-
-    <v-col cols="12" md="3" :class="paddingCardInfo()">
+    
+    <v-col cols="12" md="3" >
+      <v-row>
+        <v-col cols="12" md="12" :class="paddingCardInfo()" style="margin: 3px">
       <CardInfoA title="Crear Rendicion" icon="InteractiveIcon" url="/rendicion-gastos" />
     </v-col>
+    <v-col cols="12" md="12" :class="paddingCardInfo()" style="margin: 3px">
+      <CardInfoA title="Rendiciones en Borrador" icon="InteractiveIcon" url="/rendicion-gasto/show" />
+    </v-col>
+      </v-row>
+    </v-col>
+
   </v-row>
 </template>
 <script>
@@ -76,7 +84,7 @@ export default {
     ],
     requests: [],
     statusSelected: 'Todos',
-    status: ["Todos", "Enviado", "Aprobado", "Atendiendo", "Resuelto"]
+    status: ["Todos", "Enviado", "Aprobado", "Atendiendo", "Resuelto", "Borrador"]
   }),
   methods: {
     ...mapActions("expense-report", ["fetchRequests"]),
@@ -84,17 +92,21 @@ export default {
       const res = await this.fetchRequests(status);
       this.requests = res;
     },
-    goTo(id) {
-      this.$router.push(`/mis-rendiciones/${id}`);
+    goTo(request) {
+      if (request.status == 'borrador'){
+        this.$router.push(`/rendicion-gastos/${request.id}`);
+      }else{
+        this.$router.push(`/mis-rendiciones/${request.id}`);
+      }
     },
     statusIcon(status) {
       if (status === "aprobado" || status === "enviado" ) return "mdi-history";
-      else if (status === "atendiendo") return "mdi-cached";
+      else if (status === "atendiendo" || status === 'borrador') return "mdi-cached";
       else return "mdi-check-all";
     },
     statusColor(status) {
       if (status === "aprobado" || status === "enviado") return "hc__color-open";
-      else if (status === "atendiendo") return "hc__color-attended";
+      else if (status === "atendiendo" || status === 'borrador') return "hc__color-attended";
       else return "hc__color-close";
     },
     paddingCardInfo() {
