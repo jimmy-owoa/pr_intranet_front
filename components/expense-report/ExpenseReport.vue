@@ -72,7 +72,11 @@
           </v-card>
 
           <v-card class="mb-5" v-if="n == 4">
-            <v-alert outlined type="info" color="#BB3D4D" text>
+            <v-alert  
+              border="top"
+              colored-border
+              type="info"
+              elevation="1">
               Ingresar en forma separada cada documento.
             </v-alert>
             <v-flex d-flex justify-space-between>
@@ -86,75 +90,20 @@
                 >
                   Agregar Item
                 </v-btn>
-                <div v-if="is_local == false" style="width:300px" class="py-0">
-                  <v-file-input 
-                    v-model="files"
-                    style="padding:0px"
-                    novalidate
-                    name="files"
-                    truncate-length="14"
-                    multiple
-                    label="Adjuntar comprobante tarjeta de credito"
-                  >
-                  </v-file-input>
-                  <template>
-                    <v-row style="justify-content: flex-end;">
-                      <v-dialog
-                        v-model="dialog"
-                        :retain-focus="false"
-                        persistent
-                        max-width="290"
-                      >
-                        <template v-slot:activator="{ on, attrs }">
-                          <div v-if="request_id" style="text-align-last: end; margin-top: -10px;">
-                            <v-chip
-                              x-small chip
-                               v-bind="attrs"
-                              v-on="on"
-                              @click="SetFilesDialog(filesDraft)"
-                            >
-                              Ver documentos guardados
-                            </v-chip>
-                          </div>
-                        </template>
-                        <v-card>
-                          <CardFiles v-if="dialog == true" :files="files_url_dialog" @getValues="setDialog" />
-                         </v-card>
-                       </v-dialog>
-                    </v-row>
-                  </template>
-                </div>
               </div>
-                <template v-slot:append>
-                  <v-tooltip  
-                    top
-                  >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      icon
-                      v-bind="attrs"
-                      v-on="on"
-                    >
-                      <v-icon color="info">
-                        mdi-help
-                      </v-icon>
-                    </v-btn>
-                  </template>
-                  <span>En caso de que el pago se haya realizado en una moneda diferente a los soportes (boletas) <br> 
-                    adjuntar Estado de Cuenta/Movimientos Tarjeta de crédito detallando los montos cobrados en la moneda de pago. <br>
-                    Por ejemplo, si las boletas están en Euros pero el pago en la tarjeta de crédito fue en dólares, adjuntar <br> 
-                    movimiento detallando el pago en dólar.
-                  </span>
-                </v-tooltip>
-              </template></v-file-input>
-              <v-btn class="mb-5" depresse color="success">Total Rendición:{{totalComputed}}</v-btn>
+            <!-- </v-file-input> -->
+              
             </v-flex>
-            <div class="panel panel-default" style="margin-bottom: 13px;">
+            <!-- empieza el item el item -->
+            <v-container>
+              <v-row  no-gutters>
+                <v-col cols="12" sm="6" md="8">
+                  <div class="panel panel-default" style="margin-bottom: 13px;">
               <div class="panel-body" v-for="(request, index) in requests" :key='request.id'>
                 <h4>Ítem n° {{ index + 1 }}</h4>
                 <v-card dense outlined type="error" style="margin: 5px; padding: 20px" >
                   <v-row>
-                    <v-col cols="10">
+                    <v-col cols="11">
                       <v-row style="padding-left: 10px !important;">
                         <v-col cols="12" md="4" class="py-0">
                           <v-autocomplete
@@ -166,7 +115,8 @@
                             required
                             persistent-hint
                           >
-                            <template v-slot:append>
+                          <!-- <HelpTooltip/> -->
+                          <template v-slot:append>
                               <v-tooltip  
                                 top
                               >
@@ -281,7 +231,7 @@
                         </v-col>
                       </v-row>
                     </v-col>
-                    <v-col cols="2" class="py-0 centerr">
+                    <v-col cols="1" md="1" class="py-0 centerr">
                       <v-row justify="center">
                         <v-col cols="12"  md="12" class="btn-close">
                           <v-btn 
@@ -303,6 +253,76 @@
                 </v-card>
               </div>
             </div>
+                </v-col>
+                <v-col cols="6" md="4" style="text-align: center; margin-top: 30px">
+                  <v-btn class="mb-5" depresse color="success">Total Rendición:{{totalComputed}}</v-btn>
+                  <div v-if="is_local == false" style="width:300px; margin:auto; margin-top:15px" class="py-0">
+                  <h4 class="font-weight-regular" style="margin-bottom:15px">Adjuntar comprobante tarjeta de credito</h4>
+                  <v-file-input 
+                    v-model="files"
+                    style="padding:0px; margin: auto"
+                    novalidate
+                    class="m-auto"
+                    name="files"
+                    truncate-length="14"
+                    multiple
+                    label="Subir documentos"
+                  >
+                  <template v-slot:append>
+                  <v-tooltip  
+                    top
+                  >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon color="#BB3D4D">
+                        mdi-help
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>En caso de que el pago se haya realizado en una moneda diferente a los soportes (boletas) <br> 
+                    adjuntar Estado de Cuenta/Movimientos Tarjeta de crédito detallando los montos cobrados en la moneda de pago. <br>
+                    Por ejemplo, si las boletas están en Euros pero el pago en la tarjeta de crédito fue en dólares, adjuntar <br> 
+                    movimiento detallando el pago en dólar.
+                  </span>
+                </v-tooltip>
+              </template>
+                  </v-file-input>
+                  <template>
+                    <v-row style="justify-content: flex-end;">
+                      <v-dialog
+                        v-model="dialog"
+                        :retain-focus="false"
+                        persistent
+                        max-width="290"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <div v-if="request_id" style="text-align-last: end; margin-top: -10px;">
+                            <v-chip
+                              x-small chip
+                               v-bind="attrs"
+                              v-on="on"
+                              @click="SetFilesDialog(filesDraft)"
+                            >
+                              Ver documentos guardados
+                            </v-chip>
+                          </div>
+                        </template>
+                        <v-card>
+                          <CardFiles v-if="dialog == true" :files="files_url_dialog" @getValues="setDialog" />
+                         </v-card>
+                       </v-dialog>
+                    </v-row>
+                  </template>
+                </div>
+                </v-col>
+              </v-row>
+            </v-container>
+
+            <!-- termina el item -->
           </v-card>
           
           <!-- Paso 5 -->
@@ -341,6 +361,7 @@ import DynamicForm from "~/components/expense-report/DynamicForm.vue";
 import RequestStepThree from "~/components/expense-report/RequestStepThree.vue";
 import RequestStepFive from "~/components/expense-report/RequestStepFive.vue";
 import CardFiles from "~/components/expense-report/CardFiles.vue";
+import HelpTooltip from "~/components/expense-report/HelpTooltip.vue";
 
 export default {
   components: {
@@ -350,7 +371,7 @@ export default {
     RequestStepThree,
     RequestStepFive,
     CardFiles,
-
+    HelpTooltip
 },
   props: ["requestDraft"],
   data: () => ({
@@ -662,5 +683,8 @@ export default {
 }
 .centerr {
   align-self: center !important;
+}
+.btn-close{
+  padding: 0px;
 }
 </style>

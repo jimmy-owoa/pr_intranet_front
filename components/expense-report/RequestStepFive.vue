@@ -71,8 +71,11 @@
             outlined
             v-on:change="sendData">
             <template v-slot:label>
-              <div>
-                Datos Bancarios
+              <div v-if="selectedAccounts == 'Transferencia bancaria moneda extranjera'">
+                Ingrese los datos de su cuenta bancaria en moneda extranjera  
+              </div>
+              <div v-if="selectedAccounts == 'Abono tarjeta de crédito'">
+                Ingrese los datos de tarjeta de crédito
               </div>
             </template>
           </v-textarea>
