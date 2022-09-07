@@ -91,7 +91,7 @@ export default {
     },
     goTo(request) {
       if (request.status == 'borrador'){
-        this.$router.push(`/rendicion-gastos/${request.id}`);
+        this.$router.push(`/rendicion-gastos/${request.id}/edit`);
       }else{
         this.$router.push(`/mis-rendiciones/${request.id}`);
       }
