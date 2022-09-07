@@ -57,7 +57,6 @@ export default {
     async getRequest() {
       const res = await this.fetchRequest(this.$route.params.id)
       this.request = res
-      console.log(this.request)
     },
     statusColor(status) {
       if (status == "aprobado" || status == "enviado") return "hc__color-open"

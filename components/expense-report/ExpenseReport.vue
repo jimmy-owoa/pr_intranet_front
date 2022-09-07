@@ -76,32 +76,55 @@
               Ingresar en forma separada cada documento.
             </v-alert>
             <v-flex d-flex justify-space-between>
-              <v-btn
-                class="mb-5"
-                depresse
-                color="#E8114b"
-                dark
-                @click="addNewInvoiceForm"
-              >
-                Agregar rendición
-              </v-btn>
-              <!-- <v-file-input 
-                v-if="is_local == false"
-                multiple
-                v-model="files"
-                label="Adjuntar comprobante tarjeta de credito"
-                truncate-length="15"
-              > -->
-              <div v-if="is_local == false">
-                <p style="margin:0">Subir documentos</p>
-                <input
-                  type="file" 
-                  ref="files" 
-                  multiple="true" 
-                  @change="setFiles($event.target.files)"
-                />
+              <div style="display:flex"> 
+                <v-btn
+                  class="mb-5"
+                  depresse
+                  color="#E8114b"
+                  dark
+                  @click="addNewInvoiceForm"
+                >
+                  Agregar Item
+                </v-btn>
+                <div v-if="is_local == false" style="width:300px" class="py-0">
+                  <v-file-input 
+                    v-model="files"
+                    style="padding:0px"
+                    novalidate
+                    name="files"
+                    truncate-length="14"
+                    multiple
+                    label="Adjuntar comprobante tarjeta de credito"
+                  >
+                  </v-file-input>
+                  <template>
+                    <v-row style="justify-content: flex-end;">
+                      <v-dialog
+                        v-model="dialog"
+                        :retain-focus="false"
+                        persistent
+                        max-width="290"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <div v-if="request_id" style="text-align-last: end; margin-top: -10px;">
+                            <v-chip
+                              x-small chip
+                               v-bind="attrs"
+                              v-on="on"
+                              @click="SetFilesDialog(filesDraft)"
+                            >
+                              Ver documentos guardados
+                            </v-chip>
+                          </div>
+                        </template>
+                        <v-card>
+                          <CardFiles v-if="dialog == true" :files="files_url_dialog" @getValues="setDialog" />
+                         </v-card>
+                       </v-dialog>
+                    </v-row>
+                  </template>
+                </div>
               </div>
-
                 <template v-slot:append>
                   <v-tooltip  
                     top
@@ -126,7 +149,6 @@
               </template></v-file-input>
               <v-btn class="mb-5" depresse color="success">Total Rendición:{{totalComputed}}</v-btn>
             </v-flex>
-
             <div class="panel panel-default" style="margin-bottom: 13px;">
               <div class="panel-body" v-for="(request, index) in requests" :key='request.id'>
                 <h4>Ítem n° {{ index + 1 }}</h4>
@@ -196,17 +218,40 @@
                         </v-col>
 
                         <v-col cols="12" md="4" style="margin: 1px 0px" class="py-0">
-                          <p style="margin:0px">Subir documentos</p>
-                          <input
-                            type="file"
-                            required
-                            name="myfile"
-                            @change="selectFiles(request, $event.target.files)"
-                          />
-                          
-                          <!-- <v-file-input v-model="request.file" required name="myfile" @change="selectFiles(request, $event.target.files)"
+                          <v-file-input v-model="request.file"
                             truncate-length="15"
-                          ></v-file-input>  -->
+                            novalidate
+                            name="files"
+                            multiple
+                            label="Subir documentos"
+                          >
+                        </v-file-input>
+                        <template>
+                          <v-row style="justify-content: flex-end;">
+                            <v-dialog
+                              v-model="dialog"
+                              :retain-focus="false"
+                              persistent
+                              max-width="290"
+                            >
+                              <template v-slot:activator="{ on, attrs }">
+                                <div v-if="request_id" style="text-align-last: end; margin-top: -10px;">
+                                  <v-chip
+                                    x-small chip
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    @click="SetFilesDialog(request.files_url)"
+                                  >
+                                    Ver documentos guardados
+                                  </v-chip>
+                                </div>
+                              </template>
+                              <v-card>
+                                <CardFiles v-if="dialog == true" :files="files_url_dialog" @getValues="setDialog" />
+                              </v-card>
+                            </v-dialog>
+                          </v-row>
+                        </template>
                         </v-col>
                         <v-col cols="12" md="12" class="py-0">
                           <v-text-field
@@ -240,7 +285,7 @@
                       <v-row justify="center">
                         <v-col cols="12"  md="12" class="btn-close">
                           <v-btn 
-                            @click="deleteRequestForm(index)"
+                            @click="deleteRequestForm(index, request.id)"
                             class="mx-2"
                             fab
                             dark
@@ -259,10 +304,13 @@
               </div>
             </div>
           </v-card>
-
+          
           <!-- Paso 5 -->
           <v-card class="mb-5 h-card" v-if="n == 5">
             <RequestStepFive
+              :selectedAccountsDraft="selectedAccounts"
+              :country="country"
+              :bankAccountDetailsDraft="bank_account_details"
               @getValues="setCountry"
             />
           </v-card>
@@ -292,6 +340,7 @@ import RequestSearchUser from "~/components/expense-report/RequestSearchUser.vue
 import DynamicForm from "~/components/expense-report/DynamicForm.vue";
 import RequestStepThree from "~/components/expense-report/RequestStepThree.vue";
 import RequestStepFive from "~/components/expense-report/RequestStepFive.vue";
+import CardFiles from "~/components/expense-report/CardFiles.vue";
 
 export default {
   components: {
@@ -299,11 +348,13 @@ export default {
     RequestSearchUser,
     DynamicForm,
     RequestStepThree,
-    RequestStepFive
-    
-  },
-  props:['requestDraft'],
+    RequestStepFive,
+    CardFiles,
+
+},
+  props: ["requestDraft"],
   data: () => ({
+    request_id: null,
     first_loading: true,
     show: false,
     categories: [],
@@ -312,71 +363,89 @@ export default {
     e1: 1,
     show: false,
     steps: 5,
-    response_user_request: 'Yo',
+    response_user_request: "Yo",
     totalCount: 1,
     total: 0,
-    total_format: '',
+    total_format: "",
     divisas: null,
     description: null,
     societies: [],
     requestH: {},
     files: null,
+    filesDraft: [],
     country: null,
     is_local: true,
-    selectedAccounts: 'Transferencia bancaria moneda local',
+    selectedAccounts: "Transferencia bancaria moneda local",
     bank_account_details: null,
+    files_url_dialog: [],
     requests: [
       {
+        id: null,
         categories: [],
         subtotal: 0,
         description: null,
-        file: {}
-      }
-    ]
+        file: [],
+        files_url: [],
+      },
+    ],
+    dialog: false,
   }),
   computed: {
-    totalComputed(){
-      this.total = 0
-      this.requests.forEach(request =>
-      this.total += Number(parseFloat(request.subtotal.toString().replace(/,/g, "")).toFixed(2))
+    totalComputed() {
+      this.total = 0;
+      this.requests.forEach(
+        (request) =>
+          (this.total += Number(
+            parseFloat(request.subtotal.toString().replace(/,/g, "")).toFixed(2)
+          ))
       );
-      this.total = this.total.toString().split('.'),
-      this.total[0] = this.total[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-      this.total = this.total.join('.');
-      return this.total
-    }
+      (this.total = this.total.toString().split(".")),
+        (this.total[0] = this.total[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+        (this.total = this.total.join("."));
+      return this.total;
+    },
   },
   watch: {
-    requestDraft: { 
-      handler: function(val, oldVal) {
+    requestDraft: {
+      handler: function (val, oldVal) {
         this.requestH = val;
-        console.log(this.requestH)
-        this.societies = this.requestH.society_id
-        this.description = this.requestH.description
-        this.divisas = this.requestH.divisa_id
-        this.is_local = this.requestH.is_local
-        if(this.$nuxt.$auth.user.id == this.requestH.user.user_id){
-          this.response_user_request = 'Yo'
+        this.request_id = this.$route.params.id;
+        this.filesDraft =this.requestH.files
+        this.societies = this.requestH.society_id;
+        this.description = this.requestH.description;
+        this.divisas = this.requestH.divisa_id;
+        if(this.requestH.is_local == 'true'){
+          this.is_local = true
         }else{
-          this.response_user_request = 'Otro'
+          this.is_local = false
         }
-        this.requests.shift()
-        this.requestH.invoices.forEach(e => 
+        if (this.$nuxt.$auth.user.id == this.requestH.user.user_id) {
+          this.response_user_request = "Yo";
+        } else {
+          this.response_user_request = "Otro";
+        }
+        this.requests.shift();
+        this.requestH.invoices.forEach((e) =>
           this.requests.push({
+            id: e.id,
             categories: e.category_id,
-            subtotal:  e.total,
+            subtotal: e.total,
             description: e.description,
-            file: e.file
+            files_url: e.files_url,
+            file: [],
           })
         );
-      }
-    } 
+        this.selectedAccounts = this.requestH.payment_method_id;
+        this.country = this.requestH.destination_country_id;
+        this.bank_account_details = this.requestH.bank_account_details;
+      },
+    },
   },
   created() {
     if (this.user == null) {
       this.user = this.$nuxt.$auth.user;
     }
-    this.getSocieties();
+    // this.getSocieties();
     this.getCategories();
   },
   methods: {
@@ -384,7 +453,7 @@ export default {
       "fetchSocieties",
       "fetchCategories",
       "createRequest",
-      "createRequestDraft"
+      "createRequestDraft",
     ]),
     async getSocieties() {
       const res = await this.fetchSocieties(this.user.id);
@@ -394,51 +463,73 @@ export default {
       const res = await this.fetchCategories();
       this.categories = res;
     },
-    setRequest() {
-      console.log('aqui')
-      console.log(this.requestDraft)
-      console.log()
-      console.log(this.$nuxt.$auth.user.id )
-      console.log(this.requestDraft.user.id)
-
-    },
     setFormData() {
       const formData = new FormData();
+      if (this.request_id) {
+        formData.append("request[id]", this.request_id);
+      }
       formData.append("request[user_id]", this.user.id);
-      formData.append("request[divisa_id]", this.divisas != null ? this.divisas : 'N/A');
+      formData.append(
+        "request[divisa_id]",
+        this.divisas != null ? this.divisas : "N/A"
+      );
       formData.append("request[description]", this.description);
       formData.append("request[society_id]", this.societies);
       formData.append("request[payment_method_id]", this.selectedAccounts);
-      formData.append("request[bank_account_details]", this.bank_account_details);
-      if(this.files != null){
+      formData.append(
+        "request[bank_account_details]",
+        this.bank_account_details
+      );
+      if (this.files != null) {
         for (let file of this.files) {
-          formData.append("request[files][]", file); 
-        };
+          formData.append("request[files][]", file);
+        }
       }
-      formData.append("request[destination_country_id]", this.country != null ? this.country : 'NULL');
+      formData.append(
+        "request[destination_country_id]",
+        this.country != null ? this.country : "NULL"
+      );
       formData.append("request[is_local]", this.is_local);
       for (var i = 0; i < this.requests.length; i++) {
-        formData.append(`invoice[request${i}][category_id]`,this.requests[i].categories.name);
-        formData.append(`invoice[request${i}][total]`,this.requests[i].subtotal);
-        formData.append(`invoice[request${i}][description]`, this.requests[i].description);
-        formData.append(`invoice[request${i}][file]`, this.requests[i].file);
+        formData.append(`invoice[request${i}][id]`, this.requests[i].id);
+        formData.append(
+          `invoice[request${i}][category_id]`,
+          this.requests[i].categories
+        );
+        formData.append(
+          `invoice[request${i}][total]`,
+          this.requests[i].subtotal
+        );
+        formData.append(
+          `invoice[request${i}][description]`,
+          this.requests[i].description
+        );
+        for (let file of this.requests[i].file) {
+          formData.append(`invoice[request${i}][files][]`, file);
+        }
       }
       return formData;
     },
-    updateTotal(i){
-      this.total = 0
-      this.requests.forEach(request =>
-      this.total += Number(parseFloat(request.subtotal.toString().replace(/,/g, "")).toFixed(2))
+    updateTotal(i) {
+      this.total = 0;
+      this.requests.forEach(
+        (request) =>
+          (this.total += Number(
+            parseFloat(request.subtotal.toString().replace(/,/g, "")).toFixed(2)
+          ))
       );
-      this.total = this.total.toString().split('.'),
-      this.total[0] = this.total[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-      this.total = this.total.join('.');
+      (this.total = this.total.toString().split(".")),
+        (this.total[0] = this.total[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+        (this.total = this.total.join("."));
 
-      this.requests.forEach(object =>{
-        if(object == i){
-          let partesNumero = i.subtotal.toString().split('.');
-          partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return object.subtotal = partesNumero.join('.');
+      this.requests.forEach((object) => {
+        if (object == i) {
+          let partesNumero = i.subtotal.toString().split(".");
+          partesNumero[0] = partesNumero[0].replace(
+            /\B(?=(\d{3})+(?!\d))/g,
+            ","
+          );
+          return (object.subtotal = partesNumero.join("."));
         }
       });
     },
@@ -458,7 +549,7 @@ export default {
     downStep(n) {
       this.e1 = n - 1;
     },
-    saveDraft(){  
+    saveDraft() {
       const formData = this.setFormData();
       this.submitFormRequest(formData);
     },
@@ -486,27 +577,37 @@ export default {
       return this.$swal({
         title: "Rendición de gastos creada correctamente",
         text: "Te confirmaremos por correo cuando tu rendición sea revisado",
-        icon: "success"
+        icon: "success",
       });
     },
     swalAlerDraft() {
       return this.$swal({
         title: "Se creo correctamente el borrador de la rendición",
-        text: "Puedes modificar esta rendicion desde la sección, mis rendiciones.",
-        icon: "success"
+        text: "Puedes modificar esta rendicion desde mis rendiciones.",
+        icon: "success",
       });
     },
     addNewInvoiceForm() {
       this.requests.push({
+        id: null,
         categories: [],
         subtotal: 0,
         description: null,
-        file: []
+        file: [],
+        files_url: []
       });
     },
-    deleteRequestForm(index) {
+    deleteRequestForm(index, id) {
       this.requests.splice(index, 1);
-      this.updateTotal()
+      this.updateTotal();
+      if(this.request_id){
+        this.$axios.get('/expense_report_requests/destroy_invoice?id='+id)
+        .then(resp => {   
+          })
+        .catch(error => {
+          console.log(error);
+        })
+      }
     },
     setValues(data) {
       this.description = data.description;
@@ -517,18 +618,25 @@ export default {
       this.is_local = data.is_local;
     },
     setCountry(data) {
-      this.country = data.country
-      this.selectedAccounts = data.selectedAccounts,
-      this.bank_account_details = data.bank_account_details
+      this.country = data.country;
+      (this.selectedAccounts = data.selectedAccounts),
+        (this.bank_account_details = data.bank_account_details);
     },
     selectFiles(request, fileList) {
       if (!fileList.length) return;
       request.file = fileList[0];
     },
     setFiles(file) {
-      this.files = file
+      this.files = file;
     },
-  }
+    setDialog(data){
+      this.dialog = false
+    },
+    SetFilesDialog(files){
+      this.files_url_dialog = files
+      this.dialog = true
+    }
+  },
 };
 </script>
 <style lang="css">
@@ -548,11 +656,11 @@ export default {
   margin-top: 20px;
   width: 200px;
 }
-.py-0{
+.py-0 {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
-.centerr{
+.centerr {
   align-self: center !important;
 }
 </style>

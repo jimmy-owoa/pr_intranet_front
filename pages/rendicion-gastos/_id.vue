@@ -1,7 +1,10 @@
 <template>
   <div>
+    <v-col cols="12" class="pt-0">
+      <Breadcrumbs :items="breadcrumbs" />
+    </v-col>
     <v-col cols="12" md="12" class="py-0">
-      <ExpenseReport v-if="request" :requestDraft="request" @submitForm="submitForm"/>
+      <ExpenseReport v-if="request" :requestDraft="request"/>
     </v-col>
   </div>
 </template>
@@ -36,7 +39,6 @@ import ExpenseReport from '~/components/expense-report/ExpenseReport.vue'
       methods: {
         ...mapActions("expense-report", ["fetchRequest"]),
         async getRequest() {
-          console.log('buscando')
           const res = await this.fetchRequest(this.$route.params.id)
           this.request = res
         },

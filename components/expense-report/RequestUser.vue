@@ -97,7 +97,6 @@ export default {
     },
     societiesDraft: { 
       handler: function(val, oldVal) {
-        console.log(val)
         this.selectedSociety = val;
       }
     } 

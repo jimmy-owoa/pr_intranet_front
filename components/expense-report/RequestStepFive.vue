@@ -86,6 +86,7 @@
 import { mapActions } from "vuex";
 
 export default {
+  props: ['selectedAccountsDraft', 'country', 'bankAccountDetailsDraft'],
   data: () => ({
     countries: [],
     selectedCountry: null,
@@ -94,6 +95,23 @@ export default {
     bank_account_details: [],
     accounts: []
   }),
+  watch:{
+    selectedAccountsDraft: {
+      handler: function(val, oldVal) {
+        this.selectedAccounts = val;
+      }
+    },
+    country:{
+      handler: function(val, oldVal) {
+        this.selectedCountry = val;
+      }
+    },
+    bankAccountDetailsDraft:{
+      handler: function(val, oldVal) {
+        this.bank_account_details = val;
+      }
+    }
+  },
   created() {
     this.getCountries();
     this.getAccounts();

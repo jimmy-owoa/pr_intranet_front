@@ -12,12 +12,12 @@
             <v-radio
               label="Local"
               color="#BB3D4D"
-              value='true'
+              v-bind:value=true
            ></v-radio>
            <v-radio
               label="Extanjera"
               color="#BB3D4D"
-              value='false'
+              :value=false
             ></v-radio>
           </v-radio-group>
         </div>
@@ -66,12 +66,16 @@ export default {
   data: () => ({
     divisas: [],
     seleccionado: null,
-    place_expense_report: 'true',
+    place_expense_report: true,
   }),
   watch:{
     isLocalDraft: {
       handler: function(val, oldVal) {
-        this.place_expense_report = val;
+        if(val == 'true'){
+          this.place_expense_report = true;
+        }else{
+          this.place_expense_report = false;
+        }
       }
     },
     divisasDraft:{
@@ -91,15 +95,9 @@ export default {
       this.divisas = res.filter((item) => Object.keys(item)[0] !== 'N/A')
     },
     sendData() {
-      let local = true
-      if(this.place_expense_report == 'true'){
-        local = true
-      }else{
-        local = false
-      }
       this.$emit("getValues", {
         divisa: this.seleccionado,
-        is_local: local
+        is_local: this.place_expense_report
       });
     },
     getItemText(item) {

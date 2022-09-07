@@ -56,11 +56,8 @@
     <v-col cols="12" md="3" >
       <v-row>
         <v-col cols="12" md="12" :class="paddingCardInfo()" style="margin: 3px">
-      <CardInfoA title="Crear Rendicion" icon="InteractiveIcon" url="/rendicion-gastos" />
-    </v-col>
-    <v-col cols="12" md="12" :class="paddingCardInfo()" style="margin: 3px">
-      <CardInfoA title="Rendiciones en Borrador" icon="InteractiveIcon" url="/rendicion-gasto/show" />
-    </v-col>
+          <CardInfoA title="Crear Rendicion" icon="InteractiveIcon" url="/rendicion-gastos" />
+        </v-col>
       </v-row>
     </v-col>
 
