@@ -37,9 +37,9 @@ import ExpenseReport from '~/components/expense-report/ExpenseReport.vue'
         }
       },
       methods: {
-        ...mapActions("expense-report", ["fetchRequest"]),
+        ...mapActions("expense-report", ["fetchRequestDraft"]),
         async getRequest() {
-          const res = await this.fetchRequest(this.$route.params.id)
+          const res = await this.fetchRequestDraft(this.$route.params.id)
           this.request = res
         },
       },
