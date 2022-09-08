@@ -338,11 +338,11 @@
           <v-btn color="#E8114b" style="color: white" @click="nextStep(n)" v-if="n != '5'" :disabled="(n == 2 && description == null || description == '' || n == 3 && divisas == null)">
             Continuar
           </v-btn>
-          <v-btn color="#E8114b" style="color: white" @click="saveDraft()" v-if="n == '5'">
-            Guardar Borrador
-          </v-btn>
           <v-btn color="#E8114b" dark type="submit" v-if="n == '5'">
             Enviar
+          </v-btn>
+          <v-btn color="#E8114b" style="color: white" @click="saveDraft()" v-if="n == '4' || n == '5'">
+            Guardar Borrador
           </v-btn>
           <v-btn color="#E8114b" dark  @click="downStep(n)" v-if="n != '1'">
             Volver
@@ -589,9 +589,10 @@ export default {
     },
     async submitFormRequest(request) {
       const res = await this.createRequestDraft(request);
-      if (res.success) {
+      if (res) {
         this.swalAlerDraft();
-        this.$router.push("/");
+        this.$router.push(`/rendicion-gastos/${res}/edit`);
+        window.location.reload()
       }
     },
     swalAlert() {
@@ -624,7 +625,7 @@ export default {
       if(this.request_id){
         this.$axios.get('/expense_report_requests/destroy_invoice?id='+id)
         .then(resp => {   
-          })
+        })
         .catch(error => {
           console.log(error);
         })
