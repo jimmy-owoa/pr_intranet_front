@@ -592,8 +592,11 @@ export default {
       if (res) {
         this.swalAlerDraft();
         this.$router.push(`/rendicion-gastos/${res}/edit`);
-        window.location.reload()
       }
+      setTimeout(function(){
+        window.location.reload()
+      }, 1000);
+      
     },
     swalAlert() {
       return this.$swal({
@@ -622,8 +625,8 @@ export default {
     deleteRequestForm(index, id) {
       this.requests.splice(index, 1);
       this.updateTotal();
-      if(this.request_id){
-        this.$axios.get('/expense_report_requests/destroy_invoice?id='+id)
+      if(id){
+        this.$axios.delete('/expense_report_requests/destroy_invoice?id='+id)
         .then(resp => {   
         })
         .catch(error => {

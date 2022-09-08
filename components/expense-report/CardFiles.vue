@@ -44,7 +44,7 @@
     methods: {
       deleteFile(id, index){
       if(confirm("Esta seguro/a que quiere eliminar este archivo")){
-       this.$axios.get('/expense_report_requests/destroy_file?id='+id)
+       this.$axios.delete('/expense_report_requests/destroy_file?id='+id)
           .then(resp => {
             this.files.splice(index, 1)
           })
