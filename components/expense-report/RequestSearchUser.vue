@@ -146,7 +146,6 @@ export default {
           this.$emit("selectUser", this.user)
         })
         .catch(err => {
-          console.log(err);
         })
         .finally(() => (this.isLoading = false));
     }

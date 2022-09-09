@@ -49,7 +49,6 @@ export default {
     async getDivisas() {
       const res = await this.fetchDivisas();
       this.divisas = res;
-      console.log(this.divisas);
     },
     sendData(){
       this.data = {divisa: this.divisas}
