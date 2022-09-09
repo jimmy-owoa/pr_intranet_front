@@ -664,7 +664,7 @@ export default {
       } else {
         res = await this.createRequestDraft(request);
       }
-      if (res.message == 'Request updated') {
+      if (res.message == 'Request updated' || res.message == 'Request created') {
         this.swalAlert();
         this.$router.push("/");
       }else{
