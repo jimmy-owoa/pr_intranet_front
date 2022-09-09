@@ -76,9 +76,11 @@
               <td>{{ invoice.invoice.description }}</td>
               <td>{{ invoice.invoice.total }}</td>
               <td>
-                <v-btn small v-bind:href="invoice.file">
-                  Descargar archivo
-                </v-btn>
+                <div v-for="file in invoice.files" :key="file.id">
+                  <v-btn small v-bind:href="file" style="margin: 1px">
+                    Descargar archivo
+                  </v-btn>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -126,7 +128,7 @@ export default {
     ...mapActions("expense-report", ["fetchResponseRequest"]),
     async reviwTicket() {
       const res = await this.fetchRequestState(this.$route.params.token);
-      console.log(res);
+      console.log(res)
       this.request = res;
     },
     async responseRequest(r) {

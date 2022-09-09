@@ -12,12 +12,12 @@
             <v-radio
               label="Local"
               color="#BB3D4D"
-              value="local"
+              v-bind:value=true
            ></v-radio>
            <v-radio
               label="Extanjera"
               color="#BB3D4D"
-              value="extranjera"
+              :value=false
             ></v-radio>
           </v-radio-group>
         </div>
@@ -62,11 +62,28 @@
 import { mapActions } from "vuex";
 
 export default {
+  props: ['isLocalDraft', 'divisasDraft'],
   data: () => ({
     divisas: [],
     seleccionado: null,
-    place_expense_report: 'local',
+    place_expense_report: true,
   }),
+  watch:{
+    isLocalDraft: {
+      handler: function(val, oldVal) {
+        if(val == 'true'){
+          this.place_expense_report = true;
+        }else{
+          this.place_expense_report = false;
+        }
+      }
+    },
+    divisasDraft:{
+      handler: function(val, oldVal) {
+        this.seleccionado = val;
+      }
+    }
+  },
   created() {
     this.getDivisas();
   },
@@ -75,18 +92,12 @@ export default {
 
     async getDivisas() {
       const res = await this.fetchDivisas();
-      this.divisas = res;
+      this.divisas = res.filter((item) => Object.keys(item)[0] !== 'N/A')
     },
     sendData() {
-      let local = true
-      if(this.place_expense_report == 'local'){
-        local = true
-      }else{
-        local = false
-      }
       this.$emit("getValues", {
         divisa: this.seleccionado,
-        is_local: local
+        is_local: this.place_expense_report
       });
     },
     getItemText(item) {

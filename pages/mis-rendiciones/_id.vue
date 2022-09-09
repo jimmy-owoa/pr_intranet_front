@@ -57,16 +57,15 @@ export default {
     async getRequest() {
       const res = await this.fetchRequest(this.$route.params.id)
       this.request = res
-      console.log(this.request)
     },
     statusColor(status) {
       if (status == "aprobado" || status == "enviado") return "hc__color-open"
-      else if (status === "atendiendo") return "hc__color-attended"
+      else if (status === "atendiendo" || status == "borrador") return "hc__color-attended"
       else return "hc__color-close"
     },
     statusIcon(status) {
       if (status === "aprobado" || status == "enviado") return "mdi-history"
-      else if (status === "atendiendo") return "mdi-cached"
+      else if (status === "atendiendo" || status == "borrador") return "mdi-cached"
       else return "mdi-check-all"
     },
   },

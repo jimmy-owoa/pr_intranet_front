@@ -44,7 +44,6 @@ export default {
   methods: {
     ...mapActions("helpcenter", ["createTicket"]),
     async submitForm(ticket) {
-      console.log("que hago a")
       const res = await this.createTicket(ticket)
       if (res.success) {
         this.swalAlert()
