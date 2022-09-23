@@ -69,6 +69,7 @@
           <v-checkbox
             v-model="office_checkbox"
             label="En caso de asignar el gasto de reembolso a una oficina en particular, marque aquí."
+            v-on:change="sendData"
           ></v-checkbox>
         </v-container>
       </v-col>
@@ -79,7 +80,7 @@
             :items="countries"
             label="País destino del reembolso *"
             :item-text="getItemText"
-            item-value="id"
+            :item-value="getItemValue"
             persistent-hint
             required
             v-on:change="sendData"
@@ -151,7 +152,7 @@ export default {
 
     async getCountries() {
       const res = await this.fetchCountries();
-      this.countries = res.filter((item) => Object.keys(item)[0] !== 'NULL')
+      this.countries = res.filter((item) => Object.keys(item)[0] != 'NULL')
     },
     async getAccounts() {
       const res = await this.fetchAccounts();
@@ -164,16 +165,19 @@ export default {
     getItemText(item) {
       return Object.keys(item)[0];
     },
+    getItemValue(item){
+      return Object.values(item)[0]
+    },
     sendData() {
+      if(this.office_checkbox == false){
+        this.selectedCountry = null
+      }
       this.$emit("getValues", {
         country: this.selectedCountry,
         selectedAccounts: this.selectedAccounts,
         bank_account_details: this.bank_account_details,
       });
-    },
-        getItemText(item) {
-      return Object.keys(item)[0]
-    },
+    }
   },
 };
 </script>

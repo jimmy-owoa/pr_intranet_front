@@ -116,7 +116,6 @@
                                   required
                                   persistent-hint
                                 >
-                                  <!-- <HelpTooltip/> -->
                                   <template v-slot:append>
                                     <v-tooltip top>
                                       <template
@@ -417,7 +416,6 @@ import DynamicForm from "~/components/expense-report/DynamicForm.vue";
 import RequestStepThree from "~/components/expense-report/RequestStepThree.vue";
 import RequestStepFive from "~/components/expense-report/RequestStepFive.vue";
 import CardFiles from "~/components/expense-report/CardFiles.vue";
-import HelpTooltip from "~/components/expense-report/HelpTooltip.vue";
 
 export default {
   components: {
@@ -427,7 +425,6 @@ export default {
     RequestStepThree,
     RequestStepFive,
     CardFiles,
-    HelpTooltip
   },
   props: ["requestDraft"],
   data: () => ({
@@ -722,8 +719,8 @@ export default {
     },
     setCountry(data) {
       this.country = data.country;
-      (this.selectedAccounts = data.selectedAccounts),
-        (this.bank_account_details = data.bank_account_details);
+      this.selectedAccounts = data.selectedAccounts,
+      this.bank_account_details = data.bank_account_details;
     },
     selectFiles(request, fileList) {
       if (!fileList.length) return;
