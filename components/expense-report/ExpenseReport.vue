@@ -719,8 +719,8 @@ export default {
     },
     setCountry(data) {
       this.country = data.country;
-      (this.selectedAccounts = data.selectedAccounts),
-        (this.bank_account_details = data.bank_account_details);
+      this.selectedAccounts = data.selectedAccounts,
+      this.bank_account_details = data.bank_account_details;
     },
     selectFiles(request, fileList) {
       if (!fileList.length) return;

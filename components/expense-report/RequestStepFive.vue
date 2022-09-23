@@ -69,6 +69,7 @@
           <v-checkbox
             v-model="office_checkbox"
             label="En caso de asignar el gasto de reembolso a una oficina en particular, marque aquí."
+            v-on:change="sendData"
           ></v-checkbox>
         </v-container>
       </v-col>
@@ -168,12 +169,15 @@ export default {
       return Object.values(item)[0]
     },
     sendData() {
+      if(this.office_checkbox == false){
+        this.selectedCountry = null
+      }
       this.$emit("getValues", {
         country: this.selectedCountry,
         selectedAccounts: this.selectedAccounts,
         bank_account_details: this.bank_account_details,
       });
-    },
+    }
   },
 };
 </script>
