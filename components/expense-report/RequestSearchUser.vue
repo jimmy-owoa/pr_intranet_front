@@ -40,7 +40,7 @@
 
         <v-col cols="12" md="4" v-if="this.user != null">
           <v-text-field
-            v-model="user.id_exa_boss"
+            v-model="user.supervisor"
             label="Supervisor"
             required
             disabled
