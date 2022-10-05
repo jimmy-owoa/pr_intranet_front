@@ -28,7 +28,7 @@
 
         <v-col cols="12" md="4">
           <v-text-field
-            v-model="user.id_exa_boss"
+            v-model="user.supervisor"
             label="Supervisor"
             disabled
           ></v-text-field>
