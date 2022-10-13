@@ -86,12 +86,24 @@
           </tbody>
         </template>
       </v-simple-table>
-          <div class="t-center">
-            <v-btn small color="success" @click="responseRequest(true)">
-              Aceptar
+      <div v-if="request.files.length" >
+        <p class="text-center text-h6 pt-5" font>
+          <strong style="margin-top: 20px;">Comprobante tarjeta de crédito</strong>
+        </p>
+        <div class="d-flex" style="display:block; overflow:auto;">
+          <div v-for="file in (request.files)" :key="file.id">
+            <v-btn small v-bind:href="file.url" style="margin: 1px">
+              {{file.id + ') Descargar archivo'}}
             </v-btn>
-            <v-btn small @click="responseRequest(false)"> Rechazar </v-btn>
           </div>
+        </div>
+      </div>
+      <div class="t-center">
+        <v-btn small color="success" @click="responseRequest(true)">
+          Aceptar
+        </v-btn>
+        <v-btn small @click="responseRequest(false)"> Rechazar </v-btn>
+      </div>
     </v-card>
 
     <!-- Skeleton progress circular -->
