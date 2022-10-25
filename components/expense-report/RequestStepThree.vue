@@ -15,7 +15,7 @@
               v-bind:value=true
            ></v-radio>
            <v-radio
-              label="Extanjera"
+              label="Extranjera"
               color="#BB3D4D"
               :value=false
             ></v-radio>
