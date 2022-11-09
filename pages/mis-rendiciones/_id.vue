@@ -92,7 +92,7 @@
                     <v-btn 
                       class="ml-0" 
                       color="success"
-                      :disabled="!message.content.length || loading"
+                      :disabled="!message.content.length || loading || this.request.status == 'resuelto'"
                       @click="handleCreateMessage()"
                     >
                       <v-progress-circular
