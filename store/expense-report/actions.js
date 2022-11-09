@@ -141,4 +141,12 @@ export async function fetchRequestState({ commit }, payload){
     } finally {
     }
   }
-  
+  export async function createMessage({ commit }, payload) {
+    try {
+      const { data } = await this.$axios.post(`/chat_messages/`, payload)
+      return data
+    } catch (e) {
+      return false
+    } 
+    finally {}
+  }
