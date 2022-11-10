@@ -4,7 +4,7 @@
       <Breadcrumbs :items="breadcrumbs" />
     </v-col>
     <v-col cols="12">
-      <v-card rounded="lg">
+      <v-card rounded="lg" style="padding: 10px;">
         <v-card-text>
           <v-row>
             <v-col cols="10">
@@ -20,6 +20,97 @@
             </v-col>
           </v-row>
         </v-card-text>
+
+        <v-row style="background-color: #fff8f8; margin: 20px; border-radius: 5px;" v-if="loaded && this.request.messages.length">
+          <v-col md="12">
+            <h2 class="title ma-0 hc__blue-text">Chat</h2>
+          </v-col>
+          <v-col md="12" style="max-height: 300px;overflow: auto;">
+            <div class="div" v-for="message in this.request.messages" :key="message.id" >
+              <v-row v-if="message.user.id == request.assistant">
+                <v-col md="4">
+                  <div class="message-box">
+                    <span>{{message.message}}</span>
+                    <br>
+                    <div v-if="message.files.length">
+                      <v-btn small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
+                        Descargar archivo
+                      </v-btn>
+                    </div>
+                    <br>
+                    <span style="font-size: 12px;">{{message.user.name}} - {{message.created_at}}</span>
+                  </div>
+                </v-col>
+              </v-row>
+              <v-row v-else justify="end">
+                <v-col md="4">
+                  <div class="message-box-end">
+                    <span>{{message.message}}</span>
+                    <div v-if="message.files.length">
+                      <v-btn small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
+                        Descargar archivo
+                      </v-btn>
+                    </div>
+                    <br>
+                    <span style="font-size: 12px;">{{message.user.name}} - {{message.created_at}}</span>
+                  </div>
+                </v-col>
+              </v-row>
+            </div>
+          </v-col>
+          <v-col md="12">
+            <div class="send-message-box">
+            <v-form>
+              <v-card-text>
+                <v-layout row wrap>
+                  <v-flex xs11 md11>
+                    <v-textarea
+                      v-model="message.content"
+                      label="Mensaje"
+                      placeholder="Escribe tu mensaje..."
+                      auto-grow
+                      outline
+                      rows="2"
+                      color="success"
+                      hide-details
+                    ></v-textarea>
+                  </v-flex>
+
+                  <v-flex xs1 md1 align-self-center text-center>
+                    <v-file-input
+                      v-model="message.files"
+                      hide-input
+                      multiple
+                      truncate-length="15"
+                    ></v-file-input>
+                  </v-flex>
+
+                  <v-flex xs12 md12>
+                    <p v-if="this.message.files.length === 1" class="my-auto">{{ this.message.files.length }} archivo adjunto </p>
+                    <p v-else class="my-auto">{{ this.message.files.length }} archivos adjuntos </p>
+
+                    <v-btn 
+                      class="ml-0" 
+                      color="success"
+                      :disabled="!message.content.length || loading || this.request.status == 'resuelto'"
+                      @click="handleCreateMessage()"
+                    >
+                      <v-progress-circular
+                        :size="20"
+                        indeterminate
+                        color="success"
+                        class="mr-1"
+                        v-show="loading"
+                      ></v-progress-circular>
+                      Responder
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
+              </v-card-text>
+            </v-form>
+          </div>
+          </v-col>
+        </v-row>
       </v-card>
     </v-col>
   </v-row>
@@ -35,6 +126,12 @@ export default {
   },
   data: () => ({
     request: {},
+    loaded: false,
+    message: {
+      content: '',
+      files: []
+    },
+    loading: false,
   }),
   computed: {
     breadcrumbs() {
@@ -53,10 +150,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions("expense-report", ["fetchRequest"]),
+    ...mapActions("expense-report", ["fetchRequest", "createMessage"]),
     async getRequest() {
       const res = await this.fetchRequest(this.$route.params.id)
       this.request = res
+      this.loaded = true;
     },
     statusColor(status) {
       if (status == "aprobado" || status == "enviado") return "hc__color-open"
@@ -67,6 +165,31 @@ export default {
       if (status === "aprobado" || status == "enviado") return "mdi-history"
       else if (status === "atendiendo" || status == "borrador") return "mdi-cached"
       else return "mdi-check-all"
+    },
+    
+    async handleCreateMessage() {
+      this.loading = true
+      const formData = this.setFormData()
+      const payload = formData
+      const res = await this.createMessage(payload)
+
+      if (res.success) {
+        this.message.content = ""
+        this.message.files = []
+        this.getRequest()
+      }
+      
+      this.loading = false
+    },
+    setFormData() {
+      const formData = new FormData()
+      formData.append("message[message]", this.message.content)
+      formData.append("request_id", this.request.id)
+      formData.append("message[user_id]", this.$nuxt.$auth.user.id)
+      for (let file of this.message.files) {
+        formData.append("message[files][]", file);
+      }
+      return formData
     },
   },
   created() {
@@ -92,5 +215,33 @@ export default {
 
 .hc__color-close {
   color:#4caf50 !important
+}
+.chat-box{
+  background-color: #e9e9e9;
+  padding: 40px;
+  margin: 10px 50px;
+  border-radius: 20px;
+  height: 400px;
+}
+.message-box{
+  background-color: rgb(85, 85, 85);
+  border-radius: 0px 15px 15px 15px;
+  padding: 15px 10px;
+  color:white; 
+}
+.message-box-end{
+  background-color: rgb(38, 79, 123);
+  border-radius: 15px 0px 15px 15px;
+  padding: 15px 10px;
+  color:white; 
+}
+.send-message-box{
+  background: white;
+  width: 100%;
+  padding: 0px 20px;
+  border-radius: 5px;
+}
+.container-message{
+  height: 70%;
 }
 </style>
