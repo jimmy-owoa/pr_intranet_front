@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   props: ["selectUser", 'descriptionDraft', 'societiesDraft'],
   data: () => ({
@@ -88,6 +88,7 @@ export default {
   created() {
     this.user = this.$nuxt.$auth.user;
     this.getSocieties();
+    this.getUser();
   },
   watch:{
     descriptionDraft: { 
@@ -102,7 +103,12 @@ export default {
     } 
   },
   methods: {
-    ...mapActions("expense-report", ["fetchSocieties"]),
+    ...mapActions("expense-report", ["fetchSocieties", "fetchRequestUser"]),
+    ...mapMutations("expense-report", ["setUser"]),
+    async getUser() {
+      const res = await this.fetchRequestUser();
+      this.setUser(res);
+    },
     async getSocieties() {
       const res = await this.fetchSocieties(this.user.id);
       this.societies = res;

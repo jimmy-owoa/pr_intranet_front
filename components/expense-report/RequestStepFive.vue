@@ -13,54 +13,65 @@
             v-on:change="sendData"
         ></v-autocomplete>
       </v-col>
-      <v-col cols="12" md="8" v-if="selectedAccounts == 'Transferencia bancaria moneda local'">
-        <div class="d-flex" style="width: 100%;">
-          <v-col cols="4"> 
-            <v-text-field
-            disabled
-            outlined
-            label="Banco"
-            v-model="userAccounts.bank_name">
-            </v-text-field>
-          </v-col>
-          <v-col cols="4"> 
-            <v-text-field
-            disabled
-            outlined
-            label="Tipo de cuenta"
-            v-model="userAccounts.account_type">
-            </v-text-field>
-          </v-col>
-          <v-col cols="4"> 
-            <v-text-field
-            disabled
-            outlined
-            label="Número de cuenta"
-            v-model="userAccounts.account_number">
-            </v-text-field>
-          </v-col>
-        </div>
-      </v-col>
-      <v-col cols="12" md="8" v-if="selectedAccounts != 'Transferencia bancaria moneda local'">
-        <div class="d-flex" style="width: 100%;">
-          <v-col cols="12"> 
-            <v-textarea height="100px"
-              v-model="bank_account_details"
-              persistent-hint
+        <v-col cols="12" md="8" v-if="selectedAccounts == 'Transferencia bancaria moneda local'">
+            <div class="d-flex" style="width: 100%;" v-if="getUserAccount">
+            <v-col cols="4"> 
+              <v-text-field
+              disabled
               outlined
-              v-on:change="sendData">
-              <template v-slot:label>
-                <div v-if="selectedAccounts == 'Transferencia bancaria moneda extranjera'">
-                  Ingrese los datos de su cuenta bancaria en moneda extranjera  
-                </div>
-                <div v-if="selectedAccounts == 'Abono tarjeta de crédito'">
-                  Ingrese los datos de tarjeta de crédito
-                </div>
-              </template>
-            </v-textarea>
-          </v-col>
-        </div>
-      </v-col >
+              label="Banco"
+              v-model="getUserAccount.bank_name">
+              </v-text-field>
+            </v-col>
+            <v-col cols="4"> 
+              <v-text-field
+              disabled
+              outlined
+              label="Tipo de cuenta"
+              v-model="getUserAccount.account_type">
+              </v-text-field>
+            </v-col>
+            <v-col cols="4"> 
+              <v-text-field
+              disabled
+              outlined
+              label="Número de cuenta"
+              v-model="getUserAccount.account_number">
+              </v-text-field>
+            </v-col>
+          </div>
+          <div v-else>
+            <v-col cols="12" md="8">
+              <v-text-field
+                value="No hay registros de datos bancarios"
+                label="Datos bancarios"
+                outlined
+                disabled
+              ></v-text-field>
+            </v-col>
+          </div>
+
+        </v-col>
+        <v-col cols="12" md="8" v-if="selectedAccounts != 'Transferencia bancaria moneda local'">
+          <div class="d-flex" style="width: 100%;">
+            <v-col cols="12"> 
+              <v-textarea height="100px"
+                v-model="bank_account_details"
+                persistent-hint
+                outlined
+                v-on:change="sendData">
+                <template v-slot:label>
+                  <div v-if="selectedAccounts == 'Transferencia bancaria moneda extranjera'">
+                    Ingrese los datos de su cuenta bancaria en moneda extranjera  
+                  </div>
+                  <div v-if="selectedAccounts == 'Abono tarjeta de crédito'">
+                    Ingrese los datos de tarjeta de crédito
+                  </div>
+                </template>
+              </v-textarea>
+            </v-col>
+          </div>
+        </v-col >
       <v-col cols="12" md="12" class="">
         <v-container
           class="px-0 center-cols"
@@ -107,7 +118,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   props: ['selectedAccountsDraft', 'country', 'bankAccountDetailsDraft'],
@@ -115,7 +126,6 @@ export default {
     countries: [],
     selectedCountry: null,
     selectedAccounts: 'Transferencia bancaria moneda local',
-    userAccounts: [],
     bank_account_details: [],
     accounts: [],
     office_checkbox: false,
@@ -142,21 +152,19 @@ export default {
   },
   created() {
     this.getCountries();
-    this.getAccounts();
     this.getPaymentMethod();
   },
   mounted(){
   },
+  computed: {
+    ...mapGetters("expense-report", ["getUser", "getUserAccount"])
+  },
   methods: {
-    ...mapActions("expense-report", ["fetchCountries", "fetchAccounts", "fetchPaymentMethod"]),
-
+    ...mapActions("expense-report", ["fetchCountries", "fetchPaymentMethod"]),
+    
     async getCountries() {
       const res = await this.fetchCountries();
       this.countries = res.filter((item) => Object.keys(item)[0] != 'NULL')
-    },
-    async getAccounts() {
-      const res = await this.fetchAccounts();
-      this.userAccounts = res;
     },
     async getPaymentMethod() {
       const res = await this.fetchPaymentMethod();
