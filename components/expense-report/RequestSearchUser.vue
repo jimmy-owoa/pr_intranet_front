@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   data: () => ({
     isLoading: false,
@@ -105,6 +105,7 @@ export default {
   },
   methods: {
     ...mapActions("expense-report", ["fetchDivisas", "fetchSocieties"]),
+    ...mapMutations("expense-report", ["setUser"]),
     async getSocieties() {
       if(this.user != null){
         const res = await this.fetchSocieties(this.user.id);
@@ -124,6 +125,7 @@ export default {
      },
     updateUser(user) {
       this.user = user;
+      this.setUser(user);
       if(user != null){
         this.getSocieties(user.id)
         this.selectedSociety = this.user.society

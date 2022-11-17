@@ -122,19 +122,18 @@ export async function fetchRequestState({ commit }, payload){
   
     }
   }
-  export async function fetchAccounts({ commit }) {
+  export async function fetchPaymentMethod({ commit }) {
     try {
-      const { data } = await this.$axios.get("expense_report_requests/accounts")
+      const { data } = await this.$axios.get("expense_report_requests/payment_method")
       return data
     } catch (e) {
       return false
     } finally {
-  
     }
   }
-  export async function fetchPaymentMethod({ commit }) {
+  export async function fetchRequestUser({ commit }) {
     try {
-      const { data } = await this.$axios.get("expense_report_requests/payment_method")
+      const { data } = await this.$axios.get("expense_report_requests/request_user")
       return data
     } catch (e) {
       return false
