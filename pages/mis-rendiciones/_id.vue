@@ -57,7 +57,7 @@
               </v-row>
             </div>
           </v-col>
-          <v-col md="12">
+          <v-col md="12" v-if="this.request.status != 'resuelto'">
             <div class="send-message-box">
             <v-form>
               <v-card-text>
@@ -232,6 +232,7 @@ export default {
 .message-box-end{
   background-color: rgb(38, 79, 123);
   border-radius: 15px 0px 15px 15px;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   padding: 15px 10px;
   color:white; 
 }
