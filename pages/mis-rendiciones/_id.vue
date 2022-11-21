@@ -45,11 +45,11 @@
                 <v-col md="4">
                   <div class="message-box-end">
                     <span>{{message.message}}</span>
-                    <div v-if="message.files.length">
-                      <v-btn small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
-                        Descargar archivo
-                      </v-btn>
-                    </div>
+                      <span v-if="message.files.length">
+                        <v-btn icon small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
+                          <v-icon color="white"> mdi-file-download</v-icon>
+                        </v-btn>
+                      </span>
                     <br>
                     <span style="font-size: 12px;">{{message.user.name}} - {{message.created_at}}</span>
                   </div>
