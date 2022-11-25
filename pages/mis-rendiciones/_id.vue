@@ -31,12 +31,11 @@
                 <v-col md="4">
                   <div class="message-box">
                     <span>{{message.message}}</span>
-                    <br>
-                    <div v-if="message.files.length">
-                      <v-btn small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
-                        Descargar archivo
+                    <span v-if="message.files.length">
+                      <v-btn icon small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
+                        <v-icon color="#BB3D4D"> mdi-file-download</v-icon>
                       </v-btn>
-                    </div>
+                    </span>
                     <br>
                     <span style="font-size: 12px;">{{message.user.name}} - {{message.created_at}}</span>
                   </div>
@@ -46,11 +45,11 @@
                 <v-col md="4">
                   <div class="message-box-end">
                     <span>{{message.message}}</span>
-                    <div v-if="message.files.length">
-                      <v-btn small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
-                        Descargar archivo
-                      </v-btn>
-                    </div>
+                      <span v-if="message.files.length">
+                        <v-btn icon small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
+                          <v-icon color="white"> mdi-file-download</v-icon>
+                        </v-btn>
+                      </span>
                     <br>
                     <span style="font-size: 12px;">{{message.user.name}} - {{message.created_at}}</span>
                   </div>
@@ -58,7 +57,7 @@
               </v-row>
             </div>
           </v-col>
-          <v-col md="12">
+          <v-col md="12" v-if="this.request.status != 'resuelto'">
             <div class="send-message-box">
             <v-form>
               <v-card-text>
@@ -224,14 +223,16 @@ export default {
   height: 400px;
 }
 .message-box{
-  background-color: rgb(85, 85, 85);
+  background-color: white;
   border-radius: 0px 15px 15px 15px;
   padding: 15px 10px;
-  color:white; 
+  color:black; 
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
 }
 .message-box-end{
   background-color: rgb(38, 79, 123);
   border-radius: 15px 0px 15px 15px;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   padding: 15px 10px;
   color:white; 
 }
