@@ -11,6 +11,7 @@
               <p class="title ma-0 hc__blue-text">Rendición de gastos n°{{ this.request.id}}</p>
               <p class="mt-2">Descripción: {{ this.request.description }}</p>
               <p class="">Monto total: {{ this.request.divisa_id }} {{ this.request.total }}</p>
+              <p>Fecha de pago: {{this.request.payment_date}}</p>
             </v-col>
             <v-col cols="2" class="d-flex justify-content-center">
               <p :class="`ma-0 ${statusColor(this.request.status)}`">
