@@ -37,8 +37,8 @@
           </v-col>
         </v-row>
         <p class="caption">Caso creado el {{ request.request_date }}</p>
-        <p class="text-center text-h6" font>
-          <strong>Descripción</strong>
+        <p style="margin-top: 10px" font>
+         Descripción
         </p>
         <div class="description-box">
           <p>{{ request.request.description }}</p>
@@ -104,6 +104,10 @@
         </v-btn>
         <v-btn small @click="responseRequest(false)"> Rechazar </v-btn>
       </div>
+
+      <br>
+      <TablePendingRequests :requests="request.requests"></TablePendingRequests>
+
     </v-card>
 
     <!-- Skeleton progress circular -->
@@ -125,7 +129,12 @@
 
 <script>
 import { mapActions } from "vuex";
+import TablePendingRequests from '~/components/expense-report/TablePendingRequests.vue'
+
 export default {
+  components: {
+    TablePendingRequests,
+  },
   data() {
     return {
       request: {},
@@ -140,7 +149,6 @@ export default {
     ...mapActions("expense-report", ["fetchResponseRequest"]),
     async reviwTicket() {
       const res = await this.fetchRequestState(this.$route.params.token);
-      console.log(res)
       this.request = res;
     },
     async responseRequest(r) {
