@@ -149,3 +149,13 @@ export async function fetchRequestState({ commit }, payload){
     } 
     finally {}
   }
+
+  export async function destroyRequest({ commit }, id) {
+    try {
+      const { data } = await this.$axios.delete(`/expense_report_requests/${id}`)
+      return data
+    } catch (e) {
+      return false
+    } 
+    finally {}
+  }

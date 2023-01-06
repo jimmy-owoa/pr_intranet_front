@@ -45,6 +45,18 @@
                     </v-icon>
                     {{ request.status }}
                   </p>
+                  <p v-if="request.status == 'borrador'">
+                    <v-btn
+                      :loading="loading"
+                      class="ma-1"
+                      color="error"
+                      plain
+                      small
+                      @click.stop="removeRequest(request.id )"
+                    >
+                      Eliminar
+                    </v-btn>
+                  </p>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -84,7 +96,7 @@ export default {
     status: ["Todos", "Enviado", "Aprobado", "Atendiendo", "Resuelto", "Borrador"]
   }),
   methods: {
-    ...mapActions("expense-report", ["fetchRequests"]),
+    ...mapActions("expense-report", ["fetchRequests", "destroyRequest"]),
     async getRequests(status = "Todos") {
       const res = await this.fetchRequests(status);
       this.requests = res;
@@ -108,6 +120,21 @@ export default {
     },
     paddingCardInfo() {
       return this.$vuetify.breakpoint.smAndDown ? "pt-3" : "py-0";
+    },
+    removeRequest(id){
+      this.destroyRequest(id).then(res => {
+        if (res.success) {
+          this.swalAlert();
+          this.$router.push("/");
+        }
+      });
+    },
+    swalAlert() {
+      return this.$swal({
+        title: "Borrador Eliminado Correctamente",
+        text: "",
+        icon: "success"
+      });
     },
   },
   created() {
