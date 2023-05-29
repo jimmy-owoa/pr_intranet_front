@@ -89,7 +89,7 @@
           Volver
         </v-btn>
 
-        <v-btn type="submit" dark color="#E8114b">
+        <v-btn type="submit" dark color="#E8114b" :disabled="isButtonDisabled">
           Crear caso
         </v-btn>
       </form>
@@ -112,6 +112,7 @@ export default {
   data: () => ({
     categories: [],
     category_id: null,
+    isButtonDisabled: false
   }),
   props: {
     ticket: { type: Object, required: true },
@@ -164,6 +165,10 @@ export default {
     },
     handleSubmitForm() {
       this.$v.$touch()
+      this.isButtonDisabled = true;
+      setTimeout(() => {
+        this.isButtonDisabled = false;
+      }, 3000);
       if (this.$v.$invalid) return
       const formData = this.setFormData()
       this.$emit("submitForm", formData)

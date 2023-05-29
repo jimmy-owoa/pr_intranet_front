@@ -72,20 +72,7 @@
             <v-alert border="top" colored-border type="info" elevation="1">
               Ingresar en forma separada cada documento.
             </v-alert>
-            <v-flex d-flex justify-space-between>
-              <div style="display:flex">
-                <v-btn
-                  class="mb-5"
-                  depresse
-                  color="#E8114b"
-                  dark
-                  @click="addNewInvoiceForm"
-                >
-                  Agregar Item
-                </v-btn>
-              </div>
-              <!-- </v-file-input> -->
-            </v-flex>
+
             <!-- empieza el item el item -->
             <v-container>
               <v-row no-gutters>
@@ -178,9 +165,9 @@
                                 <v-file-input
                                   v-model="request.file"
                                   truncate-length="15"
-                                  novalidate
                                   name="files"
                                   multiple
+                                  required
                                   label="Subir documentos"
                                 >
                                 </v-file-input>
@@ -293,7 +280,6 @@
                     <v-file-input
                       v-model="files"
                       style="padding:0px; margin: auto"
-                      novalidate
                       class="m-auto"
                       name="files"
                       truncate-length="14"
@@ -359,6 +345,23 @@
                     </template>
                   </div>
                 </v-col>
+                <v-flex d-flex justify-space-between>
+              <div style="display:flex">
+                <v-btn
+                  class="mb-5"
+                  depresse
+                  color="success"
+                  dark
+                  @click="addNewInvoiceForm"
+                >
+                  Agregar Gasto
+                  <v-icon>
+                     mdi-plus
+                   </v-icon>
+                </v-btn>
+              </div>
+              <!-- </v-file-input> -->
+            </v-flex>
               </v-row>
             </v-container>
 
@@ -459,10 +462,12 @@ export default {
         subtotal: 0,
         description: null,
         file: [],
-        files_url: []
+        files_url: [],
+        index: 1
       }
     ],
-    dialog: false
+    dialog: false,
+    requestIndex: 1
   }),
   computed: {
     totalComputed() {
@@ -477,7 +482,7 @@ export default {
         (this.total[0] = this.total[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
         (this.total = this.total.join("."));
       return this.total;
-    }
+    },
   },
   watch: {
     requestDraft: {
@@ -545,10 +550,7 @@ export default {
         formData.append("request[id]", this.request_id);
       }
       formData.append("request[user_id]", this.user.id);
-      formData.append(
-        "request[divisa_id]",
-        this.divisas != null ? this.divisas : "N/A"
-      );
+      formData.append("request[divisa_id]", this.divisas != null ? this.divisas : "N/A");
       formData.append("request[description]", this.description);
       formData.append("request[society_id]", this.societies);
       formData.append("request[payment_method_id]", this.selectedAccounts);
@@ -612,8 +614,6 @@ export default {
       });
     },
     handleSubmitForm() {
-      // this.$v.$touch();
-      // if (this.$v.$invalid) return;
       let state = "envoy";
       if(this.request_id){
         const formData = this.setFormData(state);
@@ -624,6 +624,12 @@ export default {
       }
     },
     nextStep(n) {
+      if (n === 4){
+        if(this.checkFiles() === false){
+          this.swalAlertNotFiles(this.requestIndex); 
+          return;
+        }
+      }
       if (n === this.steps) {
         this.e1 = 1;
       } else {
@@ -687,14 +693,23 @@ export default {
         icon: "success"
       });
     },
+    swalAlertNotFiles(index) {
+      return this.$swal({
+        title: `Adjuntar documento en Item n° ${index}`,
+        text: "Favor revisar los gastos y adjuntar los documentos necesarios",
+        icon: "warning"
+      });
+    },
     addNewInvoiceForm() {
+      const newIndex = this.requests.length + 1; 
       this.requests.push({
         id: null,
         categories: [],
         subtotal: 0,
         description: null,
         file: [],
-        files_url: []
+        files_url: [],
+        index: newIndex
       });
     },
     deleteRequestForm(index, id) {
@@ -735,6 +750,18 @@ export default {
     SetFilesDialog(files) {
       this.files_url_dialog = files;
       this.dialog = true;
+    },
+    checkFiles(){
+      let hasFiles = true
+
+      this.requests.forEach((request) => {
+      if (!request.file || request.file.length === 0) {
+        hasFiles = false;
+        this.requestIndex = request.index;
+        return;
+        }
+      });
+      return hasFiles
     }
   }
 };

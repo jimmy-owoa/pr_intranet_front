@@ -1,5 +1,5 @@
 <template>
-  <v-div>
+  <div>
     <v-row class="center">
       <v-col cols="12">
         <h3>Rendición</h3>
@@ -55,7 +55,7 @@
         </v-autocomplete>
       </v-col>
     </v-row>
-  </v-div>
+  </div>
 </template>
 
 <script>
