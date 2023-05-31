@@ -391,7 +391,7 @@
           >
             Continuar
           </v-btn>
-          <v-btn color="#E8114b" dark type="submit" v-if="n == '5'">
+          <v-btn color="#E8114b" style="color: white" type="submit" v-if="n == '5'" :disabled="isButtonDisabled">
             Enviar
           </v-btn>
           <v-btn
@@ -467,7 +467,8 @@ export default {
       }
     ],
     dialog: false,
-    requestIndex: 1
+    requestIndex: 1,
+    isButtonDisabled: false
   }),
   computed: {
     totalComputed() {
@@ -615,6 +616,10 @@ export default {
     },
     handleSubmitForm() {
       let state = "envoy";
+      this.isButtonDisabled = true;
+      setTimeout(() => {
+        this.isButtonDisabled = false;
+      }, 3000);
       if(this.request_id){
         const formData = this.setFormData(state);
         this.submitFormRequest(formData);

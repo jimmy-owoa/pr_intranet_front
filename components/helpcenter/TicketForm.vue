@@ -89,7 +89,7 @@
           Volver
         </v-btn>
 
-        <v-btn type="submit" dark color="#E8114b" :disabled="isButtonDisabled">
+        <v-btn type="submit" style="color:white" color="#E8114b" :disabled="isButtonDisabled">
           Crear caso
         </v-btn>
       </form>
