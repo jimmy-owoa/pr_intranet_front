@@ -76,19 +76,20 @@
             <!-- empieza el item el item -->
             <v-container>
               <v-row no-gutters>
-                <v-col cols="12" sm="6" md="8">
+                <v-col cols="12" sm="6" md="9">
                   <div class="panel panel-default" style="margin-bottom: 13px;">
                     <div
                       class="panel-body"
                       v-for="(request, index) in requests"
                       :key="request.id"
                     >
-                      <h4>Ítem n° {{ index + 1 }}</h4>
+                      <h4>Gasto n° {{ index + 1 }}</h4>
                       <v-card
                         dense
                         outlined
                         type="error"
-                        style="margin: 5px; padding: 20px"
+                        class="my-2"
+                        style="padding: 20px"
                       >
                         <v-row>
                           <v-col cols="11">
@@ -262,21 +263,33 @@
                   </div>
                 </v-col>
                 <v-col
-                  cols="6"
-                  md="4"
+                  cols="12"
+                  md="3"
                   style="text-align: center; margin-top: 30px"
                 >
-                  <v-btn class="mb-5" depresse color="success"
-                    >Total Rendición:{{ totalComputed }}</v-btn
-                  >
-                  <div
-                    v-if="is_local == false"
-                    style="width:300px; margin:auto; margin-top:15px"
-                    class="py-0"
-                  >
-                    <h4 class="font-weight-regular" style="margin-bottom:15px">
+                  <v-card  
+                    dense
+                    outlined
+                    type="error"
+                    class="mx-2 py-5"
+                    tyle="padding: 20px">
+
+                    <span>Cantidad de gastos: {{ totalGastos }} </span>
+                    <h3> Total a Rendir: {{ totalComputed }}</h3>
+                  </v-card>
+
+                  <v-card  
+                    dense
+                    outlined
+                    type="error"
+                    class="mx-2 my-2 py-5"
+                    tyle="padding: 20px"
+                    v-if="is_local == false">
+                    <div
+                    >
+                    <h5 class="font-weight-regular" style="margin-bottom: 10px;">
                       Adjuntar comprobante tarjeta de credito
-                    </h4>
+                    </h5>
                     <v-file-input
                       v-model="files"
                       style="padding:0px; margin: auto"
@@ -344,6 +357,9 @@
                       </v-row>
                     </template>
                   </div>
+                  </v-card>
+                
+
                 </v-col>
                 <v-flex d-flex justify-space-between>
               <div style="display:flex">
@@ -483,6 +499,13 @@ export default {
         (this.total[0] = this.total[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
         (this.total = this.total.join("."));
       return this.total;
+    },
+    totalGastos() {
+      if (this.requests) {
+        return this.requests.length;
+      } else {
+        return 0;
+      }
     },
   },
   watch: {
@@ -700,7 +723,7 @@ export default {
     },
     swalAlertNotFiles(index) {
       return this.$swal({
-        title: `Adjuntar documento en Item n° ${index}`,
+        title: `Adjuntar documento en Gasto n° ${index}`,
         text: "Favor revisar los gastos y adjuntar los documentos necesarios",
         icon: "warning"
       });
