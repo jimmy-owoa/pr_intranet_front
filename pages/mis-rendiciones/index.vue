@@ -47,7 +47,6 @@
                   </p>
                   <p v-if="request.status == 'borrador'">
                     <v-btn
-                      :loading="loading"
                       class="ma-1"
                       color="error"
                       plain

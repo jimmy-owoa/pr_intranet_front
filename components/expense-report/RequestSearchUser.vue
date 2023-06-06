@@ -29,7 +29,7 @@
           ></v-text-field>
         </v-col>
 
-        <v-col cols="12" md="3" class="pt-33" v-if="this.user != null">
+        <v-col cols="12" sm="3" md="3" class="pt-33" v-if="this.user != null">
           <v-text-field
             v-model="user.email"
             label="Correo electrónico"
