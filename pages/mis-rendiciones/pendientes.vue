@@ -73,7 +73,6 @@ export default {
     async getRequests() {
       const res = await this.fetchPendingRequests();
       this.requests = res;
-      console.log(res)
     },
     goTo(link) {
       window.open(link, "_blank");

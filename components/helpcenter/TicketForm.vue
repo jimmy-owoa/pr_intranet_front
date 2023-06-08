@@ -145,7 +145,6 @@ export default {
     ...mapActions("helpcenter", ["fetchCategories"]),
     async getCategories() {
       const res = await this.fetchCategories()
-       console.log(this.$nuxt.$auth.user)
       this.categories = res
 
       if (this.$route.query.category) {

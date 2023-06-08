@@ -163,7 +163,6 @@ export default {
     async getRequest() {
       const res = await this.fetchRequest(this.$route.params.id)
       this.request = res
-      console.log(res)
       this.loaded = true;
     },
     statusColor(status) {
