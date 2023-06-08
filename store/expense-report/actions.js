@@ -159,3 +159,12 @@ export async function fetchRequestState({ commit }, payload){
     } 
     finally {}
   }
+  export async function fetchPendingRequests({ commit }) {
+    try {
+      const { data } = await this.$axios.get("expense_report_requests/pending_requests")
+      return data
+    } catch (e) {
+      return false
+    } finally {
+    }
+  }

@@ -46,6 +46,13 @@
           url="/mis-casos"
         />
       </v-col>
+      <v-col cols="12" md="3" v-if="is_boss()">
+        <CardInfoA
+          title="Ver mis rendiciones pendientes por aprobar"
+          icon="ListCheckIcon"
+          url="/mis-rendiciones/pendientes"
+        />
+      </v-col>
     </v-row>
 
     <!-- nuevo -->
@@ -183,6 +190,9 @@ export default {
     goTo() {
       this.$router.push({ name: "crear-caso", params: { category: "hola" } });
     },
+    is_boss(){
+      return this.$auth.user.is_boss
+    }
   },
   computed: {
     isMobile() {

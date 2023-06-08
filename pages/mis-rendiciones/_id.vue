@@ -5,19 +5,26 @@
     </v-col>
     <v-col cols="12">
       <v-card rounded="lg" style="padding: 10px;">
+        <h1 class="title hc__blue-text text-center my-4">Rendición de gastos n°{{ this.request.id}}</h1>
         <v-card-text>
           <v-row>
-            <v-col cols="10">
-              <p class="title ma-0 hc__blue-text">Rendición de gastos n°{{ this.request.id}}</p>
+            <v-col cols="12" md="6" sm="12" class="pl-5">
+              <h2 class="mb-4">Información de tu rendición</h2>
               <p class="mt-2">Descripción: {{ this.request.description }}</p>
+              <p class="mt-2">Supervisor: {{ this.request.supervisor }}</p>
+              <p class="mt-2">Sociedad: {{ this.request.society }}</p>
+              <p class="mt-2">Local: {{ this.request.is_local ? 'Sí' : 'No' }}</p>
+              <p class="mt-2">Pais destino de reembolso: {{ this.request.destination_country_id? this.request.destination_country_id : 'No definido' }}</p>
               <p class="">Monto total: {{ this.request.divisa_id }} {{ this.request.total }}</p>
               <p>Fecha de pago: {{this.request.payment_date}}</p>
+              <p>Metodo de pago: {{this.request.payment_method_id}}</p>
             </v-col>
-            <v-col cols="2" class="d-flex justify-content-center">
-              <p :class="`ma-0 ${statusColor(this.request.status)}`">
+            <v-col cols="12" md="6" sm="12" class="d-flex justify-content-center">
+              <Status :status="this.request.status"></Status>
+              <!-- <p :class="`ma-0 ${statusColor(this.request.status)}`">
                 <v-icon :class="statusColor(this.request.status)">{{ statusIcon(this.request.status) }}</v-icon>
                 {{ this.request.status }}
-              </p>
+              </p> -->
             </v-col>
           </v-row>
         </v-card-text>
@@ -118,11 +125,13 @@
 <script>
 import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
+import Status from "@/components/expense-report/Status.vue"
 
 export default {
   middleware: ['auth'],
   components: {
     Breadcrumbs,
+    Status
   },
   data: () => ({
     request: {},
