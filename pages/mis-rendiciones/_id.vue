@@ -35,7 +35,7 @@
           </v-col>
           <v-col md="12" style="max-height: 300px;overflow: auto;">
             <div class="div" v-for="message in this.request.messages" :key="message.id" >
-              <v-row v-if="message.user.id == request.assistant">
+              <v-row v-if="message.user.id != currentUser.id">
                 <v-col md="4">
                   <div class="message-box">
                     <span>{{message.message}}</span>
