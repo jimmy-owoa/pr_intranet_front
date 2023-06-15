@@ -221,7 +221,7 @@ export default {
   font-size: 3.2rem;
   line-height: 1;
   text-align: center;
-  color: #BB3D4D;
+  color: #002DA4;
   letter-spacing: 2px;
 }
 .uk-overtitle-left{
@@ -229,7 +229,7 @@ export default {
   font-size: 1rem;
   text-transform: uppercase !important;
   text-align: start;
-  color: #BB3D4D;
+  color: #002DA4;
   letter-spacing: 3px;
 }
 .uk-overtitle-l {
@@ -249,7 +249,7 @@ export default {
 .uk-parrafo {
  
   text-align: start;
-  color: #bb3d4d;
+  color: #002DA4;
   letter-spacing: 3px;
 }
 </style>

@@ -41,7 +41,7 @@
                     <span>{{message.message}}</span>
                     <span v-if="message.files.length">
                       <v-btn icon small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
-                        <v-icon color="#BB3D4D"> mdi-file-download</v-icon>
+                        <v-icon color="#002DA4"> mdi-file-download</v-icon>
                       </v-btn>
                     </span>
                     <br>
@@ -215,7 +215,7 @@ export default {
 }
 
 .hc__color-open {
-  color:#E8114b !important
+  color:red !important
 }
 
 .hc__color-attended {

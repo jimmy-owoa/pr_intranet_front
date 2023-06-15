@@ -7,7 +7,7 @@
             :key="`${n}-step`"
             :complete="e1 > n"
             :step="n"
-            color="#BB3D4D"
+            color="#002DA4"
           >
             Paso {{ n }}
           </v-stepper-step>
@@ -27,14 +27,14 @@
                 <v-radio-group v-model="response_user_request" row>
                   <v-radio
                     label="Rindo gastos propios"
-                    color="#BB3D4D"
+                    color="#002DA4"
                     value="Yo"
                     id="yo"
                     name="response_user_request"
                   ></v-radio>
                   <v-radio
                     label="Rindo gastos de un tercero"
-                    color="#BB3D4D"
+                    color="#002DA4"
                     value="Otro"
                     id="otro"
                     name="response_user_request"
@@ -110,7 +110,7 @@
                                         v-slot:activator="{ on, attrs }"
                                       >
                                         <v-btn icon v-bind="attrs" v-on="on">
-                                          <v-icon color="#BB3D4D">
+                                          <v-icon color="#002DA4">
                                             mdi-help
                                           </v-icon>
                                         </v-btn>
@@ -139,7 +139,7 @@
                                         v-slot:activator="{ on, attrs }"
                                       >
                                         <v-btn icon v-bind="attrs" v-on="on">
-                                          <v-icon color="#BB3D4D">
+                                          <v-icon color="#002DA4">
                                             mdi-help
                                           </v-icon>
                                         </v-btn>
@@ -223,7 +223,7 @@
                                         v-slot:activator="{ on, attrs }"
                                       >
                                         <v-btn icon v-bind="attrs" v-on="on">
-                                          <v-icon color="#BB3D4D">
+                                          <v-icon color="#002DA4">
                                             mdi-help
                                           </v-icon>
                                         </v-btn>
@@ -248,7 +248,7 @@
                                   fab
                                   dark
                                   small
-                                  color="#E8114b"
+                                  color="red"
                                 >
                                   <v-icon dark>
                                     mdi-close
@@ -303,7 +303,7 @@
                         <v-tooltip top>
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs" v-on="on">
-                              <v-icon color="#BB3D4D">
+                              <v-icon color="#002DA4">
                                 mdi-help
                               </v-icon>
                             </v-btn>
@@ -395,7 +395,7 @@
           </v-card>
 
           <v-btn
-            color="#E8114b"
+            color="#0041F5"
             style="color: white"
             @click="nextStep(n)"
             v-if="n != '5'"
@@ -407,18 +407,18 @@
           >
             Continuar
           </v-btn>
-          <v-btn color="#E8114b" style="color: white" type="submit" v-if="n == '5'" :disabled="isButtonDisabled">
+          <v-btn color="#0041F5" style="color: white" type="submit" v-if="n == '5'" :disabled="isButtonDisabled">
             Enviar
           </v-btn>
           <v-btn
-            color="#E8114b"
+            color="#0041F5"
             style="color: white"
             @click="saveDraft()"
             v-if="n == '4' || n == '5'"
           >
             Guardar Borrador
           </v-btn>
-          <v-btn color="#E8114b" dark @click="downStep(n)" v-if="n != '1'">
+          <v-btn color="#0041F5" dark @click="downStep(n)" v-if="n != '1'">
             Volver
           </v-btn>
         </v-stepper-content>

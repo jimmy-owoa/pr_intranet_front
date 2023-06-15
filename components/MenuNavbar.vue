@@ -13,7 +13,7 @@
             class="shrink"
             contain
             width="300"
-            :src="require(`@/assets/images/logo-compass.png`)" 
+            :src="require(`@/assets/images/logo-compass-v2.png`)" 
             transition="scale-transition"
           ></v-img>
         </div>
@@ -34,7 +34,7 @@
           </v-col>
         </v-row>
 
-        <v-btn small color="#BB3D4D" dark href="https://compassgroup.exa.cl/">
+        <v-btn small color="#002DA4" dark href="https://compassgroup.exa.cl/">
           Volver
         </v-btn>
         <span class="hc__blue-text ml-2">

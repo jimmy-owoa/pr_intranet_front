@@ -96,7 +96,7 @@ export default {
 </script>
 <style lang="css">
 .hc__color-open {
-  color: #e8114b !important;
+  color: red !important;
 }
 
 .hc__color-attended {

@@ -39,6 +39,6 @@ export default {
 </script>
 <style lang="css">
 .hc__color-2 {
-  color:#E8114b !important
+  color:#0041F5 !important
 }
 </style>

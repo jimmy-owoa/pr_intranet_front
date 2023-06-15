@@ -69,11 +69,11 @@ export default {
 </script>
 <style lang="css">
 .hc__item-sidemenu > .v-list__group__header > div > .theme--light.v-icon {
-  color: #E8114b;
+  color: #0041F5;
 }
 
 .hc__border-item-sidemenu {
-  border-left: 3px solid #E8114b
+  border-left: 3px solid #0041F5
 }
 
 .hc__sidemenu > .theme--light.v-list .v-list__group--active:before, .theme--light.v-list .v-list__group--active:after {

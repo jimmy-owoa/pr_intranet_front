@@ -35,7 +35,7 @@
 
     <v-card
       class="mx-auto"
-      color="#BB3D4D"
+      color="#002DA4"
       dark
       max-width="450"
       v-else-if="ticket.message == 'Ticket rejected'"
