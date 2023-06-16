@@ -215,41 +215,33 @@ export default {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 800;
   text-transform: none;
-  letter-spacing: 2px;
 }
 .uk-heading-title-m {
   font-size: 3.2rem;
   line-height: 1;
   text-align: center;
-  color: #BB3D4D;
-  letter-spacing: 2px;
+  color: #002FA7;
 }
 .uk-overtitle-left{
   font-weight: 400;
   font-size: 1rem;
   text-transform: uppercase !important;
   text-align: start;
-  color: #BB3D4D;
-  letter-spacing: 3px;
 }
 .uk-overtitle-l {
   font-weight: 300;
   font-size: 2rem;
   text-transform: uppercase !important;
   text-align: center;
-  letter-spacing: 3px;
 }
 .uk-overtitle-sub {
-  font-weight: 400;
+  font-weight: 600;
   font-size: 1.5rem;
   text-transform: uppercase !important;
   text-align: start;
-  letter-spacing: 3px;
+  color: #002FA7;
 }
 .uk-parrafo {
- 
   text-align: start;
-  color: #bb3d4d;
-  letter-spacing: 3px;
 }
 </style>

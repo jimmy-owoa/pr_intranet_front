@@ -30,7 +30,7 @@ export default {
 
 <style lang="css">
 .hc__blue-text {
-  color: #BB3D4D
+  color: #002FA7
 }
 
 .cursor-pointer {
@@ -46,7 +46,7 @@ export default {
   font-size: 1.2rem;
   text-transform: uppercase !important;
   text-align: center;
-  color: #BB3D4D;
+  color: #002FA7;
   letter-spacing: 3px;
 }
 
@@ -54,7 +54,7 @@ export default {
   font-size: 5.2rem;
   line-height: 1;
   text-align: center;
-  color: #BB3D4D;
+  color: #002FA7;
   letter-spacing: 2px;
 }
 </style>

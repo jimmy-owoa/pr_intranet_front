@@ -100,7 +100,7 @@
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn icon v-bind="attrs" v-on="on">
-                    <v-icon color="#BB3D4D">
+                    <v-icon color="#002FA7">
                       mdi-help
                     </v-icon>
                   </v-btn>

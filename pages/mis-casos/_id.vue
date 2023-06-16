@@ -178,7 +178,7 @@ export default {
 }
 
 .hc__color-open {
-  color:#E8114b !important
+  color:red !important
 }
 
 .hc__color-attended {

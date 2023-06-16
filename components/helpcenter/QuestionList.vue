@@ -19,7 +19,7 @@
           </div>
         </v-list-item-content>
         <v-list-item-action>
-          <v-icon color="#E8114b" size="30">mdi-chevron-right</v-icon>
+          <v-icon color="#0041F5" size="30">mdi-chevron-right</v-icon>
         </v-list-item-action>
       </v-list-item>
       

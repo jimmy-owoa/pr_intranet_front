@@ -11,12 +11,12 @@
           >
             <v-radio
               label="Local"
-              color="#BB3D4D"
+              color="#002FA7"
               v-bind:value=true
            ></v-radio>
            <v-radio
               label="Extranjera"
-              color="#BB3D4D"
+              color="#002FA7"
               :value=false
             ></v-radio>
           </v-radio-group>
@@ -44,7 +44,7 @@
                   v-bind="attrs"
                   v-on="on"
                 >
-                  <v-icon color="#BB3D4D">
+                  <v-icon color="#002FA7">
                      mdi-help
                    </v-icon>
                 </v-btn>
