@@ -8,7 +8,7 @@
               <v-chip
                 class="ma-1"
                 close
-                color="#002DA4"
+                color="#002FA7"
                 label
                 v-bind:href="file.url" 
                 outlined
@@ -23,7 +23,7 @@
       <v-card-actions>
       <v-spacer></v-spacer>
         <v-btn
-          color="#002DA4"
+          color="#002FA7"
           text
           @click=sendData
         >

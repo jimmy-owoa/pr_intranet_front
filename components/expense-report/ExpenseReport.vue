@@ -7,7 +7,7 @@
             :key="`${n}-step`"
             :complete="e1 > n"
             :step="n"
-            color="#002DA4"
+            color="#002FA7"
           >
             Paso {{ n }}
           </v-stepper-step>
@@ -27,14 +27,14 @@
                 <v-radio-group v-model="response_user_request" row>
                   <v-radio
                     label="Rindo gastos propios"
-                    color="#002DA4"
+                    color="#002FA7"
                     value="Yo"
                     id="yo"
                     name="response_user_request"
                   ></v-radio>
                   <v-radio
                     label="Rindo gastos de un tercero"
-                    color="#002DA4"
+                    color="#002FA7"
                     value="Otro"
                     id="otro"
                     name="response_user_request"
@@ -110,7 +110,7 @@
                                         v-slot:activator="{ on, attrs }"
                                       >
                                         <v-btn icon v-bind="attrs" v-on="on">
-                                          <v-icon color="#002DA4">
+                                          <v-icon color="#002FA7">
                                             mdi-help
                                           </v-icon>
                                         </v-btn>
@@ -139,7 +139,7 @@
                                         v-slot:activator="{ on, attrs }"
                                       >
                                         <v-btn icon v-bind="attrs" v-on="on">
-                                          <v-icon color="#002DA4">
+                                          <v-icon color="#002FA7">
                                             mdi-help
                                           </v-icon>
                                         </v-btn>
@@ -223,7 +223,7 @@
                                         v-slot:activator="{ on, attrs }"
                                       >
                                         <v-btn icon v-bind="attrs" v-on="on">
-                                          <v-icon color="#002DA4">
+                                          <v-icon color="#002FA7">
                                             mdi-help
                                           </v-icon>
                                         </v-btn>
@@ -303,7 +303,7 @@
                         <v-tooltip top>
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs" v-on="on">
-                              <v-icon color="#002DA4">
+                              <v-icon color="#002FA7">
                                 mdi-help
                               </v-icon>
                             </v-btn>

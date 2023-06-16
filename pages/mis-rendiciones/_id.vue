@@ -41,7 +41,7 @@
                     <span>{{message.message}}</span>
                     <span v-if="message.files.length">
                       <v-btn icon small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
-                        <v-icon color="#002DA4"> mdi-file-download</v-icon>
+                        <v-icon color="#002FA7"> mdi-file-download</v-icon>
                       </v-btn>
                     </span>
                     <br>

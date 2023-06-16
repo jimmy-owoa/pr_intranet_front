@@ -34,7 +34,7 @@ export default {
 <style lang="css">
 .uk-card-box {
   color: #fff;
-  background: #002DA4 !important;
+  background: #002FA7 !important;
   text-decoration: none;
   padding: 30px;
 }
