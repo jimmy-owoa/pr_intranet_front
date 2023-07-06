@@ -21,10 +21,10 @@
             </v-col>
             <v-col cols="12" md="6" sm="12" class="d-flex justify-content-center">
               <Status :status="this.request.status"></Status>
-              <!-- <p :class="`ma-0 ${statusColor(this.request.status)}`">
-                <v-icon :class="statusColor(this.request.status)">{{ statusIcon(this.request.status) }}</v-icon>
-                {{ this.request.status }}
-              </p> -->
+            </v-col>
+            <v-col class="m-3">
+              <h2 class="mb-4">Detalle</h2>
+              <show-invoices :invoices="this.request.invoices"></show-invoices>
             </v-col>
           </v-row>
         </v-card-text>
@@ -126,12 +126,14 @@
 import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import Status from "@/components/expense-report/Status.vue"
+import ShowInvoices from "@/components/expense-report/ShowInvoices.vue"
 
 export default {
   middleware: ['auth'],
   components: {
     Breadcrumbs,
-    Status
+    Status,
+    ShowInvoices
   },
   data: () => ({
     request: {},
@@ -163,7 +165,7 @@ export default {
     async getRequest() {
       const res = await this.fetchRequest(this.$route.params.id)
       this.request = res
-      this.loaded = true;
+      this.loaded = true; 
     },
     statusColor(status) {
       if (status == "aprobado" || status == "enviado") return "hc__color-open"
