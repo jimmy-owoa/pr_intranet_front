@@ -554,7 +554,7 @@ export default {
   methods: {
     ...mapActions("expense-report", [
       "fetchSocieties",
-      "fetchCategories",
+      "fetchCategoriesRequest",
       "createRequest",
       "createRequestDraft",
       "updateRequest"
@@ -564,7 +564,7 @@ export default {
       this.societies = res;
     },
     async getCategories() {
-      const res = await this.fetchCategories();
+      const res = await this.fetchCategoriesRequest();
       this.categories = res;
     },
     setFormData(state) {

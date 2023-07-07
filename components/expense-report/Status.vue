@@ -31,7 +31,8 @@ export default {
   props: {
     status: {
       type: String,
-      required: true
+      required: true,
+      default: ''
     }
   },
   methods: {

@@ -18,9 +18,10 @@ export async function fetchDivisas({ commit }) {
 
   }
 }
-export async function fetchCategories({ commit }) {
+export async function fetchCategoriesRequest({ commit }) {
   try {
     const { data } = await this.$axios.get("/categories")
+    commit("setCategories", data); 
     return data
   } catch (e) {
     return false
