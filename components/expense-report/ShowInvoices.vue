@@ -5,7 +5,7 @@
         <td>{{ index + 1 }}</td>
         <td>{{ item.description }}</td>
         <td>{{ getCategoryName(item.category_id) }}</td>
-        <td>${{ item.total }}</td>
+        <td>${{ item.total | currencyFormat }}</td>
         <td>
           <a
             v-if="item.files_url && item.files_url[0]"
@@ -58,6 +58,11 @@ export default {
   },
   mounted() {
     this.getCategories()
+  },
+  filters: {
+    currencyFormat(amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   }
 
 };
