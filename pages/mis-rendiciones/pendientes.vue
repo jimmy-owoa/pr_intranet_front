@@ -4,6 +4,18 @@
         <Breadcrumbs :items="breadcrumbs" />
       </v-col>
 
+    <v-col cols="12" md="12">
+      <v-flex xs12 md3>
+        <v-select
+          v-model="statusSelected"
+          :items="status"
+          label="Estado"
+          outline
+          @change="getRequests(statusSelected)"
+        ></v-select>
+      </v-flex>
+    </v-col>
+
     <v-col cols="12" md="8" class="ma-0 py-0">
       <v-row>
         <v-col cols="12" v-if="requests.length === 0">
@@ -67,11 +79,13 @@ export default {
       { to: "", text: "Pendientes", disabled: true },
     ],
     requests: [],
+    statusSelected: 'Todos',
+    status: ["Todos", "Enviado", "Aprobado", "Rechazado", "Atendiendo", "Resuelto"]
   }),
   methods: {
     ...mapActions("expense-report", ["fetchPendingRequests"]),
-    async getRequests() {
-      const res = await this.fetchPendingRequests();
+    async getRequests(status = "Enviado") {
+      const res = await this.fetchPendingRequests(status);
       this.requests = res;
     },
     goTo(link) {
@@ -80,11 +94,13 @@ export default {
     statusIcon(status) {
       if (status === "aprobado" || status === "enviado" ) return "mdi-history";
       else if (status === "atendiendo" || status === 'borrador') return "mdi-cached";
+      else if (status === "rechazado" || status === 'eliminado') return "mdi-cancel";
       else return "mdi-check-all";
     },
     statusColor(status) {
       if (status === "aprobado" || status === "enviado") return "hc__color-open";
       else if (status === "atendiendo" || status === 'borrador') return "hc__color-attended";
+      else if (status === "rechazado" || status === 'eliminado') return "hc__color-open";
       else return "hc__color-close";
     },
     paddingCardInfo() {
