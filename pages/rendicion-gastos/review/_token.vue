@@ -34,6 +34,7 @@
           <v-col cols="6">
             <p>Email: {{ request.user.email }}</p>
             <p>Monto Total: {{request.request.divisa_id}} {{ request.request.total }} </p>
+            <p>Estado: {{request.request_state}}</p>
           </v-col>
         </v-row>
         <p class="caption">Caso creado el {{ request.request_date }}</p>
@@ -98,7 +99,7 @@
           </div>
         </div>
       </div>
-      <div class="t-center">
+      <div v-if="request.request_state == 'enviado'" class="t-center">
         <v-btn small color="success" @click="responseRequest(true)">
           Aceptar
         </v-btn>

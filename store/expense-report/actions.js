@@ -160,9 +160,9 @@ export async function fetchRequestState({ commit }, payload){
     } 
     finally {}
   }
-  export async function fetchPendingRequests({ commit }) {
+  export async function fetchPendingRequests({ commit }, id) {
     try {
-      const { data } = await this.$axios.get("expense_report_requests/pending_requests")
+      const { data } = await this.$axios(`/expense_report_requests/pending_requests?status=${id}`)
       return data
     } catch (e) {
       return false
