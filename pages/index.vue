@@ -13,14 +13,14 @@
           url="/rendicion-gastos"
         />
       </v-col>
-      <v-col cols="12" md="3">
+      <v-col cols="12" md="3" v-if="isFromChile">
         <CardInfoA
           title="Requerimientos Servicios Generales"
           icon="InteractiveIcon"
           url="/crear-caso?category=requerimientos-servicios-generales"
         />
       </v-col>
-      <v-col cols="12" md="3">
+      <v-col cols="12" md="3" v-if="isFromChile">
         <CardInfoA
           title="Requerimientos GDT"
           icon="InteractiveIcon"
@@ -39,7 +39,7 @@
           url="/mis-rendiciones"
         />
       </v-col>
-      <v-col cols="12" md="3">
+      <v-col cols="12" md="3" v-if="isFromChile">
         <CardInfoA
           title="Ver mis casos"
           icon="ListCheckIcon"
@@ -198,6 +198,9 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
+    isFromChile() {
+      return this.$auth.user.country?.toUpperCase() === 'CHILE';
+    }
   },
   created() {
     this.getImportantQuestions();
