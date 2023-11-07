@@ -168,7 +168,7 @@
                                   truncate-length="15"
                                   name="files"
                                   multiple
-                                  required
+                                  :required="!request.id" 
                                   label="Subir documentos"
                                 >
                                 </v-file-input>
@@ -408,7 +408,7 @@
             Continuar
           </v-btn>
           <v-btn color="#0041F5" style="color: white" type="submit" v-if="n == '5'" :disabled="isButtonDisabled">
-            Enviar
+            {{ request_id ? 'Actualizar' : 'Enviar' }}
           </v-btn>
           <v-btn
             color="#0041F5"
@@ -695,10 +695,14 @@ export default {
       } else {
         res = await this.createRequestDraft(request);
       }
-      if (res.message == 'Request updated' || res.message == 'Request created') {
+      if (res.message == 'Request created') {
         this.swalAlert();
         this.$router.push("/");
-      }else{
+      }else if(res.message == 'Request updated'){
+        this.swalAlertUpdateRequest();
+        this.$router.push("/");
+      }
+      else{
         this.swalAlerDraft();
         this.$router.push(`/rendicion-gastos/${res}/edit`);
         setTimeout(function() {
@@ -710,6 +714,13 @@ export default {
     swalAlert() {
       return this.$swal({
         title: "Rendición de gastos creada correctamente",
+        text: "Te confirmaremos por correo cuando tu rendición sea revisado",
+        icon: "success"
+      });
+    },
+    swalAlertUpdateRequest() {
+      return this.$swal({
+        title: "Rendición de gastos actualizada correctamente",
         text: "Te confirmaremos por correo cuando tu rendición sea revisado",
         icon: "success"
       });
@@ -781,7 +792,9 @@ export default {
     },
     checkFiles(){
       let hasFiles = true
-
+      if (this.request_id) {
+        return true;
+      }
       this.requests.forEach((request) => {
       if (!request.file || request.file.length === 0) {
         hasFiles = false;

@@ -120,6 +120,17 @@
         </v-row>
       </v-card>
     </v-col>
+    <v-col cols="12 text-center">
+      <v-btn
+        v-if="request.status == 'enviado'"
+        class="ma-1"
+        color="warning"
+        @click.stop="$router.push(`/rendicion-gastos/${request.id}/edit`)"
+        >
+        <v-icon>mdi-pencil</v-icon>
+        Editar
+      </v-btn>
+    </v-col>
   </v-row>
 </template>
 <script>
