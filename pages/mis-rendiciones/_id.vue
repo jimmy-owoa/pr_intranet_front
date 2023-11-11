@@ -11,6 +11,7 @@
             <v-col cols="12" md="6" sm="12" class="pl-5">
               <h2 class="mb-4">Información de tu rendición</h2>
               <p class="mt-2">Descripción: {{ this.request.description }}</p>
+              <p v-if="this.request.user" class="mt-2">Usuario: {{ this.request.user.full_name }}</p>
               <p class="mt-2">Supervisor: {{ this.request.supervisor }}</p>
               <p class="mt-2">Sociedad: {{ this.request.society }}</p>
               <p class="mt-2">Local: {{ this.request.is_local ? 'Sí' : 'No' }}</p>
@@ -119,6 +120,17 @@
           </v-col>
         </v-row>
       </v-card>
+    </v-col>
+    <v-col cols="12 text-center">
+      <v-btn
+        v-if="request.status == 'enviado'"
+        class="ma-1"
+        color="warning"
+        @click.stop="$router.push(`/rendicion-gastos/${request.id}/edit`)"
+        >
+        <v-icon>mdi-pencil</v-icon>
+        Editar
+      </v-btn>
     </v-col>
   </v-row>
 </template>

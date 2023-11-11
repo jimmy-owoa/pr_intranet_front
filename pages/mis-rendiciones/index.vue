@@ -45,15 +45,29 @@
                     </v-icon>
                     {{ request.status }}
                   </p>
-                  <p v-if="request.status == 'borrador'">
+                  <p class="ma-0 " v-if="request.status == 'borrador'">
                     <v-btn
-                      class="ma-1"
+                      class="ma-1 px-0"
                       color="error"
                       plain
                       small
                       @click.stop="removeRequest(request.id )"
                     >
                       Eliminar
+                    </v-btn>
+                  </p>
+                  <p class="ma-0" v-if="request.status == 'enviado'">
+                    <v-btn
+                      class="ma-1 px-0"
+                      color="#ffa500"
+                      plain
+                      small
+                      @click.stop="$router.push(`/rendicion-gastos/${request.id}/edit`)"
+                    >
+                    <v-icon>
+                      mdi-pencil
+                    </v-icon>
+                      Editar
                     </v-btn>
                   </p>
                 </v-col>
