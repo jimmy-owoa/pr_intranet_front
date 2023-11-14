@@ -70,19 +70,18 @@ export default {
   }),
   watch:{
     isLocalDraft: {
-      handler: function(val, oldVal) {
-        if(val == 'true'){
-          this.place_expense_report = true;
-        }else{
-          this.place_expense_report = false;
-        }
+      handler: function(val) {
+        this.place_expense_report = val === 'true';
       }
     },
-    divisasDraft:{
-      handler: function(val, oldVal) {
+    divisasDraft: function(val) {
+      if (val) {
         this.seleccionado = val;
+      } else if (this.divisas.length > 0) {
+        this.seleccionado = Object.keys(this.divisas[0])[0];
+
       }
-    }
+    },
   },
   created() {
     this.getDivisas();
@@ -93,6 +92,10 @@ export default {
     async getDivisas() {
       const res = await this.fetchDivisas();
       this.divisas = res.filter((item) => Object.keys(item)[0] !== 'N/A')
+      if (!this.divisasDraft && this.divisas.length > 0) {
+        this.seleccionado = Object.keys(this.divisas[0])[0];
+        this.sendData();
+      }
     },
     sendData() {
       this.$emit("getValues", {

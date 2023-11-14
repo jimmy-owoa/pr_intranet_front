@@ -401,8 +401,7 @@
             v-if="n != '5'"
             :disabled="
               (n == 2 && description == null) ||
-                description == '' ||
-                (n == 3 && divisas == null)
+                description == ''
             "
           >
             Continuar
