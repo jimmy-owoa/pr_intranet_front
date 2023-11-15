@@ -36,7 +36,8 @@
                   <p class="ma-0 hc__blue-text">
                    Rendición # {{ request.id }}
                   </p>
-                  <p>Creado: {{ request.created_at }}</p>
+                  <p class="m-0">Creado: {{ request.created_at }}</p>
+                  <p class="red-text" v-if="request.for_other">Rendición creada para un tercero</p>
                 </v-col>
                 <v-col cols="3" md="2">
                   <p :class="`ma-0 ${statusColor(request.status)}`">
@@ -170,5 +171,8 @@ export default {
 
 .hc__color-close {
   color: #4caf50 !important;
+}
+.red-text {
+  color: #FF0000;
 }
 </style>
