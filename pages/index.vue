@@ -2,158 +2,38 @@
   <div>
     <v-row class="mt-3" justify="center">
       <v-col cols="12">
-        <h1 class="uk-heading-title-m my-3">Bienvenido al centro de ayuda</h1>
+        <h1 class="uk-heading-title-m my-3">Parque del Recuerdo</h1>
 
-        <h2 class="uk-overtitle-l my-5">Ingresa aquí tus requerimientos</h2>
+        <h2 class="uk-overtitle-l my-5">Ofertas laborales.</h2>
       </v-col>
       <v-col cols="12" md="3">
         <CardInfoA
-          title="Rendición de gastos"
-          icon="ChartHistogramIcon"
-          url="/rendicion-gastos"
-        />
-      </v-col>
-      <v-col cols="12" md="3" v-if="isFromChile">
-        <CardInfoA
-          title="Requerimientos Servicios Generales"
+          title="Ver Ofertas laborales"
           icon="InteractiveIcon"
-          url="/crear-caso?category=requerimientos-servicios-generales"
-        />
-      </v-col>
-      <v-col cols="12" md="3" v-if="isFromChile">
-        <CardInfoA
-          title="Requerimientos GDT"
-          icon="InteractiveIcon"
-          url="/crear-caso?category=requerimientos-gdt"
+          url="/ofertas-laborales"
         />
       </v-col>
     </v-row>
     <v-row class="mt-3" justify="center">
       <v-col cols="12">
-        <h2 class="uk-overtitle-l my-5">Haz seguimiento a tus casos</h2>
+        <h2 class="uk-overtitle-l my-5">Haz seguimiento a tus postulaciones</h2>
       </v-col>
+
       <v-col cols="12" md="3">
         <CardInfoA
-          title="Ver mis rendiciones"
-          icon="ListCheckIcon"
-          url="/mis-rendiciones"
-        />
-      </v-col>
-      <v-col cols="12" md="3" v-if="isFromChile">
-        <CardInfoA
-          title="Ver mis casos"
+          title="Ver mis postulaciones"
           icon="ListCheckIcon"
           url="/mis-casos"
         />
       </v-col>
-      <v-col cols="12" md="3" v-if="is_boss()">
+      <!-- <v-col cols="12" md="3">
         <CardInfoA
-          title="Ver mis rendiciones pendientes por aprobar"
+          title="Ver mis postulaciones"
           icon="ListCheckIcon"
           url="/mis-rendiciones/pendientes"
         />
-      </v-col>
+      </v-col> -->
     </v-row>
-
-    <!-- nuevo -->
-    <v-row>
-      <v-col cols="12">
-        <h2 class="uk-overtitle-l my-5">¿En qué te podemos ayudar?</h2>
-      </v-col>
-      <v-col cols="12" class="text-left">
-        <h2 class="uk-overtitle-sub my-5">Rendición de Gastos</h2>
-        <h2 class="uk-overtitle-left my-5">
-          Realiza tu rendición de gastos a través de este módulo. Como
-          requisitos debes ingresar los siguientes datos como mínimo:
-        </h2>
-        <ul class="text-left uk-parrafo">
-          <li>Ingresar la moneda de pago</li>
-          <li>Ingresar el subtotal de la/las rendiciones cargadas</li>
-          <li>Adjuntar todos los comprobantes de pago</li>
-        </ul>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12" class="text-left">
-        <h2 class="uk-overtitle-sub my-5">
-          ¿Qué requerimientos puedo solicitar a Servicios Generales?
-        </h2>
-        <ul class="text-left uk-parrafo">
-          <li>Sacar firmas (externos y apoderados)</li>
-          <li>Retiro / Envío de documentos</li>
-          <li>Transacciones Bancarias: Depósitos / Retiros de cheques</li>
-          <li>Reparaciones</li>
-          <li>
-            Solicitud de insumos, materiales de escritorio, abarrotes, etc.
-          </li>
-          <li>Retiros en bodega</li>
-        </ul>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12" class="text-left">
-        <h2 class="uk-overtitle-sub my-5">
-          ¿Qué requerimientos puedo solicitar a GDT?
-        </h2>
-        <ul class="text-left uk-parrafo">
-          <li>Solicitud de certificados de antigüedad, renta, otros</li>
-          <li>Dudas con mi liquidación de sueldo</li>
-          <li>
-            Saldos de vacaciones, dudas de períodos tomadas, feriado progresivo,
-            etc.
-          </li>
-          <li>
-            Convenio Entel (compras de equipos, planes, portabilidad, cambios en
-            general)
-          </li>
-          <li>
-            Seguro Complementario (inscripción 7 eliminación de cargas, cobros,
-            coberturas, deducible, cómo funciona, problemas en reembolsos, etc.)
-          </li>
-          <li>Dauda provisional y cobranzas</li>
-          <li>Capacitación en general</li>
-          <li>
-            Lonchera (solicitud /recuperación de clave, bloqueos, cobros
-            erróneos, otros)
-          </li>
-          <li>
-            Estacionamiento (asignación, cobro, solicitudes para clientes)
-          </li>
-          <li>
-            Remuneraciones (cambios de cargo, centro de costo, renta, empresa,
-            dudas)
-          </li>
-          <li>Reclutamiento en general y sus procesos</li>
-        </ul>
-      </v-col>
-    </v-row>
-    <!-- nuevo -->
-    <!-- 
-    <v-row>
-      <v-col cols="12">
-        <h2 class="ma-0 mt-2 hc__blue-text uk-title-h2">
-          Preguntas Frecuentes
-        </h2>
-      </v-col>
-      <v-col cols="12">
-        <v-row>
-          <v-col cols="12" md="12">
-            <ListImportantQuestions :questions="questions" />
-          </v-col>
-          <v-col cols="12" md="12" mt-4>
-            <h2 class="ma-0 mt-2 hc__blue-text uk-title-h2">
-              Elige la categoría para la que necesitas resolver dudas
-            </h2>
-          </v-col>
-
-          <v-col cols="12">
-            <CategoryList :categories="categories" />
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row> -->
   </div>
 </template>
 <script>
@@ -164,7 +44,6 @@ import CardInfoA from "@/components/helpcenter/CardInfoA";
 import CardInfoB from "@/components/helpcenter/CardInfoB";
 
 export default {
-  middleware: ["auth"],
   components: {
     CategoryList,
     ListImportantQuestions,
@@ -190,17 +69,11 @@ export default {
     goTo() {
       this.$router.push({ name: "crear-caso", params: { category: "hola" } });
     },
-    is_boss(){
-      return this.$auth.user.is_boss
-    }
   },
   computed: {
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
-    isFromChile() {
-      return this.$auth.user.country?.toUpperCase() === 'CHILE';
-    }
   },
   created() {
     this.getImportantQuestions();
@@ -223,7 +96,7 @@ export default {
   font-size: 3.2rem;
   line-height: 1;
   text-align: center;
-  color: #002FA7;
+  color: #007356;
 }
 .uk-overtitle-left{
   font-weight: 400;
@@ -242,7 +115,7 @@ export default {
   font-size: 1.5rem;
   text-transform: uppercase !important;
   text-align: start;
-  color: #002FA7;
+  color: #007356;
 }
 .uk-parrafo {
   text-align: start;

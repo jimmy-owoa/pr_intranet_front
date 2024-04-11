@@ -95,7 +95,6 @@ import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import CardInfoA from "@/components/helpcenter/CardInfoA"
 
 export default {
-  middleware: ["auth"],
   components: {
     Breadcrumbs,
     CardInfoA,

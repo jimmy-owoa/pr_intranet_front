@@ -18,7 +18,6 @@ import Breadcrumbs from '@/components/helpcenter/Breadcrumbs';
 
 export default {
   layout: 'helpcenter',
-  middleware: ['auth'],
   components: {
     Breadcrumbs,
     SubcategoryList,

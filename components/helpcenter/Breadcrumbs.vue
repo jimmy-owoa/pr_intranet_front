@@ -11,17 +11,17 @@ export default {
 <style lang="css">
 .j-breadcrumbs a {
   text-decoration: none; 
-  color: #002FA7;
+  color: #007356;
   font-size: 1.3em;
 }
 
 .j-breadcrumbs > .v-breadcrumbs__divider {
   font-size: 1.3em;
-  color: #002FA7 !important;
+  color: #007356 !important;
 }
 
 .j-breadcrumbs div.v-breadcrumbs__item--disabled {
-  color: #002FA7 !important;
+  color: #007356 !important;
   font-weight: bold;
   font-size: 1.3em;
 }

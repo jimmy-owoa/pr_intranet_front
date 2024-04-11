@@ -42,7 +42,7 @@
                     <span>{{message.message}}</span>
                     <span v-if="message.files.length">
                       <v-btn icon small v-for="file in message.files" :href="file" :key="file.id" style="margin:5px">
-                        <v-icon color="#002FA7"> mdi-file-download</v-icon>
+                        <v-icon color="#007356"> mdi-file-download</v-icon>
                       </v-btn>
                     </span>
                     <br>
@@ -141,7 +141,6 @@ import Status from "@/components/expense-report/Status.vue"
 import ShowInvoices from "@/components/expense-report/ShowInvoices.vue"
 
 export default {
-  middleware: ['auth'],
   components: {
     Breadcrumbs,
     Status,

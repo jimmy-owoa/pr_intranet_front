@@ -42,6 +42,6 @@ export default {
 <style>
 .uk-category-name {
   font-weight: 500 !important;
-  color: #002FA7;
+  color: #007356;
 }
 </style>

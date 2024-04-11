@@ -13,7 +13,6 @@ import { mapActions } from 'vuex'
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import ExpenseReport from '~/components/expense-report/ExpenseReport.vue'
     export default {
-      middleware: ['auth'],
       components: {
         Breadcrumbs,
         ExpenseReport,
@@ -32,9 +31,6 @@ import ExpenseReport from '~/components/expense-report/ExpenseReport.vue'
           
          return items
        },
-        currentUser() {
-          return this.$nuxt.$auth.user
-        }
       },
       methods: {
         ...mapActions("expense-report", ["fetchRequestDraft"]),

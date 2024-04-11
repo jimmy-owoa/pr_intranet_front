@@ -21,7 +21,6 @@ import QuestionList from '@/components/helpcenter/QuestionList.vue'
 
 export default {
   layout: 'helpcenter',
-  middleware: ['auth'],
   components: {
     Breadcrumbs,
     QuestionList,

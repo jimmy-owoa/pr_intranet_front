@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main class="uk-background-primary">
-      <MenuNavbar v-if="this.$nuxt.$auth.user"/>
+      <MenuNavbar/>
       <v-container style="margin-top: 80px">
         <v-row no-gutters class="d-flex justify-center">
           <v-col cols="12" lg="12" xl="10" class="pa-0 ma-0">
@@ -30,7 +30,7 @@ export default {
 
 <style lang="css">
 .hc__blue-text {
-  color: #002FA7
+  color: #007356
 }
 
 .cursor-pointer {
@@ -46,7 +46,7 @@ export default {
   font-size: 1.2rem;
   text-transform: uppercase !important;
   text-align: center;
-  color: #002FA7;
+  color: #007356;
   letter-spacing: 3px;
 }
 
@@ -54,7 +54,7 @@ export default {
   font-size: 5.2rem;
   line-height: 1;
   text-align: center;
-  color: #002FA7;
+  color: #007356;
   letter-spacing: 2px;
 }
 </style>

@@ -19,7 +19,6 @@ import ExpenseReport from '~/components/expense-report/ExpenseReport.vue'
 
 export default {
   layout: 'default',
-  middleware: ['auth'],
   components: {
     Breadcrumbs,
     ExpenseReport,

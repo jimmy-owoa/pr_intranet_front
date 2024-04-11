@@ -3,7 +3,6 @@
 </template>
 <script>
 export default {
-  middleware: "auth-login",
   methods: {
     async loginUser(email) {
       try {

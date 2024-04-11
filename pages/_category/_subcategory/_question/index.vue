@@ -18,7 +18,6 @@ import QuestionCard from '@/components/helpcenter/QuestionCard.vue'
 
 export default {
   layout: 'helpcenter',
-  middleware: ['auth'],
   components: {
     Breadcrumbs,
     QuestionCard,

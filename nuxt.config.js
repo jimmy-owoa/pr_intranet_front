@@ -4,7 +4,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     // titleTemplate: '%s -',
-    title: 'Centro de ayuda - Compass Group',
+    title: 'Intranet',
     htmlAttrs: {
       lang: 'en'
     },
@@ -42,7 +42,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     'vue-sweetalert2/nuxt',
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    // '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -73,26 +73,26 @@ export default {
   build: {
   },
 
-  auth: {
-    strategies: {
-      local: {
-        token: {
-          property: 'token',
-          global: true,
-          // required: true,
-          // type: 'Bearer'
-        },
-        endpoints: {
-          login: { url: '/users/sign_in', method: 'post' },
-          logout: { url: '/users/sign_out', method: 'delete' },
-          user: { url: '/users/current_user_vue', method: 'get' }
-        },
-        // tokenName: 'auth-token'
-        // tokenRequired: true,
-        // tokenType: 'bearer',
-        // globalToken: true,
-        // autoFetchUser: true
-      }
-    }
-  },
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       token: {
+  //         property: 'token',
+  //         global: true,
+  //         // required: true,
+  //         // type: 'Bearer'
+  //       },
+  //       endpoints: {
+  //         login: { url: '/users/sign_in', method: 'post' },
+  //         logout: { url: '/users/sign_out', method: 'delete' },
+  //         user: { url: '/users/current_user_vue', method: 'get' }
+  //       },
+  //       // tokenName: 'auth-token'
+  //       // tokenRequired: true,
+  //       // tokenType: 'bearer',
+  //       // globalToken: true,
+  //       // autoFetchUser: true
+  //     }
+  //   }
+  // },
 }

@@ -25,7 +25,6 @@ import CardInfoA from '~/components/helpcenter/CardInfoA'
 
 export default {
   layout: 'default',
-  middleware: ['auth'],
   components: {
     Breadcrumbs,
     TicketForm,

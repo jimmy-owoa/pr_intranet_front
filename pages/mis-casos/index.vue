@@ -7,7 +7,7 @@
     <v-col cols="12" md="8" class="ma-0 py-0">
       <v-row>
         <v-col cols="12" v-if="tickets.length === 0">
-          <p class="text-center white--text">No tienes casos creados.</p>
+          <p class="text-center">No tienes postulaciones.</p>
         </v-col>
         <v-col
           cols="12"
@@ -40,9 +40,9 @@
       </v-row>
     </v-col>
 
-    <v-col cols="12" md="3" :class="paddingCardInfo()">
+    <!-- <v-col cols="12" md="3" :class="paddingCardInfo()">
       <CardInfoA title="Crear caso" icon="InteractiveIcon" url="/crear-caso" />
-    </v-col>
+    </v-col> -->
   </v-row>
 </template>
 <script>
@@ -51,7 +51,6 @@ import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
 import CardInfoA from "@/components/helpcenter/CardInfoA"
 
 export default {
-  middleware: ["auth"],
   components: {
     Breadcrumbs,
     CardInfoA,

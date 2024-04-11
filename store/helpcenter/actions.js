@@ -118,3 +118,12 @@ export async function createSatisfactionAnswer({ commit }, payload) {
   finally {}
 }
 
+export async function fetchOfertas({ commit }) {
+  try {
+    const { data } = await this.$axios(`/hc_tickets`)
+    return data
+  } catch (e) {
+    return false
+  } 
+  finally {}
+}
