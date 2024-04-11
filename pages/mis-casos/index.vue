@@ -21,17 +21,12 @@
               <v-row>
                 <v-col cols="9" md="10">
                   <p class="ma-0 hc__blue-text">
-                    # {{ ticket.id }} - {{ ticket.subcategory }}
+                    # {{ ticket.id }} - {{ ticket.requested_position_title}}
                   </p>
                   <p>Creado: {{ ticket.created_at }}</p>
                 </v-col>
-                <v-col cols="3" md="2">
-                  <p :class="`ma-0 ${statusColor(ticket.status)}`">
-                    <v-icon :class="statusColor(ticket.status)">
-                      {{ statusIcon(ticket.status) }}
-                    </v-icon>
-                    {{ ticket.status }}
-                  </p>
+                <v-col cols="2" md="2">
+                  <span> {{ ticket.application_status }}</span>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -58,28 +53,19 @@ export default {
   data: () => ({
     breadcrumbs: [
       { to: "/", text: "Inicio", disabled: false, exact: true },
-      { to: "", text: "Mis casos", disabled: true },
+      { to: "", text: "Mis postulaciones", disabled: true },
     ],
     tickets: [],
   }),
   methods: {
-    ...mapActions("helpcenter", ["fetchTickets"]),
+    ...mapActions("helpcenter", ["fetchApplications"]),
     async getTickets() {
-      const res = await this.fetchTickets();
+      const res = await this.fetchApplications();
       this.tickets = res;
+      console.log(this.tickets)
     },
     goTo(id) {
       this.$router.push(`/mis-casos/${id}`);
-    },
-    statusIcon(status) {
-      if (status === "abierto") return "mdi-history";
-      else if (status === "atendiendo") return "mdi-cached";
-      else return "mdi-check-all";
-    },
-    statusColor(status) {
-      if (status === "abierto") return "hc__color-open";
-      else if (status === "atendiendo") return "hc__color-attended";
-      else return "hc__color-close";
     },
     paddingCardInfo() {
       return this.$vuetify.breakpoint.smAndDown ? "pt-3" : "py-0";

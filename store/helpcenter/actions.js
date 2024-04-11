@@ -66,6 +66,15 @@ export async function fetchTickets({ commit }) {
   } 
   finally {}
 }
+export async function fetchApplications({ commit }) {
+  try {
+    const { data } = await this.$axios(`/hc_tickets/index_job_applications`)
+    return data
+  } catch (e) {
+    return false
+  } 
+  finally {}
+}
 
 export async function createTicket({ commit }, payload) {
   try {

@@ -39,7 +39,7 @@ export default {
     }
   },
   created() {
-    this.getCategory()
+    // this.getCategory()
   },
   mounted(){
     window.scrollTo(0, 0);

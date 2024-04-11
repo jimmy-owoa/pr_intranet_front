@@ -177,7 +177,7 @@ export default {
     },
   },
   created() {
-    this.getCategories()
+    // this.getCategories()
   }
 }
 </script>
