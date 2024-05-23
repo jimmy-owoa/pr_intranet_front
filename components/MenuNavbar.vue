@@ -1,8 +1,8 @@
 <template>
   <v-row
-    class="ma-0 pa-0"
+    class="ma-0 pa-0 color-menu"
     justify="center"
-    style="background-color: #007356 !important;"
+
   >
     <v-col cols="12" class="ma-0 pa-0">
       <v-app-bar fixed class="uk-navbar-container" flat>
@@ -104,5 +104,7 @@ export default {
 };
 </script>
 <style lang="css">
-
+.uk-navbar-container{
+  background-color: #007356 !important;
+}
 </style>

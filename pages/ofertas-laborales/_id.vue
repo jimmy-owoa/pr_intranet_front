@@ -70,6 +70,7 @@
 
 <script>
 import Breadcrumbs from "@/components/helpcenter/Breadcrumbs"
+import Swal from 'sweetalert2'; // Importa SweetAlert2
 export default {
   data() {
     return {
@@ -99,39 +100,56 @@ export default {
     onFileSelected(event) {
       this.file = event.target.files[0];
     },
+
     async submitApplication() {
+      // Verifica si se ha seleccionado un archivo
       if (!this.file) {
-        alert("Por favor, selecciona un archivo.");
+        Swal.fire({
+          icon: 'warning',
+          title: 'Archivo requerido',
+          text: 'Por favor, selecciona un archivo.',
+        });
         return;
       }
 
+      // Verifica que todos los campos requeridos estén completos
       if (!this.postulante.nombreCompleto || !this.postulante.email || !this.postulante.telefono) {
-        alert("Por favor, completa todos los campos.");
+        Swal.fire({
+          icon: 'warning',
+          title: 'Campos requeridos',
+          text: 'Por favor, completa todos los campos.',
+        });
         return;
       }
-      const formData = new FormData();
       
-      formData.append("file", this.file);
-      formData.append("applicant_name", this.postulante.nombreCompleto);
-      formData.append("email", this.postulante.email);
-      formData.append("phone", this.postulante.telefono);
-      formData.append("ofertaId", this.oferta.id);
-      // Suponiendo que tienes un endpoint para subir el currículum y aplicar
+      const formData = new FormData();
+      // tu código para agregar datos al formData
+ 
+      formData.append('file', this.file);
+      formData.append('applicant_name', this.postulante.nombreCompleto);
+      formData.append('email', this.postulante.email);
+      formData.append('phone', this.postulante.telefono);
+      // Intenta enviar la postulación
       try {
         await this.$axios.$post(`/hc_tickets/${this.oferta.id}/create_postulacion`, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
         });
-        alert("Postulación enviada con éxito.");
-        // Aquí podrías redirigir al usuario o dar alguna otra indicación de éxito
+        Swal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'Postulación enviada con éxito.',
+        });
+        // Opciones adicionales en caso de éxito (ej. redireccionar)
       } catch (error) {
         console.error("Error al enviar la postulación:", error);
-        alert("Hubo un error al enviar tu postulación. Por favor, inténtalo de nuevo.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Hubo un error al enviar tu postulación. Por favor, inténtalo de nuevo.',
+        });
       }
-
-      alert("Postulación enviada con éxito.");
-      // Aquí podrías redirigir al usuario o dar alguna otra indicación de éxito
     },
   }
 };
