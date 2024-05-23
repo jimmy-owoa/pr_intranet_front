@@ -95,6 +95,16 @@ export async function fetchTicket({ commit }, id) {
   } 
   finally {}
 }
+export async function fetchJobApplication({ commit }, id) {
+  try {
+    const { data } = await this.$axios(`/hc_tickets/postulaciones?id=${id}`)
+    console.log(data)
+    return data
+  } catch (e) {
+    this.$router.push('/')
+  } 
+  finally {}
+}
 
 // fetch divisas
 export async function fetchDivisas({ commit }) {

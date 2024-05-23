@@ -9,91 +9,23 @@
         <v-card-text>
           <v-row>
             <v-col cols="10">
-              <p class="title ma-0 hc__blue-text">#{{ ticket.id}} - {{ ticket.subcategory }}</p>
+              <p class="title ma-0 hc__blue-text">#{{ ticket.id }} - {{ ticket.subcategory }}</p>
               <p class="mt-2">{{ ticket.description }}</p>
+              <p><strong>Nombre del aplicante:</strong> {{ ticket.applicant_name }}</p>
+              <p><strong>Email:</strong> {{ ticket.email }}</p>
+              <p><strong>Teléfono:</strong> {{ ticket.phone }}</p>
+              <p><strong>Fecha de postulación:</strong> {{ formatDate(ticket.created_at) }}</p>
             </v-col>
 
             <v-col cols="2" class="d-flex justify-content-center">
-              <p :class="`ma-0 ${statusColor(ticket.status)}`">
-                <v-icon :class="statusColor(ticket.status)">{{ statusIcon(ticket.status) }}</v-icon>
-                {{ ticket.status }}
+              <p :class="`ma-0 ${statusColor(ticket.application_status)}`">
+                <v-icon :class="statusColor(ticket.application_status)">{{ statusIcon(ticket.application_status) }}</v-icon>
+                {{ ticket.application_status }}
               </p>
             </v-col>
           </v-row>
         </v-card-text>
       </v-card>
-    </v-col>
-
-    <v-col cols="12" class="mt-2">
-      <v-card flat class="pa-2" v-if="ticket.chat_messages && ticket.chat_messages.length">
-        <v-row>
-          <v-col 
-            cols="12"
-            :class="`d-flex ${message.user_id === currentUser.id ? 'justify-end' : ''}`" 
-            v-for="(message, i) in ticket.chat_messages" :key="i"
-          >
-            <v-col cols="12" md="5">
-              <v-card :color="colorCard(message)" >
-                <v-card-text class="pa-1 mb-1">
-                  <p :class="colorText(message)">{{ message.content }}</p>
-                </v-card-text>
-              </v-card>
-              
-              <p class="caption" v-if="message.user_id === currentUser.id">
-                {{ message.created_at }}
-              </p>
-
-              <p class="caption" v-else>
-                {{ message.created_at }} - Asistente
-              </p>
-            </v-col>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-col>
-
-    <v-col cols="12" class="mt-1" v-if="!ticket.closed_at">
-      <v-card>
-        <v-form>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12">
-                <v-textarea
-                  v-model="message"
-                  label="Mensaje"
-                  placeholder="Escribe tu mensaje..."
-                  auto-grow
-                  outline
-                  rows="1"
-                  color="#067be2"
-                  hide-details
-                ></v-textarea>
-              </v-col>
-              <v-col cols="12">
-                <v-btn 
-                  class="ml-0" 
-                  color="primary"
-                  :disabled="!message.length || loading"
-                  @click="handleCreateMessage()"
-                >
-                  <v-progress-circular
-                    :size="20"
-                    indeterminate
-                    color="#067be2"
-                    class="mr-1"
-                    v-show="loading"
-                  ></v-progress-circular>
-                  Responder
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-form>
-      </v-card>
-    </v-col>
-
-    <v-col cols="12" class="mt-2" v-if="ticket.closed_at && !ticket.survey_answered">
-      <SatisfactionSurvey :ticket="ticket" />
     </v-col>
   </v-row>
 </template>
@@ -116,7 +48,7 @@ export default {
     breadcrumbs() {
       let items = [
         { to: "/", text: "Inicio", disabled: false, exact: true },
-        { to: "/mis-casos", text: "Mis casos", disabled: false, exact: true },
+        { to: "/mis-casos", text: "Mis postulaciones", disabled: false, exact: true },
         { to: "", text: `${this.$route.params.id}`, disabled: true }
       ]
 
@@ -129,9 +61,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions("helpcenter", ["fetchTicket", "createMessage"]),
-    async getTicket() {
-      const res = await this.fetchTicket(this.$route.params.id)
+    ...mapActions("helpcenter", ["fetchJobApplication", "createMessage"]),
+    async getJobApplication() {
+      const res = await this.fetchJobApplication(this.$route.params.id)
       this.ticket = res
     },
     async handleCreateMessage() {
@@ -141,7 +73,7 @@ export default {
 
       if (res.success) {
         this.message = ""
-        this.getTicket()
+        this.getJobApplication()
       }
       
       this.loading = false
@@ -162,9 +94,38 @@ export default {
       else if (status === "Atendido") return "mdi-cached"
       else return "mdi-check-all"
     },
+    formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString("es-ES", {
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    },
+    statusColor(status) {
+      switch (status) {
+        case 'recibida': return 'hc__color-open'; // Color rojo
+        case 'en_revision': return 'hc__color-attended'; // Color azul
+        case 'preseleccionada': return 'hc__color-attended'; // Color azul claro
+        case 'evaluacion': return 'orange lighten-1'; // Color naranja
+        case 'no_seleccionada': return 'grey darken-1'; // Color gris oscuro
+        case 'seleccionado': return 'hc__color-close'; // Color verde
+        default: return '';
+      }
+    },
+    statusIcon(status) {
+      switch (status) {
+        case 'recibida': return 'mdi-email-receive';
+        case 'en_revision': return 'mdi-file-document-edit-outline';
+        case 'preseleccionada': return 'mdi-account-search-outline';
+        case 'evaluacion': return 'mdi-scale-balance';
+        case 'no_seleccionada': return 'mdi-close-circle-outline';
+        case 'seleccionado': return 'mdi-check-all';
+        default: return '';
+      }
+    }
+
   },
   created() {
-    this.getTicket()
+    this.getJobApplication()
   },
   mounted(){
     window.scrollTo(0, 0);
